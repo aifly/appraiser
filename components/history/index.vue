@@ -1,6 +1,6 @@
 <template>
-	<div class="sysbin-order-ui">
-		这里是订单信息
+	<div class="sysbin-user-ui">
+		历史评分
 	</div>
 </template>
 
@@ -26,6 +26,9 @@
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
 
+		},
+		mounted(){
+			
 		},
 		
 		methods:{

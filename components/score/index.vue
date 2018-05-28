@@ -1,6 +1,6 @@
 <template>
 	<div class="sysbin-user-ui">
-		这里是用户信息
+		我的评论
 	</div>
 </template>
 

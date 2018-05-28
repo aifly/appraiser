@@ -9,6 +9,13 @@ var imgs = {
 	open :"./assets/images/open.png",
 	loginBg:"./assets/images/login-bg.jpg",
 
+	man:'./assets/images/man.png',
+	logout:'./assets/images/logout.png',
+	file:'./assets/images/file.png',
+	user:'./assets/images/user.png',
+	setting:'./assets/images/setting.png',
+	titleBg:'./assets/images/title-bg.png',
+
 }
 window.config = {
 	baseUrl:'https://api.symbin.cn/v1'

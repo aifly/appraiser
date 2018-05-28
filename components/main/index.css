@@ -8,14 +8,16 @@
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 0;
+}
 
 .zmiti-text-overflow {
   overflow: hidden;
   white-space: nowrap;
   word-break: break-all;
   text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis; }
+  -webkit-text-overflow: ellipsis;
+}
 
 .zmiti-play {
   width: .8rem;
@@ -24,54 +26,198 @@
   position: fixed;
   z-index: 1000;
   right: .5rem;
-  top: .5rem; }
-  .zmiti-play.rotate {
-    -webkit-animation: rotate 5s linear infinite;
-    animation: rotate 5s linear infinite; }
+  top: .5rem;
+}
+
+.zmiti-play.rotate {
+  -webkit-animation: rotate 5s linear infinite;
+  animation: rotate 5s linear infinite;
+}
 
 .symbin-left {
-  float: left !important; }
+  float: left !important;
+}
 
 .symbin-right {
-  float: right !important; }
+  float: right !important;
+}
 
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-.layout .layout-logo {
-  color: #FFF; }
-  .layout .layout-logo img {
-    height: 35px;
-    width: auto; }
-.layout .ivu-layout-sider-children {
-  overflow: hidden; }
-.layout .layout-nav li > a {
-  color: rgba(255, 255, 255, 0.7); }
-  .layout .layout-nav li > a:hover {
-    color: white; }
-  .layout .layout-nav li > a.router-link-active {
-    color: white; }
-.layout .symbin-main-menu {
-  background: #333744 !important; }
-  .layout .symbin-main-menu li {
-    position: relative; }
-  .layout .symbin-main-menu a {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    color: inherit;
-    left: 0;
-    top: 0;
-    text-align: center;
-    line-height: 50px; }
-  .layout .symbin-main-menu a:hover {
-    color: inherit; }
-.layout i.ivu-icon-ionic {
-  opacity: 0; }
-.layout .ivu-menu-item > a > i {
-  margin-right: 6px; }
-.layout .ivu-menu-submenu .ivu-menu-item {
-  padding-left: 24px !important; }
+    transform: rotate(360deg);
+  }
+}
 
-/*# sourceMappingURL=index.css.map */
+.layout .layout-logo {
+  color: #FFF;
+}
+
+.layout .layout-logo img {
+  height: 35px;
+  width: auto;
+}
+
+.layout .ivu-layout-header {
+  background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+  background: linear-gradient(to left, #e4270e, #cc0000);
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  justify-content: space-between;
+  /* Safari 5.1 - 6.0 */
+}
+
+.layout .ivu-layout-header > div {
+  margin: 0 20px;
+}
+
+.layout .ivu-layout-header > div:nth-of-type(1) {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.layout .ivu-layout-header > div:nth-of-type(1) .wm-title {
+  margin-left: 20px;
+  position: relative;
+}
+
+.layout .ivu-layout-header > div:nth-of-type(1) .wm-title img {
+  width: 280px;
+}
+
+.layout .ivu-layout-header > div:nth-of-type(1) span {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  text-align: center;
+  top: 10px;
+  font-size: 14px;
+  color: #e4270e;
+}
+
+.layout .ivu-layout-header > div.wm-user-info {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-box-orient: row;
+  border-left: 1px solid #b30501;
+}
+
+.layout .ivu-layout-header > div.wm-user-info img {
+  width: 40px;
+  display: block;
+  margin-left: 10px;
+}
+
+.layout .ivu-layout-header > div.wm-user-info img.wm-logout {
+  width: 26px;
+}
+
+.layout .ivu-layout-header > div.wm-user-info span {
+  margin: 0 40px 0 20px;
+  display: block;
+  font-size: 16px;
+  color: #fff;
+}
+
+.layout .ivu-layout-header > div.wm-user-info i {
+  font-size: 36px;
+  color: #fff;
+  display: block;
+  cursor: pointer;
+}
+
+.layout .wm-user {
+  border: 1px solid red;
+}
+
+.layout .wm-user img {
+  width: 50px;
+}
+
+.layout .wm-tab-C {
+  background: #282828;
+  width: 50px;
+  text-align: center;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.layout .wm-tab-C li {
+  height: 50px;
+  line-height: 50px;
+}
+
+.layout .wm-tab-C li.active {
+  background: #7d1815;
+}
+
+.layout .wm-tab-C li:nth-of-type(1) img {
+  width: 18px;
+}
+
+.layout .wm-tab-C img {
+  width: 20px;
+}
+
+.layout .ivu-layout-sider-children {
+  overflow: hidden;
+}
+
+.layout .layout-nav li > a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.layout .layout-nav li > a:hover {
+  color: white;
+}
+
+.layout .layout-nav li > a.router-link-active {
+  color: white;
+}
+
+.layout .wm-main-layout {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+}
+
+.layout .symbin-main-menu {
+  background: #333744 !important;
+}
+
+.layout .symbin-main-menu li {
+  position: relative;
+}
+
+.layout .symbin-main-menu a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  left: 0;
+  top: 0;
+  text-align: center;
+  line-height: 50px;
+}
+
+.layout .symbin-main-menu a:hover {
+  color: inherit;
+}
+
+.layout i.ivu-icon-ionic {
+  opacity: 0;
+}
+
+.layout .ivu-menu-item > a > i {
+  margin-right: 6px;
+}
+
+.layout .ivu-menu-submenu .ivu-menu-item {
+  padding-left: 24px !important;
+}

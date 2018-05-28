@@ -1,21 +1,9 @@
 <template>
 	<div class="sysbin-group-ui">
-		<Tab  title='栏目管理' :tabs='tabs' :tabIndex='tabIndex'>
-			<div slot='symbin-tab-menu'>
-				<ul class="symbin-tab-menu">
-					<li @click.stop.prevent='tab1(i,tab.children)' v-for='(tab,i) in tabs' :class='{"active":tabIndex[0] ===i && !tab.children,"level1":tab.children && !tab.status,"open":tab.status }'>
-						<div v-if='!(tab.children && tab.children.length>0)'><router-link :to="tab.link">{{tab.name}}</router-link></div>
-						<div v-if='tab.children && tab.children.length>0'>{{tab.name}}</div>
-						<ol :style='{height:(tab.status?tab.children.length*30:0)+"px"}' v-if='tab.children' >
-							<li @click.stop.prevent='tab2(i,k)' :class="{'active':tabIndex[1]===k}" v-for='(child,k) in tab.children'>
-								<div v-if='child.link'><router-link :to="child.link">{{child.name}}</router-link></div>
-								<div v-if='!child.link'>{{child.name}}</div>
-							</li>
-						</ol>
-					</li>
-				</ul>
+		<Tab  title='个人中心' :tabs='tabs' :tabIndex='tabIndex'>
+			<div slot='wm-tab-menu' v-if='$route.name==="score"||$route.name==="user" ||$route.name==="history"'>
+				<UserTab></UserTab>
 			</div>
-
 		</Tab>
 	</div>
 </template>
@@ -25,6 +13,7 @@
 	import sysbinVerification from '../lib/verification';
 	import symbinUtil from '../lib/util';
 	import Tab from '../tab/index';
+	import UserTab from '../usertab/index';
 	import Vue from 'vue';
 
 
@@ -34,6 +23,7 @@
 			return{
 				tabIndex:[0,-1],
 				theme2:"light",
+				
 				tabs:[
 					{
 						name:'新增栏目',
@@ -47,11 +37,23 @@
 			}
 		},
 		components:{
-			Tab
+			Tab,
+			UserTab
 		},
 
 		mounted(){
+
+			
+			switch (this.$route.name) {
+				case 'user':
+					
+					break;
+			}
+
+
 			var obserable = Vue.obserable;
+
+
 			obserable.on('fillTabs',(data)=>{
 				this.tabs = data || [];
 			});

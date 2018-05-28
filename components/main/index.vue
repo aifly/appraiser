@@ -2,39 +2,35 @@
     <div class="layout">
         <Layout v-if='$route.name !== "login"'>
             <Header>
-                <Row type='flex'>
-                    <Col style="width: 200px;text-align: center" > 
-                        <div class="layout-logo">
-                            <img :src="imgs.logo"  />
-                        </div>
-                    </Col>
-                    <Col>
-                        <Menu mode="horizontal" theme="dark" active-name="1">
-                            <div class="layout-nav">
-                                <MenuItem :keys='i' :name='i' v-for='(menu,i) in topMenu'>
-                                    <router-link  :to="menu.link">{{menu.name}}</router-link>
-                                </MenuItem>
-                            </div>
-                        </Menu>
-                    </Col>
-                </Row>
-               
-                 
+               <div>
+                   <div class="layout-logo">
+                        <img :src="imgs.logo"  />
+                    </div>
+                    <div class="wm-title">
+                        <img :src="imgs.titleBg" alt="">
+                        <span>2018年12月份考评</span>
+                    </div>
+               </div>
+               <div class="wm-user-info">
+                   <img :src='imgs.man' />
+                   <span>徐畅</span>
+                   <img :src="imgs.logout" alt="" class="wm-logout">
+               </div>
             </Header>
-            <Layout>
-                <Sider hide-trigger class='symbin-main-menu' :style='{height:(viewH - 64)+"px"}' >
-                    <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']">
-                        <Submenu :key='menu.name' :name="i*1+1" v-for='(menu,i) in menus'>
-                            <template slot="title">
-                                <Icon type="ionic"></Icon>{{menu.name}}
-                            </template>
-                            <MenuItem  :key='sm.name' :name="i+'-'+(k+1)" v-for='(sm,k) in menu.subMenu'>
-                                <Icon type="ionic"></Icon>
-                                <router-link :to='sm.link'>{{sm.name}}</router-link>
-                            </MenuItem>
-                        </Submenu>
-                    </Menu>
-                </Sider>
+            <Layout class="wm-main-layout">
+                <div class="wm-tab-C" :style='{height:(viewH - 64)+"px"}'>
+                    <ul>
+                        <li @click='tab(0)' :class="{'active':tabIndex === 0}">
+                            <img :src='imgs.user' alt="">
+                        </li>
+                        <li @click='tab(1)' :class="{'active':tabIndex === 1}">
+                            <img :src='imgs.file' alt="">
+                        </li>
+                        <li @click='tab(2)' :class="{'active':tabIndex === 2}">
+                            <img :src='imgs.setting' alt="">
+                        </li>
+                    </ul>
+                </div>
                 <Layout>
                    <router-view></router-view>
                 </Layout>
@@ -61,6 +57,7 @@
                 viewH:document.documentElement.clientHeight,
                 openNames:['1'],
                 defaultLeftMenu:[],
+                tabIndex:0,
                 topMenu:[
                 ],
                 defaultMenu:[
@@ -187,7 +184,10 @@
         },
        
 		methods:{
-			
+            
+            tab(index){
+                this.tabIndex = index;
+            },
            
             loadMenu(option,fn){
                 var s = this;
@@ -198,6 +198,8 @@
                         status:option.status,
                     },
                     fn(data){
+
+                       // console.log(JSON.stringify(data));
                         
                         if(data.getret===0){
 

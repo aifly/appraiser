@@ -1,0 +1,166 @@
+{
+    "getret": 0,
+    "getmsg": "",
+    "list": [{
+        "menuid": "7542347570",
+        "menuname": "控制台",
+        "menuename": "console",
+        "parentmenuid": "",
+        "menuurl": "/console/"
+        
+    }, {
+        "menuid": "2201807300",
+        "menuname": "农产品管理",
+        "menuename": "",
+        "parentmenuid": "",
+        "menuurl": "/product",
+        
+        "children": [{
+            "menuid": "6104032030",
+            "menuname": "商品管理",
+            "menuename": "goodsmanager",
+            "parentmenuid": "2201807300",
+            "menuurl": "/goods"
+            
+        }, {
+            "menuid": "1927078549",
+            "menuname": "商品分类管理",
+            "menuename": "goodsclassmanager",
+            "parentmenuid": "2201807300",
+            "menuurl": "/goodsclass"
+            
+        }, {
+            "menuid": "6571063640",
+            "menuname": "品种管理",
+            "menuename": "breed",
+            "parentmenuid": "2201807300",
+            "menuurl": "/breed"
+            
+        }, {
+            "menuid": "2060934253",
+            "menuname": "乳化场管理",
+            "menuename": "hatchery",
+            "parentmenuid": "2201807300",
+            "menuurl": "/hatchery"
+            
+        }]
+    }, {
+        "menuid": "1842197308",
+        "menuname": "资讯管理",
+        "menuename": "article",
+        "parentmenuid": "",
+        "menuurl": "/2/",
+        
+        "children": [{
+            "menuid": "3967840310",
+            "menuname": "广告管理",
+            "menuename": "adwords",
+            "parentmenuid": "1842197308",
+            "menuurl": "/article"
+            
+        }, {
+            "menuid": "3664134170",
+            "menuname": "公告管理",
+            "menuename": "notice",
+            "parentmenuid": "1842197308",
+            "menuurl": "/article/notice"
+            
+        }, {
+            "menuid": "9190206280",
+            "menuname": "消息管理",
+            "menuename": "message",
+            "parentmenuid": "1842197308",
+            "menuurl": "/article/message"
+            
+        }]
+    }, {
+        "menuid": "2236825790",
+        "menuname": "权限面版",
+        "menuename": "rolepanel",
+        "parentmenuid": "",
+        "menuurl": "/rolepanel/"
+        
+    }, {
+        "menuid": "1883194829",
+        "menuname": "人员管理",
+        "menuename": "1",
+        "parentmenuid": "",
+        "menuurl": "/l/",
+        
+        "children": [{
+            "menuid": "1025600980",
+            "menuname": "地主管理",
+            "menuename": "3",
+            "parentmenuid": "1883194829",
+            "menuurl": "/landownerbaseinfo/",
+            
+            "children": [{
+                "menuid": "1652764070",
+                "menuname": "档案信息",
+                "menuename": "landownerinfo",
+                "parentmenuid": "1025600980",
+                "menuurl": "/landownerinfo/",
+                
+                "children": [{
+                    "menuid": "1829205044",
+                    "menuname": "基础信息",
+                    "menuename": "baseifo",
+                    "parentmenuid": "1652764070",
+                    "menuurl": "/landownerbaseinfo/"
+                    
+                }, {
+                    "menuid": "2114641211",
+                    "menuname": "配送地址",
+                    "menuename": "address",
+                    "parentmenuid": "1652764070",
+                    "menuurl": "/landowneraddress/"
+                    
+                }]
+            }, {
+                "menuid": "2139908117",
+                "menuname": "仓库",
+                "menuename": "repository",
+                "parentmenuid": "1025600980",
+                "menuurl": "/repository/"
+                
+            }]
+        }, {
+            "menuid": "4183636490",
+            "menuname": "农夫管理",
+            "menuename": "11",
+            "parentmenuid": "1883194829",
+            "menuurl": "/farmer/",
+            
+            "children": [{
+                "menuid": "5717245591",
+                "menuname": "农夫",
+                "menuename": "1",
+                "parentmenuid": "4183636490",
+                "menuurl": "/farmer/",
+                
+                "children": [{
+                    "menuid": "2115202740",
+                    "menuname": "管理农夫",
+                    "menuename": "",
+                    "parentmenuid": "5717245591",
+                    "menuurl": "/mangerfarmer/"
+                    
+                }, {
+                    "menuid": "1469364625",
+                    "menuname": "添加农夫",
+                    "menuename": "",
+                    "parentmenuid": "5717245591",
+                    "menuurl": "/addfarmer/"
+                    
+                }]
+            }, {
+                "menuid": "5717245590",
+                "menuname": "农场主",
+                "menuename": "1",
+                "parentmenuid": "4183636490",
+                "menuurl": "/farmer1/"
+                
+            }]
+        }]
+    }]
+}

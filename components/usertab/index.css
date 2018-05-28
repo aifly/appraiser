@@ -49,54 +49,47 @@
   }
 }
 
-.symbin-productdetail-ui {
-  padding: 0 10px;
-  background-color: #ffffff;
+a {
+  color: inherit;
 }
 
-.symbin-productdetail-ui .symbin-productdetail-title {
-  padding: 16px 0px;
-  min-height: 70px;
-  border-bottom: 1px solid #ddd;
-}
-
-.symbin-productdetail-ui .symbin-productdetail-title h5 {
-  margin: 8px;
-  border-left: 2px solid #88B7E0;
-  text-indent: 8px;
-  display: inline-block;
-  vertical-align: top;
+.wm-tab-list li {
+  height: 50px;
+  line-height: 50px;
+  text-indent: 1em;
   font-size: 14px;
-  font-weight: normal;
+  cursor: pointer;
 }
 
-.symbin-productdetail-ui .text-right {
-  text-align: right;
-}
-
-.symbin-productdetail-addinfo textarea.ivu-input {
-  resize: none;
-}
-
-.symbin-productdetail-addinfo .ivu-input-wrapper {
-  width: 90%;
-}
-
-.symbin-productdetail-addinfo .ivu-col-span-15 .ivu-input-wrapper {
+.wm-tab-list li a {
+  color: #b2b2b2;
+  display: block;
   width: 100%;
-}
-
-.symbin-productdetail-addinfo .symbin-upload-C {
-  position: relative;
-  margin-left: 8px;
-}
-
-.symbin-productdetail-addinfo .symbin-upload-C > input[type='file'] {
-  position: absolute;
   height: 100%;
+}
+
+.wm-tab-list li.active {
+  color: #fff;
+  background: #ce0401;
+  position: relative;
+}
+
+.wm-tab-list li.active a {
+  color: #fff;
+}
+
+.wm-tab-list li.active:before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background: #7d1815;
   left: 0;
   top: 0;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 19;
+}
+
+.wm-tab-list li i {
+  font-size: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
 }

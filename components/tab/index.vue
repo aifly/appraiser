@@ -1,14 +1,14 @@
 <template>
-	<div class="symbin-tab-ui lt-full">
-		<div class="symbin-tab-bar" :class="{'hide':hideTab}">
-			<div class="symbin-tab-title">{{title}}</div>
-			<slot  name='symbin-tab-menu'></slot>
-			<div class="symbin-tab-btn" @click='toggleTab'>
+	<div class="wm-tab-ui lt-full">
+		<div class="wm-tab-bar" :class="{'hide':hideTab}">
+			<div class="wm-tab-title">{{title}}</div>
+			<slot  name='wm-tab-menu'></slot>
+			<div class="wm-tab-btn" @click='toggleTab' v-if='false'>
 				<img style='transform: rotate(180deg)' v-if='hideTab' :src="imgs.open">
 				<img v-if='!hideTab' :src="imgs.open">
 			</div>
 		</div>
-		<div class="symbin-tab-content" :style="{width:width+'px'}">
+		<div class="wm-tab-content" :style="{width:width+'px'}">
 			<router-view></router-view>
 		</div>
 	</div>
@@ -44,15 +44,16 @@
 		
 		methods:{
 			toggleTab(){
-				this.hideTab = !this.hideTab;
-				this.resizeTab();
+			/* 	this.hideTab = !this.hideTab;
+				this.resizeTab(); */
 			},
 			resizeTab(){
-				this.width = window.innerWidth-200-(this.hideTab?0:200)
+				this.width = window.innerWidth-50-(this.hideTab?0:200)
 			}
 		},
 		mounted(){
 			this.resizeTab()
+			
 			$(window).on('resize',()=>{
 				this.resizeTab()
 			})

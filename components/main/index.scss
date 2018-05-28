@@ -8,6 +8,102 @@
 		}
 	}
 
+	.ivu-layout-header{
+		 background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+		 background:linear-gradient(to left, #e4270e, #cc0000);
+		 @include displayFlex(row);
+		 justify-content: space-between;
+		 &>div{
+			 margin: 0 20px;
+
+			 &:nth-of-type(1){
+				 @include displayFlex(row);
+				 color:#fff;
+				 font-size:30px;
+				 font-weight: bold;
+
+				 .wm-title{
+					 margin-left: 20px;
+					 img{
+						width: 280px;
+					 }
+					 @include pos(r);
+				 }
+
+				 span{
+					 @include pos(a);
+					 right: 0;
+					 width: 50%;
+					 text-align: center;
+					 top: 10px;
+					 
+					 font-size:14px;
+					 color:#e4270e;
+				 }
+			 }
+
+			 &.wm-user-info{
+				 @include displayBox(row);
+				 border-left:1px solid #b30501;
+				 img{
+					 width: 40px;
+					 display: block;
+					 margin-left: 10px;
+
+					 &.wm-logout{
+						 width: 26px;
+					 }
+					 
+				 }
+				 span{
+					 margin:0 40px 0 20px;
+					 display: block;
+					 font-size:16px;
+					 color:#fff;
+				 }
+				 i{
+					 font-size:36px;
+					 color:#fff;
+					 display: block;
+					 cursor: pointer;
+				 }
+			 }
+		 }
+		 
+		 
+		 /* Safari 5.1 - 6.0 */
+	}
+
+	.wm-user{
+		border:1px solid red;
+		img{
+			width: 50px;
+		}
+	}
+
+	.wm-tab-C{
+		background:#282828;
+		width: 50px;
+		text-align: center;
+		padding-top: 5px;
+		cursor: pointer;
+		li{
+			&.active{
+				background: #7d1815;
+			}
+			height: 50px;
+			line-height: 50px;
+			&:nth-of-type(1){
+				img{
+					width: 18px;
+				}
+			}
+		}
+		img{
+			width: 20px;
+		}
+	}
+
 	.ivu-layout-sider-children{
 		overflow: hidden;
 	}
@@ -23,6 +119,10 @@
 				color:rgba(255, 255, 255, 1);
 			}
 		}
+	}
+
+	.wm-main-layout{
+		@include displayFlex(row);
 	}
 
 	.symbin-main-menu{

@@ -4,8 +4,6 @@ var port = 4037;
 var config = {
     entry: {
         'index': "./index.js",
-        'scan': "./scan.js",
-        'pedometer': "./pedometer.js",
         ///endor: ['react','react-dom','iscroll','jquery']
     },
     output: {
