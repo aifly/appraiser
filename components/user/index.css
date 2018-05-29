@@ -29,9 +29,43 @@
     -webkit-animation: rotate 5s linear infinite;
     animation: rotate 5s linear infinite; }
 
+.symbin-left {
+  float: left !important; }
+
+.symbin-right {
+  float: right !important; }
+
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
+.wm-user-ui {
+  background: #f3f3f3;
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column; }
+  .wm-user-ui > div {
+    flex-grow: 1;
+    width: 97%;
+    border: 1px solid red;
+    margin: 10px auto; }
+  .wm-user-ui > header {
+    background: #fff;
+    height: 50px;
+    width: 100%;
+    line-height: 50px; }
+    .wm-user-ui > header > div {
+      font-size: 20px;
+      margin-left: 40px;
+      position: relative; }
+      .wm-user-ui > header > div:before {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 20px;
+        background: #cc0000;
+        top: 15px;
+        left: -10px; }
 
 /*# sourceMappingURL=index.css.map */

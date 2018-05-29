@@ -1,7 +1,7 @@
 <template>
 	<ul class="wm-tab-list">
 		<li :class="{'active':$route.name === 'user'}"><router-link to='/user'><Icon type="person"></Icon>账户资料</router-link></li>
-		<li :class="{'active':$route.name === 'score'}"><router-link to='/score'><Icon type="person"></Icon>我的评分</router-link></li>
+		<li :class="{'active':$route.name === 'score'}"><router-link to='/score'><Icon type="person"></Icon>我的得分</router-link></li>
 		<li :class="{'active':$route.name === 'history'}"><router-link to='/history'><Icon type="person"></Icon>历史评分</router-link></li>
 	</ul>
 </template>

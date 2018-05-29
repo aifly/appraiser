@@ -1,6 +1,11 @@
 <template>
-	<div class="sysbin-user-ui">
-		这里是用户信息
+	<div class="wm-user-ui">
+		<header>
+			<div>我的资料</div>
+		</header>
+		<div>
+			
+		</div>
 	</div>
 </template>
 

@@ -5,6 +5,37 @@ $baseColor: #fcffb4;
 $viewW: 750px;
 $color: #be0000;
 
-.zmiti-index-main-ui {
-	
+.wm-user-ui{
+	background:#f3f3f3;
+	height:100%;
+	@include displayFlex(column);
+	&>div{
+		flex-grow: 1;
+		width: 97%;
+		border:1px solid red;
+		margin: 10px auto;
+	}
+	&>header{
+		background:#fff;
+		height: 50px;
+		width: 100%;
+		line-height: 50px;
+		&>div{
+
+			font-size: 20px;
+			margin-left: 40px;
+			@include pos(r);
+			&:before{
+				content:"";
+				@include pos(a);
+				width: 2px;
+				height: 20px;
+				background:#cc0000;
+				top: 15px;
+				left: -10px;
+
+			}
+
+		}
+	}
 }
