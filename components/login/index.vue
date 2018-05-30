@@ -83,10 +83,10 @@
 				
 				
 				symbinUtil.ajax({
-					url:window.config.baseUrl+'/admin/adminlogin',
+					url:window.config.baseUrl+'/wmuser/login/',
 					data:{
-						adminusername:_this.username,
-						adminpwd:_this.password
+						username:_this.username,
+						userpwd:_this.password
 					},
 					fn(data){
 						if(data.getret === 0){

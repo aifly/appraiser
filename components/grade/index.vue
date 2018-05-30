@@ -1,18 +1,21 @@
 <template>
 	<div class="wm-grade-ui">
 		<aside>
-			<Menu theme="dark" width='180'>
+			<Menu theme="dark" width='200'>
                 <Submenu name="1" v-for='(menu,i) in gradeList' :key="i">
                     <template slot="title">
                         {{menu.departmentname}}
                     </template>
-                    <MenuItem name="1-1" v-for='(user,k) in menu.users' :key="k">
+                    <MenuItem :name="user.id" v-for='(user,k) in menu.users' :key="k">
 						<Icon type='person'></Icon>{{user.name}}
 					</MenuItem>
-					<MenuItem name="1-2">
-						<Icon type='person-stalker'></Icon>{{menu.group.groupname}}
-					</MenuItem>
-                   
+                    <Submenu name="3">
+		                <template slot="title">
+							<Icon type='person-stalker'></Icon>{{menu.group.groupname}}
+		                </template>
+		                <MenuItem :name="user.id" v-for="(user,g) in menu.group.users"><Icon type='person'></Icon>{{user.name}}</MenuItem>
+		                
+		            </Submenu>
                 </Submenu>
                
             </Menu>

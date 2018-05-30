@@ -20,7 +20,7 @@
 				</div>
 				<div>
 					<div>账号：12345</div>
-					<div>电话：15784555312</div>
+					<div>电话：15784555312  <span class="wm-modify-tel">修改</span></div>
 				</div>
 				<div>
 					<div style="opacity:0">1</div>

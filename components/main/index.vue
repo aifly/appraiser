@@ -23,7 +23,7 @@
                         <li @click='tab(0)' :class="{'active':$route.name==='user'||$route.name==='score'||$route.name==='history'}">
                             <router-link to='/user'><img :src='imgs.user' alt=""></router-link>
                         </li>
-                        <li @click='tab(1)' :class="{'active':tabIndex === 1}">
+                        <li @click='tab(1)' :class="{'active':$route.name==='grade'}">
                             <router-link to='/grade'><img :src='imgs.file' alt=""></router-link>
                         </li>
                         <li @click='tab(2)' :class="{'active':tabIndex === 2}">

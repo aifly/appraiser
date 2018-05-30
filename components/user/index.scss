@@ -35,9 +35,14 @@ $color: #be0000;
 				&>div{
                     margin: 10px auto;
                     
-                    width: 120px;
+                    width: 140px;
                     text-align: left;
                     
+				}
+
+				span.wm-modify-tel{
+					color:#00c1de;
+					cursor: pointer;
 				}
 
 				text-align: center;
