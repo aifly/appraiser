@@ -1,7 +1,36 @@
 <template>
-	<div  class="symbin-login-ui lt-full" :style="{background: 'url('+imgs.loginBg+') no-repeat right center',backgroundSize:'cover' }">
-		
-	 
+	<div  class="wm-login-ui lt-full">
+		<header>
+			<img :src="imgs.logo"  />
+			<span>考评系统</span>
+		</header>
+		<section>
+			<div class="wm-login-C">
+				<img :src="imgs.loginTitle" alt="" class="wm-login-title">
+				<div class="wm-form-item">
+					<Icon type="person"></Icon><input autocomplete="off" v-model="username" type="text" placeholder="请输入账号">
+				</div>
+				<div class="wm-form-item">
+					<Icon type="locked"></Icon><input  autocomplete="off" @keydown.13='login' v-model="password" type="password" placeholder='请输入密码'>
+				</div>
+				<div class="wm-form-remember">
+					<Checkbox v-model="checked" >
+						<span>记住密码</span>
+					</Checkbox>
+				</div>
+				<div class="wm-form-login-btn">
+					<transition name='error'>
+						<div class="wm-form-errmsg" v-if='errorMsg'>
+							{{errorMsg}}
+						</div>
+					</transition>
+					<div class="wm-login-btn" @click='login'>登录</div>
+				</div>
+				<div class="wm-copyright">
+					中国文明网 &copy;版权所有
+				</div>
+			</div>
+		</section>
 	</div>
 </template>
 
@@ -20,6 +49,7 @@
 				imgs:window.imgs,
 				username:'',
 				password:'',
+				checked:false,
 				isLogined:false,
 				isMove:false,
 				showError:false,
@@ -41,7 +71,7 @@
 			},
 			login(){
 				var _this = this;
-
+				
 				if(!this.username){
 					this.toastError();
  					return;
@@ -50,6 +80,8 @@
 					this.toastError('密码不能为空');
  					return;
 				}
+				
+				
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/admin/adminlogin',
 					data:{
@@ -63,7 +95,14 @@
 							delete param.getmsg;
 							symbinUtil.clearCookie('login');
 							symbinUtil.setCookie('login',JSON.stringify(param),1);
-							window.location.hash = '/console/';
+							if(_this.checked){
+								window.localStorage.setItem('wm_username',_this.username);
+								window.localStorage.setItem('wm_password',_this.password);
+							}else{
+								window.localStorage.setItem('wm_username','');
+								window.localStorage.setItem('wm_password','');
+							}
+							window.location.hash = '/user/';
 							_this.$Message.success('登录成功~')
 							_this.isLogined = true;
 						}else{
@@ -71,13 +110,23 @@
 						}
 					}
 				})
+			},
+			checkCache(){
+				var username = window.localStorage.getItem('wm_username'),
+					password = window.localStorage.getItem('wm_password');
+				
+				if(username && password){
+					this.username = username;
+					this.password = password;
+					this.checked = true;
+				}
 			}
 		
 			
 
 		},
 		mounted(){
-			
+			this.checkCache();
 		}
 	}
 </script>

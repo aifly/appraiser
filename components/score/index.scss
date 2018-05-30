@@ -5,6 +5,76 @@ $baseColor: #fcffb4;
 $viewW: 750px;
 $color: #be0000;
 
-.zmiti-index-main-ui {
-	
+.wm-score-ui {
+	&>div{
+        overflow: hidden;
+        @include pos(r);
+    }
+
+    .wm-score-list{
+        background: #fff;
+        text-align: center; 
+        padding: 10px 0 30px 0;
+        font-size:14px;
+    }
+
+    .wm-score-item{
+        width: 96%;
+        @include displayFlex(row);
+        @include pos(r);
+
+        margin:60px auto 0;
+
+        &:first-of-type{
+            margin:30px auto;
+        }
+
+        border-left: 1px solid #e9eaec;
+        border-top: 1px solid #e9eaec;
+        
+        li{
+            flex-grow:2;
+             -webkit-flex-grow: 2;
+            &:nth-of-type(1){
+                @include pos(a);
+                top: -20px;
+                right: 0;
+                color:#56a4f3;
+                font-size:14px;
+                font-weight: bold;
+                span{
+                    color:#6a6a6a;
+                    margin-right: 10px;
+                }
+            }
+            &:not(:first-of-type){
+                 border-bottom: 1px solid #e9eaec;
+                 border-right: 1px solid #e9eaec;
+                &>div{
+                    height: 34px;
+                    line-height: 34px;
+                    &:nth-of-type(1){
+                        background:#f8f8f9;
+                    }
+                }
+            }
+
+            &.wm-avg-score{
+                flex-grow:4;
+                 -webkit-flex-grow: 4;
+                font-weight: bold;
+                &>div{
+                    &:nth-of-type(1){
+                        font-weight: bold
+                    }
+                    &:nth-of-type(2){
+                        color:#e4270e;
+                    }
+
+                }
+            }
+            
+
+        }
+    }
 }

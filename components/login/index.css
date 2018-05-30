@@ -8,14 +8,16 @@
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 0;
+}
 
 .zmiti-text-overflow {
   overflow: hidden;
   white-space: nowrap;
   word-break: break-all;
   text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis; }
+  -webkit-text-overflow: ellipsis;
+}
 
 .zmiti-play {
   width: .8rem;
@@ -24,142 +26,158 @@
   position: fixed;
   z-index: 1000;
   right: .5rem;
-  top: .5rem; }
-  .zmiti-play.rotate {
-    -webkit-animation: rotate 5s linear infinite;
-    animation: rotate 5s linear infinite; }
+  top: .5rem;
+}
+
+.zmiti-play.rotate {
+  -webkit-animation: rotate 5s linear infinite;
+  animation: rotate 5s linear infinite;
+}
 
 .symbin-left {
-  float: left !important; }
+  float: left !important;
+}
 
 .symbin-right {
-  float: right !important; }
+  float: right !important;
+}
 
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-.symbin-login-ui {
-  overflow: hidden; }
-  .symbin-login-ui > div {
-    /* @include pos(a);
-    width: 1600px;
-    left: 50%;
-    top: 0;
-    margin-left: -800px; */ }
-  .symbin-login-ui .symbin-login-scene, .symbin-login-ui .symbin-login-C {
-    position: relative;
-    z-index: 10;
-    font-size: 0; }
-  .symbin-login-ui .symbin-login-title {
-    position: absolute;
-    width: 50%;
-    top: 12vh;
-    left: 23%; }
-  .symbin-login-ui .symbin-login-C {
-    font-size: 14px;
-    z-index: 100;
-    position: relative; }
-    .symbin-login-ui .symbin-login-C .symbin-login-form {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      -webkit-transform: translate3d(-50%, -50%, 0);
-      transform: translate3d(-50%, -50%, 0);
-      background: rgba(255, 255, 255, 0.3);
-      padding: 8vh 40px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-      width: 75%;
-      overflow: hidden; }
-      .symbin-login-ui .symbin-login-C .symbin-login-form h1 {
-        width: 40%;
-        text-align: center;
-        margin: 0 auto 80px; }
-      .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-form-item {
-        margin-top: 50px;
-        width: 100%;
-        border-bottom: 1px solid #67b5d7;
-        padding-bottom: 4px; }
-        .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-form-item input {
-          background: transparent;
-          border: none;
-          width: 270px;
-          outline: none;
-          font-size: 16px;
-          color: #67b5d7; }
-          .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-form-item input::-webkit-input-placeholder {
-            /*WebKit browsers*/
-            color: #67b5d7; }
-        .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-form-item img {
-          width: 20px;
-          vertical-align: bottom; }
-      .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-operator {
-        font-size: 12px;
-        margin-top: 10px;
-        color: #67b5d7; }
-        .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-operator > div:nth-of-type(2) {
-          text-align: right; }
-      .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-btn {
-        background: #18a2e9;
-        border-radius: 3px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        color: #fff;
-        margin-top: 40px;
-        font-size: 16px;
-        cursor: pointer; }
-      .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-msg {
-        position: absolute;
-        width: 80%;
-        height: 30px;
-        background: #e7a193;
-        color: #fff;
-        top: 37%;
-        left: 10%;
-        line-height: 30px;
-        text-indent: 1em; }
-        .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-msg .ivu-icon {
-          font-size: 20px;
-          position: relative;
-          top: 3px; }
-        .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-msg.error-enter-active, .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-msg.error-leave-active {
-          -webkit-transition: 0.4s;
-          transition: 0.4s; }
-        .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-msg.error-enter, .symbin-login-ui .symbin-login-C .symbin-login-form .symbin-login-msg.error-leave-to {
-          opacity: 0; }
-  .symbin-login-ui .symbin-copyright {
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    line-height: 100px;
-    left: 0;
-    bottom: 0;
-    z-index: 1200;
-    text-align: center; }
-  .symbin-login-ui .symbin-login-cloud {
-    position: absolute;
-    bottom: 10vh;
-    z-index: 0;
-    left: 22vw;
-    width: 20vw;
-    z-index: 100;
-    opacity: 1; }
-  .symbin-login-ui .symbin-login-cloud1 {
-    z-index: 12;
-    -webkit-animation: scale 3s linear infinite;
-    animation: scale 3s linear infinite; }
+    transform: rotate(360deg);
+  }
+}
 
-@keyframes scale {
-  0% {
-    opacity: 0; }
-  30% {
-    opacity: .7; }
-  100% {
-    -webkit-transform-origin: top;
-    transform-origin: top;
-    -webkit-transform: scale(3);
-    transform: scale(3);
-    opacity: 0; } }
+.wm-login-ui {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+}
 
-/*# sourceMappingURL=index.css.map */
+.wm-login-ui > header {
+  height: 64px;
+  line-height: 64px;
+  width: 100%;
+  background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+  background: linear-gradient(to left, #e4270e, #cc0000);
+}
+
+.wm-login-ui > header img {
+  width: 100px;
+  margin-left: 30px;
+  vertical-align: middle;
+  font-size: 0;
+}
+
+.wm-login-ui > header span {
+  position: absolute;
+  font-size: 36px;
+  color: #fff;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.wm-login-ui > section {
+  flex-grow: 1;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.wm-login-ui > section .wm-login-C {
+  width: 300px;
+  min-height: 60vh;
+  position: relative;
+}
+
+.wm-login-ui > section .wm-login-C .wm-login-title {
+  margin-bottom: 7vh;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-item {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-item input {
+  border: none;
+  width: 85%;
+  height: 30px;
+  margin-left: 20px;
+  font-size: 16px;
+  outline: none;
+  vertical-align: middle;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-item input::-webkit-input-placeholder {
+  font-size: 14px;
+  color: #dadada;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-item i {
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-remember {
+  text-align: right;
+  font-size: 16px;
+  color: #8b8c90;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-remember input {
+  vertical-align: middle;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-login-btn {
+  height: 120px;
+  position: relative;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-login-btn {
+  width: 100%;
+  height: 36px;
+  background: #df200c;
+  color: #fff;
+  text-align: center;
+  line-height: 36px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #df200c;
+  background: rgba(119, 56, 51, 0.1);
+  font-size: 14px;
+  top: 30px;
+  position: absolute;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-enter-active, .wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-leave-active {
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-enter, .wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-leave-to {
+  opacity: 0;
+}
+
+.wm-login-ui > section .wm-login-C .wm-copyright {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}

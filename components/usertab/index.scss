@@ -23,7 +23,8 @@ a{
         }
         &.active{
             color:#fff;
-            background: #ce0401;
+             background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+             background:linear-gradient(to left, #e4270e, #cc0000);
             @include pos(r);
             a{
                 color:#fff;

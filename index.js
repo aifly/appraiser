@@ -7,6 +7,7 @@ import User from './components/user/index'
 import Score from './components/score/index'
 import History from './components/history/index'
 import Home from './components/home/index'
+import Grade from './components/grade/index'
 import iView from 'iview';
 import VueRouter from 'vue-router'
 import './components/css/index.css';
@@ -36,9 +37,9 @@ const router = new VueRouter({
 			props: true
 		},
 		{
-			path: '/home/',
-			name: 'home',
-			component: Home,
+			path: '/grade/',
+			name: 'grade',
+			component: Grade,
 			props: true
 		},
 		{

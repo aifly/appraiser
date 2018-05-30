@@ -148,6 +148,12 @@
   cursor: pointer;
 }
 
+.layout .wm-tab-C a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .layout .wm-tab-C li {
   height: 50px;
   line-height: 50px;

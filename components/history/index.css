@@ -8,14 +8,16 @@
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 0;
+}
 
 .zmiti-text-overflow {
   overflow: hidden;
   white-space: nowrap;
   word-break: break-all;
   text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis; }
+  -webkit-text-overflow: ellipsis;
+}
 
 .zmiti-play {
   width: .8rem;
@@ -24,14 +26,96 @@
   position: fixed;
   z-index: 1000;
   right: .5rem;
-  top: .5rem; }
-  .zmiti-play.rotate {
-    -webkit-animation: rotate 5s linear infinite;
-    animation: rotate 5s linear infinite; }
+  top: .5rem;
+}
+
+.zmiti-play.rotate {
+  -webkit-animation: rotate 5s linear infinite;
+  animation: rotate 5s linear infinite;
+}
+
+.symbin-left {
+  float: left !important;
+}
+
+.symbin-right {
+  float: right !important;
+}
 
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
+    transform: rotate(360deg);
+  }
+}
 
-/*# sourceMappingURL=index.css.map */
+.wm-history-ui .wm-history-list {
+  background: #fff;
+  text-align: center;
+  padding-bottom: 20px;
+  font-size: 14px;
+}
+
+.wm-history-ui .wm-history-list ul {
+  width: 96%;
+  margin: 40px auto;
+  border-left: 1px solid #e9eaec;
+  border-top: 1px solid #e9eaec;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.wm-history-ui .wm-history-list li {
+  height: 34px;
+  line-height: 34px;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  position: relative;
+}
+
+.wm-history-ui .wm-history-list li > div {
+  width: 16.6666%;
+  border-bottom: 1px solid #e9eaec;
+  border-right: 1px solid #e9eaec;
+}
+
+.wm-history-ui .wm-history-list li:first-of-type {
+  position: absolute;
+  top: -30px;
+  font-weight: bold;
+}
+
+.wm-history-ui .wm-history-list li:nth-of-type(2) {
+  background: #f8f8f9;
+  color: #111;
+  font-weight: bold;
+}
+
+.wm-history-ui .wm-history-list li .wm-department-username {
+  max-width: 80px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.wm-history-ui .wm-history-list .wm-history-date {
+  height: 50px;
+  line-height: 70px;
+  text-align: right;
+  width: 96%;
+  border-bottom: 1px solid #e9eaec;
+  margin: 0 auto;
+  color: #56a4f3;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.wm-history-ui .wm-history-list .wm-history-date span {
+  color: #6a6a6a;
+  margin-right: 10px;
+}
+
+.wm-history-ui > div {
+  overflow: hidden;
+  position: relative;
+}

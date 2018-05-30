@@ -8,14 +8,16 @@
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 0;
+}
 
 .zmiti-text-overflow {
   overflow: hidden;
   white-space: nowrap;
   word-break: break-all;
   text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis; }
+  -webkit-text-overflow: ellipsis;
+}
 
 .zmiti-play {
   width: .8rem;
@@ -24,14 +26,99 @@
   position: fixed;
   z-index: 1000;
   right: .5rem;
-  top: .5rem; }
-  .zmiti-play.rotate {
-    -webkit-animation: rotate 5s linear infinite;
-    animation: rotate 5s linear infinite; }
+  top: .5rem;
+}
+
+.zmiti-play.rotate {
+  -webkit-animation: rotate 5s linear infinite;
+  animation: rotate 5s linear infinite;
+}
+
+.symbin-left {
+  float: left !important;
+}
+
+.symbin-right {
+  float: right !important;
+}
 
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
+    transform: rotate(360deg);
+  }
+}
 
-/*# sourceMappingURL=index.css.map */
+.wm-score-ui > div {
+  overflow: hidden;
+  position: relative;
+}
+
+.wm-score-ui .wm-score-list {
+  background: #fff;
+  text-align: center;
+  padding: 10px 0 30px 0;
+  font-size: 14px;
+}
+
+.wm-score-ui .wm-score-item {
+  width: 96%;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  position: relative;
+  margin: 60px auto 0;
+  border-left: 1px solid #e9eaec;
+  border-top: 1px solid #e9eaec;
+}
+
+.wm-score-ui .wm-score-item:first-of-type {
+  margin: 30px auto;
+}
+
+.wm-score-ui .wm-score-item li {
+  flex-grow: 2;
+  -webkit-flex-grow: 2;
+}
+
+.wm-score-ui .wm-score-item li:nth-of-type(1) {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  color: #56a4f3;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.wm-score-ui .wm-score-item li:nth-of-type(1) span {
+  color: #6a6a6a;
+  margin-right: 10px;
+}
+
+.wm-score-ui .wm-score-item li:not(:first-of-type) {
+  border-bottom: 1px solid #e9eaec;
+  border-right: 1px solid #e9eaec;
+}
+
+.wm-score-ui .wm-score-item li:not(:first-of-type) > div {
+  height: 34px;
+  line-height: 34px;
+}
+
+.wm-score-ui .wm-score-item li:not(:first-of-type) > div:nth-of-type(1) {
+  background: #f8f8f9;
+}
+
+.wm-score-ui .wm-score-item li.wm-avg-score {
+  flex-grow: 4;
+  -webkit-flex-grow: 4;
+  font-weight: bold;
+}
+
+.wm-score-ui .wm-score-item li.wm-avg-score > div:nth-of-type(1) {
+  font-weight: bold;
+}
+
+.wm-score-ui .wm-score-item li.wm-avg-score > div:nth-of-type(2) {
+  color: #e4270e;
+}

@@ -1,0 +1,26 @@
+{
+    "getret":0,
+    "getmsg":"",
+    "list":[
+        {
+            "departmentname":"编辑部",
+            "users":[
+                {
+                    "name":"张小明 主任"
+                }, {
+                    "name": "张大明 主任"
+                }
+            ],
+            "group":{
+                "groupname":"好人组",
+                "users":[
+                    {
+                        "name":"王明 组长"
+                    }, {
+                        "name": "王小明"
+                    }
+                ]
+            }
+        }
+    ]
+}

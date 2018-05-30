@@ -12,6 +12,18 @@ var symbinUtil = {
 		var replaceText = arg + '=' + val;
 		return url.match(pattern) ? url.replace(eval('/(' + arg + '=)([^&]*)/gi'), replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
 	},
+
+	getStandard(fn){//获取得分标准
+		if(window.sessionStorage.getItem('wm_standard')){
+			fn && fn(JSON.parse(window.sessionStorage.getItem('wm_standard')));
+			return;
+		}
+		$.getJSON('/components/data/standard.json',(data)=>{
+			fn && fn(data.list);
+			window.sessionStorage.setItem('wm_standard', JSON.stringify(data.list));
+		})
+	},
+
 	ajax(option){
 		var opt = option.data || {};
 	
