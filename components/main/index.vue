@@ -26,8 +26,8 @@
                         <li @click='tab(1)' :class="{'active':$route.name==='grade'}">
                             <router-link to='/grade'><img :src='imgs.file' alt=""></router-link>
                         </li>
-                        <li @click='tab(2)' :class="{'active':tabIndex === 2}">
-                            <img :src='imgs.setting' alt="">
+                        <li @click='tab(2)' :class="{'active':$route.name==='periods'||$route.name==='adminuser'||$route.name==='checkitem'}">
+                            <router-link to='/periods'><img :src='imgs.setting' alt=""></router-link>
                         </li>
                     </ul>
                 </div>
@@ -191,6 +191,7 @@
            
             loadMenu(option,fn){
                 var s = this;
+                return;
                 symbinUtil.ajax({
                     url:window.config.baseUrl+"/admin/getmenulist",
                     validate:s.validateData,

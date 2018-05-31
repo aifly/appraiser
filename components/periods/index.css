@@ -1,0 +1,162 @@
+/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {
+    background-color: #fff;
+    border-color: #bf1616;
+    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);
+}*/
+.lt-full {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.zmiti-text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+}
+
+.zmiti-play {
+  width: .8rem;
+  height: .8rem;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 1000;
+  right: .5rem;
+  top: .5rem;
+}
+
+.zmiti-play.rotate {
+  -webkit-animation: rotate 5s linear infinite;
+  animation: rotate 5s linear infinite;
+}
+
+.symbin-left {
+  float: left !important;
+}
+
+.symbin-right {
+  float: right !important;
+}
+
+@-webkit-keyframes rotate {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.wm-periods-ui > header {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.wm-periods-ui > header button {
+  margin-right: 20px;
+}
+
+.wm-periods-ui > div > section {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.wm-periods-ui .wm-periods-item {
+  width: 32.6%;
+  margin: 10px 0;
+  background: #fff;
+}
+
+.wm-periods-ui .wm-periods-item:nth-of-type(3n-1) {
+  margin: 10px;
+}
+
+.wm-periods-ui .wm-periods-item > h2, .wm-periods-ui .wm-periods-item > footer {
+  height: 60px;
+  line-height: 60px;
+}
+
+.wm-periods-ui .wm-periods-item > section {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  height: 80px;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.wm-periods-ui .wm-periods-item > section > div:nth-of-type(1) {
+  width: 120px;
+}
+
+.wm-periods-ui .wm-periods-item > section > div:nth-of-type(2) {
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  color: #888;
+}
+
+.wm-periods-ui .wm-periods-item > section > div:nth-of-type(2) span {
+  display: inline-block;
+  height: 30px;
+}
+
+.wm-periods-ui .wm-periods-item > section span {
+  margin: 0 12px;
+}
+
+.wm-periods-ui .wm-periods-item > footer {
+  border-top: 1px solid #ccc;
+  text-indent: 20px;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  color: #888;
+  font-size: 14px;
+}
+
+.wm-periods-ui .wm-periods-item > footer > div {
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+}
+
+.wm-periods-ui .wm-periods-item > footer > div:nth-of-type(2) {
+  text-align: right;
+}
+
+.wm-periods-ui .wm-periods-item > footer i {
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.wm-periods-ui .wm-periods-item > footer .wm-periods-del {
+  color: #666;
+}
+
+.wm-periods-ui .wm-periods-item > footer .wm-periods-edit {
+  color: #56a4f3;
+  margin-right: 20px;
+}
+
+.wm-periods-ui .wm-periods-item > h2 {
+  background: #f6f7fb;
+  font-weight: normal;
+  font-size: 16px;
+  text-indent: 20px;
+}
+
+.wm-periods-ui .wm-periods-item > h2 span {
+  color: #56a4f3;
+}
+
+.wm-periods-dialog .ivu-form-item-label {
+  text-align: left !important;
+}

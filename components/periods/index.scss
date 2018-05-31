@@ -1,0 +1,115 @@
+﻿@import "../css/base.scss";
+
+
+.wm-periods-ui{
+    &>header{
+        @include displayFlex(row);
+        justify-content:space-between;
+        -webkit-justify-content:space-between;
+
+        button{
+            margin-right: 20px;
+        }
+    }
+    &>div{
+        &>section{
+            @include displayFlex(row);
+            flex-wrap: wrap;
+            -webkit-flex-wrap: wrap;
+            justify-content:space-between;
+        }
+    }
+    .wm-periods-item{
+        width: 32.6%;
+        
+
+        &:nth-of-type(3n-1){
+            margin:10px;
+        }
+        
+        margin: 10px 0;
+        background:#fff;
+
+        &>h2,&>footer{
+            height:60px;
+            line-height: 60px;
+            
+        }
+
+        &>section{
+            @include displayFlex(row);
+            height: 80px;
+            padding: 20px;
+            font-size:14px;
+            &>div{
+                &:nth-of-type(1){
+                    width: 120px;
+                }
+                &:nth-of-type(2){
+                    flex-grow: 1;
+                    -webkit-flex-grow: 1;
+                    color:#888;
+                    span{
+                        display: inline-block;
+                        height: 30px;
+
+                    }
+                }
+            }
+            span{
+                margin: 0 12px;
+
+            }
+        }
+
+        &>footer{
+            border-top: 1px solid #ccc;
+            text-indent: 20px;
+            @include displayFlex(row);
+            color:#888;
+            ;
+            font-size:14px;
+
+            &>div{
+                flex-grow: 1;
+                -webkit-flex-grow:1;
+                &:nth-of-type(2){
+                    text-align: right
+                }
+            }
+            i{
+                font-size:16px;
+                vertical-align: middle;
+            }
+            .wm-periods-del{
+                
+                color:#666;
+            }
+            .wm-periods-edit{
+                color:#56a4f3;
+                margin-right: 20px;
+            }
+
+
+        }
+
+
+        &>h2{
+            background:#f6f7fb;
+            font-weight: normal;
+            font-size:16px;
+            text-indent: 20px;
+            span{
+                color:#56a4f3;
+            }
+        }
+    }
+
+}
+    .wm-periods-dialog{
+        //border:1px solid red;
+        .ivu-form-item-label{
+            text-align: left!important;
+            
+        }
+    }

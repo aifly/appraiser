@@ -3,7 +3,11 @@ import Obserable from './components/lib/obserable';
 import Main from './components/main/index';
 import Login from './components/login/index'
 import Group from './components/group/index'
+import SettingGroup from './components/settinggroup/index'
 import User from './components/user/index'
+import Periods from './components/periods/index'
+import AdminUser from './components/adminuser/index'
+import CheckItem from './components/checkitem/index'
 import Score from './components/score/index'
 import History from './components/history/index'
 import Home from './components/home/index'
@@ -48,10 +52,10 @@ const router = new VueRouter({
 			component: Group,
 			props: true,
 			children: [{
-					path: '/user/',
-					name: 'user',
-					component: User
-				} 
+				path: '/user/',
+				name: 'user',
+				component: User
+			}
 			]
 		}, {
 			path: '/group/',
@@ -72,6 +76,70 @@ const router = new VueRouter({
 				path: '/history/',
 				name: 'history',
 				component: History
+			}]
+		}, {
+			path: '/group/',
+			name: 'group',
+			component: Group,
+			props: true,
+			children: [{
+				path: '/user/',
+				name: 'user',
+				component: User
+			}
+			]
+		}, {
+			path: '/group/',
+			name: 'group',
+			component: Group,
+			props: true,
+			children: [{
+				path: '/score/',
+				name: 'score',
+				component: Score
+			}]
+		}, {
+			path: '/group/',
+			name: 'group',
+			component: Group,
+			props: true,
+			children: [{
+				path: '/history/',
+				name: 'history',
+				component: History
+			}]
+		},
+		{
+			path: '/settinggroup/',
+			name: 'settinggroup',
+			component: SettingGroup,
+			props: true,
+			children: [{
+				path: '/periods/',
+				name: 'periods',
+				component: Periods
+			}
+			]
+		},
+		{
+			path: '/settinggroup/',
+			name: 'settinggroup',
+			component: SettingGroup,
+			props: true,
+			children: [{
+				path: '/adminuser/',
+				name: 'adminuser',
+				component: AdminUser
+			}]
+		}, {
+			path: '/settinggroup/',
+			name: 'settinggroup',
+			component: SettingGroup,
+			props: true,
+			children: [{
+				path: '/checkitem/',
+				name: 'checkitem',
+				component: CheckItem
 			}]
 		}
 	]
