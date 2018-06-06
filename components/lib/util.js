@@ -13,11 +13,48 @@ var symbinUtil = {
 		return url.match(pattern) ? url.replace(eval('/(' + arg + '=)([^&]*)/gi'), replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
 	},
 
-	getStandard(fn){//获取得分标准
-		if(window.sessionStorage.getItem('wm_standard')){
+	getUserInfo(){
+		var loginObj = {};
+		try {
+			loginObj = JSON.parse(this.getCookie('login'));
+		} catch (error) {
+			this.clearCookie('login');
+			window.location.hash = '/login';
+		}
+
+		return loginObj.userinfo;
+	},
+
+	getStandard(fn) { //获取得分标准
+		if(window.sessionStorage.getItem('wm_standard') &&false){
 			fn && fn(JSON.parse(window.sessionStorage.getItem('wm_standard')));
 			return;
 		}
+
+		var loginObj = '',
+			validate = {};
+		
+		try {
+			loginObj = JSON.parse(this.getCookie('login'));
+			validate.username = loginObj.userinfo.username;
+			validate.usertoken = loginObj.userinfo.usertoken;
+		} catch (error) {
+			this.clearCookie('login');
+			window.location.hash = '/login';
+		}
+
+		this.ajax({
+			url: window.config.baseUrl + '/wmuser/getcheckitem/',
+			validate,
+			data:{
+			},
+			success(data){
+				fn && fn(data.list);
+				//console.log(data.list)
+				window.sessionStorage.setItem('wm_standard', JSON.stringify(data.list));
+			}
+		})
+		return;
 		$.getJSON('/components/data/standard.json',(data)=>{
 			fn && fn(data.list);
 			window.sessionStorage.setItem('wm_standard', JSON.stringify(data.list));
@@ -28,9 +65,10 @@ var symbinUtil = {
 		var opt = option.data || {};
 	
 		if(option.validate){
-			opt.adminusername = option.validate.adminusername;
-			opt.admintoken = option.validate.admintoken;
+			opt.username = option.validate.username;
+			opt.usertoken = option.validate.usertoken;
 		}
+		
 		$.ajax({
 			url:option.url,
 			type:option.type || 'post',

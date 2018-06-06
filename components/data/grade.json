@@ -18,18 +18,18 @@
                     "id":"wm_3"
                 }
             ],
-            "group":{
-                "groupname":"好人组",
-                "users":[
-                    {
-                        "name":"王明 组长",
-                        "id":"wm_5"
+            "group":[
+                {
+                    "groupname": "好人组",
+                    "users": [{
+                        "name": "王明 组长",
+                        "id": "wm_5"
                     }, {
                         "name": "王小明",
-                        "id":"wm_7"
-                    }
-                ]
-            }
+                        "id": "wm_7"
+                    }]
+                }
+            ]
         }
     ]
 }

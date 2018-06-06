@@ -13,7 +13,7 @@
                </div>
                <div class="wm-user-info">
                    <img :src='imgs.man' />
-                   <span>徐畅</span>
+                   <span>{{userinfo.userrealname}}</span>
                    <img :src="imgs.logout" alt="" class="wm-logout">
                </div>
             </Header>
@@ -58,6 +58,7 @@
                 openNames:['1'],
                 defaultLeftMenu:[],
                 tabIndex:0,
+                userinfo:{},
                 topMenu:[
                 ],
                 defaultMenu:[
@@ -117,67 +118,10 @@
 		mounted(){
            ///this.menus = this.defaultMenu.concat([]);
             var obserable = Vue.obserable;
-            obserable.on('fillMenu',(data)=>{
-                
-                this.menus = data|| [];
+            
+            var userinfo = symbinUtil.getUserInfo();
 
-            })
-            switch(this.$route.name){
-                case 'rolepanel':
-                    this.menus = this.defaultMenu;
-                break;
-                case 'console':
-                    this.menus = this.defaultLeftMenu;
-                break;
-
-            }
-            if(this.$route.name === 'login'){
-                return;
-            }
-
-            var obserable = Vue.obserable;
-            this.loadMenu({
-                status:1,
-            },(data)=>{
-                
-                var arr = [];
-
-                data.list.filter(d=>{
-                    return d.showwhere === 1;
-                }).forEach((dt)=>{
-                    this.topMenu.push({
-                        name:dt.menuname,
-                        link:dt.menuurl
-                    })
-                });
-                
-                data.list.filter((d)=>{return d.showwhere === 2}).forEach((menu,i)=>{
-                    var children = menu.children;
-                    var childArr = [];
-                   if(children){
-                       children.forEach(child=>{
-                           childArr.push({
-                               name:child.menuname,
-                               link:child.menuurl+''+(child.children?child.menuid:'')
-                           })
-                       })
-                   }
-                    arr.push({
-                        name:menu.menuname,
-                        subMenu:childArr
-                    })
-                })
-
-                this.defaultLeftMenu = arr;
-                if(this.$route.name !== 'rolepanel'){
-                    obserable.trigger({
-                        type:'fillMenu',
-                        data:arr
-                    })
-                }
-
-                
-            }); 
+            this.userinfo = userinfo; 
 
 
 

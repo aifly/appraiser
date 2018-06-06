@@ -1,9 +1,11 @@
 import symbinUtil from './util';
 var sysbinVerification = {
 	validate($this){
-		
 		try{
-			return JSON.parse(symbinUtil.getCookie('login'));
+			var obj = JSON.parse(symbinUtil.getCookie('login'));
+			if(obj){
+				return obj.userinfo;
+			}
 		}catch(e){
 			$this.$Message.warning('登录失效，请登录');
 			setTimeout(()=>{

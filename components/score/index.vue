@@ -8,7 +8,7 @@
 				<ul v-for='(score,i) in scoreList' :key='i' class="wm-score-item">
 					<li><span>{{score.date}}</span> 第{{i+1}}期</li>
 					<li v-for='(standard ,k ) in standardList' :key='k'>
-						<div>{{standard.name}}</div>
+						<div>{{standard.title}}</div>
 						<div>{{score.score[k]}} 分</div>
 					</li>
 					<li class="wm-avg-score">
