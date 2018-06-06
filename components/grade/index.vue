@@ -1,6 +1,6 @@
 <template>
 	<div class="wm-grade-ui">
-		<aside>
+		<aside ref='menu' :style="{height:viewH - 64+'px',overflow:'hidden',position:'relative'}">
 			<Menu ref='side_menu' theme="dark" width='200' :open-names="openkeys">
                 <Submenu :name="i" v-for='(menu,i) in gradeList' :key="i">
                     <template slot="title">
@@ -13,7 +13,7 @@
 		                <template slot="title">
 							<Icon type='person-stalker'></Icon>{{group.groupname}}
 		                </template>
-		                <MenuItem :name="user.id" :key="g+'-'" v-for="(user,g) in group.users"><Icon type='person'></Icon>{{user.name}}</MenuItem>
+		                <MenuItem class='wm-submenu' :name="user.id" :key="g+'-'" v-for="(user,g) in group.users"><Icon type='person'></Icon>{{user.name}}</MenuItem>
 		            </Submenu>
                 </Submenu>
                
@@ -153,6 +153,13 @@
 						})
 
 						
+						setTimeout(() => {
+							$('.ivu-menu-submenu-title').trigger('click')
+
+							setTimeout(()=>{
+								s.menuScroll.refresh();
+							},1200)
+						}, 100);	
 
 					}
 				})
@@ -163,9 +170,7 @@
 					for(var i = 0;i<data.list.length;i++){
 						this.openkeys.push(i+'');
 					}
-					setTimeout(() => {
-						$('.ivu-menu-submenu-title').trigger('click')
-					}, 100);
+					
 				}); */
 
 				symbinUtil.getStandard((data)=>{
@@ -180,6 +185,13 @@
 			this.getGradeList();
 		
 			this.standardScroll = new IScroll(this.$refs['wm-standard'],{
+				mouseWheel:true,
+				scrollbars:true,
+				preventDefault:false
+			});
+
+
+			this.menuScroll = new IScroll(this.$refs['menu'],{
 				mouseWheel:true,
 				scrollbars:true,
 				preventDefault:false

@@ -21,6 +21,18 @@
             -webkit-flex-grow: 1;
         }
 
+
+        .ivu-menu-submenu{
+            &>div{
+                padding-left:20px !important;
+            }
+            .wm-submenu{
+                padding-left:80px !important;
+            }
+        }
+
+        
+
         .wm-grade-header{
              background: #fff;
              height: 50px;
