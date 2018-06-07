@@ -36,7 +36,8 @@
 							<div v-if='i===0' v-for='(group,i) in gradeList' :key="i">
 								<ul  v-for='(user,j) in group.users' :key="j">
 									<li v-for='(col,h) in colunms' :key='h'>
-										{{col}}
+										<div>{{col}}</div>
+										
 									</li>
 								</ul>
 								<ul v-if='false' v-for='(user,j) in group.group' :key="j">
