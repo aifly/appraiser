@@ -21,7 +21,7 @@
 		 
 		</aside>
 		<aside>
-			<header class="wm-grade-header">
+			<header class="wm-grade-header" v-if='gradeList[index]'>
 				<div>
 					{{gradeList[index].departmentname}}
 					<span v-for='(user,i) in gradeList[index].users' :key="i">
@@ -40,7 +40,7 @@
 										
 									</li>
 								</ul>
-								<ul v-if='false' v-for='(user,j) in group.group' :key="j">
+								<ul v-for='(user,j) in group.group' :key="j">
 									<li v-for='(u,k) in user.users' :key='k'>
 										<div v-for='(col,h) in colunms' :key='h'>
 											{{col}}
@@ -111,6 +111,7 @@
 		methods:{
 			getGradeList(){
 				var s = this;
+				window.s = this;
 				//console.log(s.validate)
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmuser/getscoreduserlist',
@@ -126,6 +127,55 @@
 
 						var userinfo = symbinUtil.getUserInfo();
 						console.log(userinfo)
+
+
+						for(var right in data.list.right){
+							data.list.right[right] = [
+								{
+									"employeeid": "57610916-64e6-11e8-a9e7-00163e03810f", //"checkitemid": "1",  //评分项编号
+           							"checkitemtitle": "工作目标",  //评分项名称
+									"myscore": 80,   //我的评分
+           							"scorebyd": 10,   //员工综合评分
+				           			"scorebyc": 0,    //组长综合评分
+				            		"scorebyb": 30,   //主任综合评分
+				            		"scorebya": 40    //领导综合评分
+								},{
+									"employeeid": "57610916-64e6-11e8-a9e7-00163e03810f", //"checkitemid": "2",  //评分项编号
+           							"checkitemtitle": "工作态度",  //评分项名称
+									"myscore": 80,   //我的评分
+           							"scorebyd": 10,   //员工综合评分
+				           			"scorebyc": 0,    //组长综合评分
+				            		"scorebyb": 30,   //主任综合评分
+				            		"scorebya": 40    //领导综合评分
+								},{
+									"employeeid": "57610916-64e6-11e8-a9e7-00163e03810f", //"checkitemid": "1",  //评分项编号
+           							"checkitemtitle": "工作目标",  //评分项名称
+									"myscore": 80,   //我的评分
+           							"scorebyd": 10,   //员工综合评分
+				           			"scorebyc": 0,    //组长综合评分
+				            		"scorebyb": 30,   //主任综合评分
+				            		"scorebya": 40    //领导综合评分
+								},
+								{
+									"employeeid": "57610916-64e6-11e8-a9e7-00163e03810f", //"checkitemid": "1",  //评分项编号
+           							"checkitemtitle": "工作目标",  //评分项名称
+									"myscore": 80,   //我的评分
+           							"scorebyd": 10,   //员工综合评分
+				           			"scorebyc": 0,    //组长综合评分
+				            		"scorebyb": 30,   //主任综合评分
+				            		"scorebya": 40    //领导综合评分
+								},{
+									"employeeid": "57610916-64e6-11e8-a9e7-00163e03810f", //"checkitemid": "1",  //评分项编号
+           							"checkitemtitle": "工作目标",  //评分项名称
+									"myscore": 80,   //我的评分
+           							"scorebyd": 10,   //员工综合评分
+				           			"scorebyc": 0,    //组长综合评分
+				            		"scorebyb": 30,   //主任综合评分
+				            		"scorebya": 40    //领导综合评分
+								}
+							]
+						}
+
 						if(userinfo.userjobid === '1000000003'){
 
 							data.list.left.push({
@@ -248,7 +298,6 @@
 		},
 		mounted(){
 			this.getGradeList();
-		
 			this.standardScroll = new IScroll(this.$refs['wm-standard'],{
 				mouseWheel:true,
 				scrollbars:true,
@@ -261,6 +310,7 @@
 				scrollbars:true,
 				preventDefault:false
 			})
+		
 		}
 		
 	}
