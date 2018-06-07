@@ -27,7 +27,7 @@
                 padding-left:20px !important;
             }
             .wm-submenu{
-                padding-left:80px !important;
+                padding-left:60px !important;
             }
         }
 
@@ -39,6 +39,10 @@
              width: 100%;
              line-height: 50px;
              &>div {
+                 span{
+                     font-size:14px;
+                     margin-left: 20px;
+                 }
                  font-size: 20px;
                  margin-left: 40px;
                  color:#000;
@@ -112,6 +116,18 @@
                         }
                     }
                     
+                }
+            }
+        }
+
+        .wm-grade-list{
+            ul{
+                width: 100%;
+                @include displayFlex(row);
+                text-align: center;
+                li{
+                    -webkit-flex-grow: 1;
+                    flex-grow: 1;
                 }
             }
         }

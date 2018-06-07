@@ -21,13 +21,33 @@
 		 
 		</aside>
 		<aside>
-			<header  class="wm-grade-header">
-				<div>编辑部</div>
+			<header class="wm-grade-header">
+				<div>
+					{{gradeList[index].departmentname}}
+					<span v-for='(user,i) in gradeList[index].users' :key="i">
+						{{user.name}}
+					</span>
+				</div>
 			</header>
 			<section class="wm-grade-main-content">
 				<div>
 					<div class="wm-grade-list">
-
+						<section>
+							<div v-if='i===0' v-for='(group,i) in gradeList' :key="i">
+								<ul  v-for='(user,j) in group.users' :key="j">
+									<li v-for='(col,h) in colunms' :key='h'>
+										{{col}}
+									</li>
+								</ul>
+								<ul v-if='false' v-for='(user,j) in group.group' :key="j">
+									<li v-for='(u,k) in user.users' :key='k'>
+										<div v-for='(col,h) in colunms' :key='h'>
+											{{col}}
+										</div>
+									</li>
+								</ul>
+							</div>
+						</section>
 					</div>
 					<footer class="wm-grade-footer">
 						<Button type='primary'>提交</Button>
@@ -64,9 +84,17 @@
 		data(){
 			return{
 				openkeys:[],
+				index:0,
 				gradeList:[],
 				standardList:[],
-				viewH:window.innerHeight
+				viewH:window.innerHeight,
+				colunms:[
+					'名称',
+					'组员评分',
+					'组长评分',
+					'主任评分',
+					'我的评分'
+				]
 			}
 		},
 		components:{
@@ -89,16 +117,27 @@
 					data:{},
 					success(data){
 
-						//console.log(data.list.left);
+						console.log(data.list);
 						var json = {};
 						var obj = {};
 						var obj1 = {};
 						var obj2 = {};
 
-						var editDepartmentId = '1000000001',
-							activeDrumbeatingId ='1000000002',
-							affairId = '1000000003';
-						var i = 0;
+						var userinfo = symbinUtil.getUserInfo();
+						console.log(userinfo)
+						if(userinfo.userjobid === '1000000003'){
+
+							data.list.left.push({
+								employeeid:userinfo.employeeid,
+								realname:userinfo.username,
+								username:userinfo.username,
+								departmentid:userinfo.departmentid,
+								departmentname:userinfo.departmentname,
+								roleid:userinfo.userjobid,
+								rolename:userinfo.userjob,
+							});
+						}
+ 
 						data.list.department.map((item,i)=>{
 							if(!item.pid){
 								s.gradeList.push({
@@ -110,31 +149,54 @@
 
 							}
 						});
-
+						
 						s.gradeList.map((item,i)=>{
+
 							data.list.left.map((left,j)=>{
-								if(left.roleid === '1000000003' && left.pid === item.departmentid){
+								if((left.roleid === '1000000003' && left.pid === item.departmentid) || left.roleid === userinfo.userjobid){
+									//组长
+									var leader = [];
+									if(left.roleid !== userinfo.userjobid){
+										leader = [{
+												id:left.employeeid,
+												name:left.realname + ' '+ left.rolename 
+											}]
+									}
+									item.hasGroupLeader = true;
 									s.gradeList[i].group.push({
 										groupid:left.departmentid,
 										groupname:left.departmentname,
-										users:[]
+										users:leader
 									})
 								}
 								else if (left.roleid === '1000000002' && left.departmentid === item.departmentid){//主任
+
 									s.gradeList[i].users.push({
 										id:left.employeeid,
-										name:left.username||''
+										name:left.realname + ' '+ left.rolename 
 									})
 								}
 							})
 						});
 
+ 
+						console.log('gradeList',s.gradeList)
+
+						
 						s.gradeList.map((item,i)=>{
 							data.list.left.map((left,j)=>{
-								if(left.roleid === '1000000004' ){
+								if(left.roleid === '1000000004' ){//员工
+									if(!item.hasGroupLeader){//没有组长和主任
+										item.users.push({
+											department:left.departmentname,
+											id:left.employeeid,
+											name:left.realname,
+										});
+									}
+									
 									item.group.map((group,k)=>{
-										
 										if(group.groupid === left.departmentid){
+											
 											group.usersArr = group.usersArr || []
 											group.usersArr.push({
 												department:left.departmentname,
@@ -146,9 +208,11 @@
 								}
 							})
 						});
+						//return;
 						s.gradeList.forEach((item,i)=>{
 							item.group.map((group,k)=>{
-								group.users = group.users .concat(group.usersArr)
+								//console.log(group.usersArr)
+								group.users = group.users.concat(group.usersArr||[])
 							})
 						})
 

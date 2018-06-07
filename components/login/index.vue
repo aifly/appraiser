@@ -104,6 +104,7 @@
 							}
 							window.location.hash = '/user/';
 							_this.$Message.success('登录成功~')
+							window.location.reload();
 							_this.isLogined = true;
 						}else{
 							_this.toastError(data.getmsg);
