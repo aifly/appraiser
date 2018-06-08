@@ -60,7 +60,7 @@
 		
 		methods:{
 			getHistoryList(){
-				$.getJSON('/components/data/history.json',(data)=>{
+				$.getJSON('./components/data/history.json',(data)=>{
 					this.historyList = data.list;
 					setTimeout(() => {
 						this.scroll.refresh();

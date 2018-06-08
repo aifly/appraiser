@@ -48,7 +48,7 @@
 		},
 		methods:{
 			getScoreList(){//获取我的得分列表。
-				$.getJSON('/components/data/score.json',(data)=>{
+				$.getJSON('./components/data/score.json',(data)=>{
 					//console.log(data);
 					this.scoreList = data.list;
 

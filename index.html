@@ -33,9 +33,20 @@
 	<div id="app">
 		<router-view></router-view>
 	</div>
+
+
+	<script>
+		
+ function loadScript(src){ var script = document.createElement('script'); script.src =src+"?t="+new Date().getTime(); document.body.appendChild(script)
+}
+	/* loadScript('./assets/js/base.js');
+	 loadScript('./assets/js/index.js'); */
+	</script>
 	
+	<!--
+	-->
 	<script src='./assets/js/base.js'></script>
-	<script src='http://localhost:4037/index.js'></script> 
+	<script src='http://localhost:4037/index.js'></script>  
 
 </body>
 </html>

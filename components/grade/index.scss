@@ -1,111 +1,142 @@
 ﻿@import "../css/base.scss";
- 
 
-.wm-grade-ui{
+.wm-grade-ui {
     height: 100%;
     overflow: hidden;
+
     @include displayFlex(row);
-    
-    &>aside{
+
+    & > aside {
         @include displayFlex(column);
-        &:nth-of-type(1){
+
+        &:nth-of-type(1) {
             width: 200px;
-            background:#353535;
+            background: #353535;
 
             .ivu-menu-item {
-                font-size:12px;
+                font-size: 12px;
             }
         }
-        &:nth-of-type(2){
+
+        &:nth-of-type(2) {
             flex-grow: 1;
             -webkit-flex-grow: 1;
         }
 
-
-        .ivu-menu-submenu{
-            &>div{
-                padding-left:20px !important;
+        .ivu-menu-submenu {
+            & > div {
+                padding-left: 20px !important;
             }
-            .wm-submenu{
-                padding-left:60px !important;
+
+            .wm-submenu {
+                padding-left: 60px !important;
             }
         }
 
-        
+        .wm-grade-header {
+            background: #fff;
+            height: 50px;
+            width: 100%;
+            line-height: 50px;
 
-        .wm-grade-header{
-             background: #fff;
-             height: 50px;
-             width: 100%;
-             line-height: 50px;
-             &>div {
-                 span{
-                     font-size:14px;
-                     margin-left: 20px;
-                 }
-                 font-size: 20px;
-                 margin-left: 40px;
-                 color:#000;
-                 @include pos(r);
-                 &:before {
-                     content: "";
-                     @include pos(a);
-                     width: 2px;
-                     height: 20px;
-                     background: #cc0000;
-                     top: 15px;
-                     left: -10px;
-                 }
-             }
+            @include pos(r);
+            ///z-index: 10;
+
+            &:after {
+                display: none;
+                content: '';
+
+                @include pos(a);
+
+                width: 100%;
+                left: 0;
+                top: 0;
+                height: 100%;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            }
+
+            & > div {
+                span {
+                    font-size: 14px;
+                    margin-left: 20px;
+                }
+
+                font-size: 20px;
+                margin-left: 40px;
+                color: #000;
+
+                @include pos(r);
+
+                &:before {
+                    content: "";
+
+                    @include pos(a);
+
+                    width: 2px;
+                    height: 20px;
+                    background: #cc0000;
+                    top: 15px;
+                    left: -10px;
+                }
+            }
         }
-        .wm-grade-main-content{
+
+        .wm-grade-main-content {
             flex-grow: 1;
             -webkit-flex-grow: 1;
 
             @include displayFlex(row);
 
-            &>div{
-                &:nth-of-type(1){
+            & > div {
+                &:nth-of-type(1) {
                     flex-grow: 1;
                     -webkit-flex-grow: 1;
 
                     @include displayFlex(column);
 
-                    &>div{
+                    & > div {
                         flex-grow: 1;
                         -webkit-flex-grow: 1;
                     }
                 }
-                &:nth-of-type(2){
+
+                &:nth-of-type(2) {
                     width: 300px;
-                    background:#fff;
-                    border-top:2px solid #f5f7f9;
+                    background: #fff;
+                    border-top: 2px solid #f5f7f9;
                     overflow: hidden;
+
                     @include pos(r);
 
-                    &>section{
+                    & > section {
                         padding-bottom: 10px;
                     }
 
-                    .wm-standard-item{
+                    .wm-standard-item {
                         width: 90%;
                         margin: 20px auto;
-                        font-size:12px;
-                        color:#92959d;
-                        &>div{
-                            background:#f8f8f9;
+                        font-size: 12px;
+                        color: #92959d;
+
+                        & > div {
+                            background: #f8f8f9;
                             padding: 10px;
                             line-height: 22px;
                         }
-                        &>h3{
+
+                        & > h3 {
                             font-weight: normal;
-                            color:#515866;
+                            color: #515866;
                             margin-bottom: 10px;
                             text-indent: 1em;
+
                             @include pos(r);
-                            &:before{
-                                content:'';
+
+                            &:before {
+                                content: '';
+
                                 @include pos(a);
+
                                 left: 0;
                                 top: 0;
                                 width: 2px;
@@ -115,37 +146,201 @@
                             }
                         }
                     }
-                    
                 }
             }
         }
 
-        .wm-grade-list{
-            ul{
+        .wm-grade-list {
+            @include pos(r);
+
+            background: #fff;
+            width: 96%;
+            margin: 0 auto;
+            overflow: hidden;
+
+            ul {
                 width: 100%;
-                @include displayFlex(row);
+
+                //@include displayFlex(row);
+                border-left: 1px solid #e9eaec;
                 text-align: center;
-                li{
+
+                li {
                     -webkit-flex-grow: 1;
                     flex-grow: 1;
+
+                    &.wm-grade-group-ico {
+                        div {
+                            margin: 2px 20px;
+                            width: 36px;
+                            height: 36px;
+                            background: #d71307;
+                            text-align: center !important;
+                            display: block !important;
+
+                            img {
+                                width: 70%;
+                                margin-top: -8px;
+                            }
+
+                            @include br;
+
+                            -webkit-flex-grow: 0;
+                            flex-grow: 0;
+                        }
+
+                        span {
+                            margin: 0 10px;
+                            font-size: 16px;
+
+                            &:last-of-type {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+
+                    &:nth-of-type(2) {
+                        border-top: 1px solid #e9eaec;
+                    }
+
+                    &.wm-grade-list-title {
+                        background: #f8f8f9;
+                        font-weight: bold;
+
+                        div:last-of-type {
+                            display: block;
+                        }
+                    }
+
+                    @include displayFlex(row);
+
+                    height: 40px;
+                    line-height: 40px;
+
+                    & > div {
+                        -webkit-flex-grow: 1;
+                        flex-grow: 1;
+                        width: 15%;
+                        border-right: 1px solid #e9eaec;
+                        border-bottom: 1px solid #e9eaec;
+
+                        &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4) {
+                            //width: 70px;
+                       
+                        }
+
+                        @include pos(r);
+
+                        &:nth-of-type(1) {
+                            @include displayFlex(row);
+
+                            text-align: left;
+
+                            span {
+                                @include pos(r);
+
+                                display: block;
+                                width: 100px;
+                                margin: 0 auto;
+                                text-align: left;
+                            }
+
+                            label {
+                                //display: inline-block;
+                                @include pos(a);
+
+                                font-size: 12px;
+
+                                @include br;
+
+                                cursor: pointer;
+                                margin-left: 40px;
+                                text-align: center;
+                                line-height: 30px;
+                                background: #dadadc;
+                                color: #fff;
+                                padding: 2px 2px;
+                                width: 18px;
+                                height: 18px;
+                                right: 10px;
+                                top: -16px;
+                                line-height: 16px;
+                            }
+                        }
+
+                        &:nth-of-type(5) {
+                            width: 40%;
+
+                            @include displayFlex(row);
+
+                            & > aside {
+                                &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(4) {
+                                    width: 30px;
+                                }
+
+                                &:nth-of-type(3) {
+                                    margin-left: 20px;
+                                    flex-grow: 1;
+                                    -webkit-flex-grow: 1;
+                                }
+                            }
+
+                            img {
+                                width: 30px;
+                                height: 30px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wm-grade-leader-list {
+                ul.wm-has-leader {
+                    margin-top: 20px;
                 }
             }
         }
-        .wm-grade-footer{
+
+        .wm-grade-footer {
             height: 64px;
-            background:#fff;
-            @include displayFlex(row);
-            -webkit-justify-content:center;
-            justify-content:center;
-            align-items:center;
-            border-right:2px solid #f5f7f9;
-            button{
-                width: 100px;
-                height: 30px;
-                //line-height: 30px;;
+            background: #fff;
+
+            @include pos(r);
+
+            &:before {
+                content: '';
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+
+                @include pos(a);
+
+                box-shadow: (-2px) 0 10px rgba(0, 0, 0, 0.4);
             }
 
+            
+
+            @include displayFlex(row);
+
+            -webkit-justify-content: center;
+            justify-content: center;
+            align-items: center;
+            border-right: 2px solid #f5f7f9;
+
+            button {
+                width: 100px;
+                height: 30px;
+                @include pos(r);
+                z-index: 10;;
+                &:focus{
+                    @include transition(.2s);
+                    @include transform(scale(.9))
+                }
+
+                //line-height: 30px;;
+           
+            }
         }
     }
-
 }

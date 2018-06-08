@@ -110,7 +110,7 @@
 		},
 		methods:{
 			getPeriodsList(){
-				$.getJSON('/components/data/periods.json',(data)=>{
+				$.getJSON('./components/data/periods.json',(data)=>{
 					this.periodsList = data.list;
 				})
 			}

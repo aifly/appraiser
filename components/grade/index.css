@@ -90,6 +90,18 @@
   height: 50px;
   width: 100%;
   line-height: 50px;
+  position: relative;
+}
+
+.wm-grade-ui > aside .wm-grade-header:after {
+  display: none;
+  content: '';
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .wm-grade-ui > aside .wm-grade-header > div {
@@ -179,22 +191,141 @@
   background: #cc0000;
 }
 
+.wm-grade-ui > aside .wm-grade-list {
+  position: relative;
+  background: #fff;
+  width: 96%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .wm-grade-ui > aside .wm-grade-list ul {
   width: 100%;
-  display: flex;
-  display: -webkit-flex;
-  flex-flow: row;
+  border-left: 1px solid #e9eaec;
   text-align: center;
 }
 
 .wm-grade-ui > aside .wm-grade-list ul li {
   -webkit-flex-grow: 1;
   flex-grow: 1;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  height: 40px;
+  line-height: 40px;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li.wm-grade-group-ico div {
+  margin: 2px 20px;
+  width: 36px;
+  height: 36px;
+  background: #d71307;
+  text-align: center !important;
+  display: block !important;
+  border-radius: 50%;
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li.wm-grade-group-ico div img {
+  width: 70%;
+  margin-top: -8px;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li.wm-grade-group-ico span {
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li.wm-grade-group-ico span:last-of-type {
+  font-size: 14px;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li:nth-of-type(2) {
+  border-top: 1px solid #e9eaec;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li.wm-grade-list-title {
+  background: #f8f8f9;
+  font-weight: bold;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li.wm-grade-list-title div:last-of-type {
+  display: block;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  width: 15%;
+  border-right: 1px solid #e9eaec;
+  border-bottom: 1px solid #e9eaec;
+  position: relative;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(1) {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  text-align: left;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(1) span {
+  position: relative;
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(1) label {
+  position: absolute;
+  font-size: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 40px;
+  text-align: center;
+  line-height: 30px;
+  background: #dadadc;
+  color: #fff;
+  padding: 2px 2px;
+  width: 18px;
+  height: 18px;
+  right: 10px;
+  top: -16px;
+  line-height: 16px;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) {
+  width: 40%;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(1), .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(2), .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(4) {
+  width: 30px;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(3) {
+  margin-left: 20px;
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+}
+
+.wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) img {
+  width: 30px;
+  height: 30px;
+}
+
+.wm-grade-ui > aside .wm-grade-list .wm-grade-leader-list ul.wm-has-leader {
+  margin-top: 20px;
 }
 
 .wm-grade-ui > aside .wm-grade-footer {
   height: 64px;
   background: #fff;
+  position: relative;
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
@@ -204,7 +335,26 @@
   border-right: 2px solid #f5f7f9;
 }
 
+.wm-grade-ui > aside .wm-grade-footer:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.4);
+}
+
 .wm-grade-ui > aside .wm-grade-footer button {
   width: 100px;
   height: 30px;
+  position: relative;
+  z-index: 10;
+}
+
+.wm-grade-ui > aside .wm-grade-footer button:focus {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
 }
