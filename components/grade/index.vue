@@ -266,7 +266,8 @@
 
 						s.userinfo = userinfo;
 
-
+						console.log(data.list.right);
+						
 						for(var right in data.list.right){
 							data.list.right[right] = [
 								{
