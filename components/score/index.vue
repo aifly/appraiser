@@ -64,6 +64,12 @@
 			}
 		},
 		mounted(){
+			this.userinfo = symbinUtil.getUserInfo();
+			if(this.userinfo.isadmin){
+				
+				window.location.hash = '/periods';
+				return;
+			}
 			this.getScoreList()
 
 			this.scroll = new IScroll(this.$refs['list'],{

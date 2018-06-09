@@ -13,5 +13,6 @@ var sysbinVerification = {
 			},300)
 		}
 	}
+	
 };
 export default sysbinVerification;

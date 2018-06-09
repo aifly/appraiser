@@ -11951,25 +11951,25 @@
 	//                     </div>
 	//                     <div class="wm-title">
 	//                         <img :src="imgs.titleBg" alt="">
-	//                         <span>2018年12月份考评</span>
+	//                         <span>{{userinfo.periodsname}}</span>
 	//                     </div>
 	//                </div>
 	//                <div class="wm-user-info">
 	//                    <img :src='imgs.man' />
 	//                    <span>{{userinfo.userrealname}}</span>
-	//                    <img :src="imgs.logout" alt="" class="wm-logout">
+	//                    <img @click='logout' :src="imgs.logout" alt="" class="wm-logout" title='退出登录'>
 	//                </div>
 	//             </Header>
 	//             <Layout class="wm-main-layout">
 	//                 <div class="wm-tab-C" :style='{height:(viewH - 64)+"px"}'>
 	//                     <ul>
-	//                         <li @click='tab(0)' :class="{'active':$route.name==='user'||$route.name==='score'||$route.name==='history'}">
+	//                         <li v-if='!userinfo.isadmin' @click='tab(0)' :class="{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}">
 	//                             <router-link to='/user'><img :src='imgs.user' alt=""></router-link>
 	//                         </li>
-	//                         <li @click='tab(1)' :class="{'active':$route.name==='grade'}">
+	//                         <li v-if='!userinfo.isadmin' @click='tab(1)' :class="{'active':$route.name === 'grade'}">
 	//                             <router-link to='/grade'><img :src='imgs.file' alt=""></router-link>
 	//                         </li>
-	//                         <li @click='tab(2)' :class="{'active':$route.name==='periods'||$route.name==='adminuser'||$route.name==='checkitem'}">
+	//                         <li v-if='userinfo.isadmin' @click='tab(2)' :class="{'active':$route.name === 'periods'||$route.name === 'adminuser'||$route.name==='checkitem'}">
 	//                             <router-link to='/periods'><img :src='imgs.setting' alt=""></router-link>
 	//                         </li>
 	//                     </ul>
@@ -12101,6 +12101,21 @@
 	                    }
 	                }
 	            });
+	        },
+	        logout: function logout() {
+	            var s = this;
+	            _libUtil2['default'].ajax({
+	                url: window.config.baseUrl + '/wmuser/loginout/',
+	                data: {},
+	                validate: s.userinfo,
+	                success: function success(data) {
+	                    if (data.getret === 0) {
+	                        s.$Message.success('注销成功');
+	                        _libUtil2['default'].clearCookie('login');
+	                        window.location.hash = '/login';
+	                    }
+	                }
+	            });
 	        }
 	    }
 	};
@@ -12153,7 +12168,7 @@
 
 
 	// module
-	exports.push([module.id, "/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {\r\n    background-color: #fff;\r\n    border-color: #bf1616;\r\n    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);\r\n}*/\n.lt-full {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.zmiti-text-overflow {\n  overflow: hidden;\n  white-space: nowrap;\n  word-break: break-all;\n  text-overflow: ellipsis;\n  -webkit-text-overflow: ellipsis;\n}\n\n.zmiti-play {\n  width: .8rem;\n  height: .8rem;\n  border-radius: 50%;\n  position: fixed;\n  z-index: 1000;\n  right: .5rem;\n  top: .5rem;\n}\n\n.zmiti-play.rotate {\n  -webkit-animation: rotate 5s linear infinite;\n  animation: rotate 5s linear infinite;\n}\n\n.symbin-left {\n  float: left !important;\n}\n\n.symbin-right {\n  float: right !important;\n}\n\n@-webkit-keyframes rotate {\n  to {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n.layout .layout-logo {\n  color: #FFF;\n}\n\n.layout .layout-logo img {\n  height: 35px;\n  width: auto;\n}\n\n.layout .ivu-layout-header {\n  background: -webkit-linear-gradient(left, #e4270e, #cc0000);\n  background: linear-gradient(to left, #e4270e, #cc0000);\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n  justify-content: space-between;\n  /* Safari 5.1 - 6.0 */\n}\n\n.layout .ivu-layout-header > div {\n  margin: 0 20px;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) {\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n  color: #fff;\n  font-size: 30px;\n  font-weight: bold;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) .wm-title {\n  margin-left: 20px;\n  position: relative;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) .wm-title img {\n  width: 280px;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) span {\n  position: absolute;\n  right: 0;\n  width: 50%;\n  text-align: center;\n  top: 10px;\n  font-size: 14px;\n  color: #e4270e;\n}\n\n.layout .ivu-layout-header > div.wm-user-info {\n  display: -webkit-box;\n  -webkit-box-align: center;\n  -webkit-box-pack: center;\n  -webkit-box-orient: row;\n  border-left: 1px solid #b30501;\n}\n\n.layout .ivu-layout-header > div.wm-user-info img {\n  width: 40px;\n  display: block;\n  margin-left: 10px;\n}\n\n.layout .ivu-layout-header > div.wm-user-info img.wm-logout {\n  width: 26px;\n}\n\n.layout .ivu-layout-header > div.wm-user-info span {\n  margin: 0 40px 0 20px;\n  display: block;\n  font-size: 16px;\n  color: #fff;\n}\n\n.layout .ivu-layout-header > div.wm-user-info i {\n  font-size: 36px;\n  color: #fff;\n  display: block;\n  cursor: pointer;\n}\n\n.layout .wm-user {\n  border: 1px solid red;\n}\n\n.layout .wm-user img {\n  width: 50px;\n}\n\n.layout .wm-tab-C {\n  background: #282828;\n  width: 50px;\n  text-align: center;\n  padding-top: 5px;\n  cursor: pointer;\n}\n\n.layout .wm-tab-C a {\n  display: block;\n  width: 100%;\n  height: 100%;\n}\n\n.layout .wm-tab-C li {\n  height: 50px;\n  line-height: 50px;\n}\n\n.layout .wm-tab-C li.active {\n  background: #7d1815;\n}\n\n.layout .wm-tab-C li:nth-of-type(1) img {\n  width: 18px;\n}\n\n.layout .wm-tab-C img {\n  width: 20px;\n}\n\n.layout .ivu-layout-sider-children {\n  overflow: hidden;\n}\n\n.layout .layout-nav li > a {\n  color: rgba(255, 255, 255, 0.7);\n}\n\n.layout .layout-nav li > a:hover {\n  color: white;\n}\n\n.layout .layout-nav li > a.router-link-active {\n  color: white;\n}\n\n.layout .wm-main-layout {\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n}\n\n.layout .symbin-main-menu {\n  background: #333744 !important;\n}\n\n.layout .symbin-main-menu li {\n  position: relative;\n}\n\n.layout .symbin-main-menu a {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  color: inherit;\n  left: 0;\n  top: 0;\n  text-align: center;\n  line-height: 50px;\n}\n\n.layout .symbin-main-menu a:hover {\n  color: inherit;\n}\n\n.layout i.ivu-icon-ionic {\n  opacity: 0;\n}\n\n.layout .ivu-menu-item > a > i {\n  margin-right: 6px;\n}\n\n.layout .ivu-menu-submenu .ivu-menu-item {\n  padding-left: 24px !important;\n}\n", ""]);
+	exports.push([module.id, "/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {\r\n    background-color: #fff;\r\n    border-color: #bf1616;\r\n    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);\r\n}*/\n.lt-full {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.zmiti-text-overflow {\n  overflow: hidden;\n  white-space: nowrap;\n  word-break: break-all;\n  text-overflow: ellipsis;\n  -webkit-text-overflow: ellipsis;\n}\n\n.zmiti-play {\n  width: .8rem;\n  height: .8rem;\n  border-radius: 50%;\n  position: fixed;\n  z-index: 1000;\n  right: .5rem;\n  top: .5rem;\n}\n\n.zmiti-play.rotate {\n  -webkit-animation: rotate 5s linear infinite;\n  animation: rotate 5s linear infinite;\n}\n\n.symbin-left {\n  float: left !important;\n}\n\n.symbin-right {\n  float: right !important;\n}\n\n@-webkit-keyframes rotate {\n  to {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n.layout .layout-logo {\n  color: #FFF;\n}\n\n.layout .layout-logo img {\n  height: 35px;\n  width: auto;\n}\n\n.layout .ivu-layout-header {\n  background: -webkit-linear-gradient(left, #e4270e, #cc0000);\n  background: linear-gradient(to left, #e4270e, #cc0000);\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n  justify-content: space-between;\n  /* Safari 5.1 - 6.0 */\n}\n\n.layout .ivu-layout-header > div {\n  margin: 0 20px;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) {\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n  color: #fff;\n  font-size: 30px;\n  font-weight: bold;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) .wm-title {\n  margin-left: 20px;\n  position: relative;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) .wm-title img {\n  width: 280px;\n}\n\n.layout .ivu-layout-header > div:nth-of-type(1) span {\n  position: absolute;\n  right: 0;\n  width: 50%;\n  text-align: center;\n  top: 10px;\n  font-size: 14px;\n  color: #e4270e;\n}\n\n.layout .ivu-layout-header > div.wm-user-info {\n  display: -webkit-box;\n  -webkit-box-align: center;\n  -webkit-box-pack: center;\n  -webkit-box-orient: row;\n  border-left: 1px solid #b30501;\n}\n\n.layout .ivu-layout-header > div.wm-user-info img {\n  width: 40px;\n  display: block;\n  margin-left: 10px;\n}\n\n.layout .ivu-layout-header > div.wm-user-info img.wm-logout {\n  width: 26px;\n  cursor: pointer;\n}\n\n.layout .ivu-layout-header > div.wm-user-info span {\n  margin: 0 40px 0 20px;\n  display: block;\n  font-size: 16px;\n  color: #fff;\n}\n\n.layout .ivu-layout-header > div.wm-user-info i {\n  font-size: 36px;\n  color: #fff;\n  display: block;\n  cursor: pointer;\n}\n\n.layout .wm-user {\n  border: 1px solid red;\n}\n\n.layout .wm-user img {\n  width: 50px;\n}\n\n.layout .wm-tab-C {\n  background: #282828;\n  width: 50px;\n  text-align: center;\n  padding-top: 5px;\n  cursor: pointer;\n}\n\n.layout .wm-tab-C a {\n  display: block;\n  width: 100%;\n  height: 100%;\n}\n\n.layout .wm-tab-C li {\n  height: 50px;\n  line-height: 50px;\n}\n\n.layout .wm-tab-C li.active {\n  background: #7d1815;\n}\n\n.layout .wm-tab-C li:nth-of-type(1) img {\n  width: 18px;\n}\n\n.layout .wm-tab-C img {\n  width: 20px;\n}\n\n.layout .ivu-layout-sider-children {\n  overflow: hidden;\n}\n\n.layout .layout-nav li > a {\n  color: rgba(255, 255, 255, 0.7);\n}\n\n.layout .layout-nav li > a:hover {\n  color: white;\n}\n\n.layout .layout-nav li > a.router-link-active {\n  color: white;\n}\n\n.layout .wm-main-layout {\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n}\n\n.layout .symbin-main-menu {\n  background: #333744 !important;\n}\n\n.layout .symbin-main-menu li {\n  position: relative;\n}\n\n.layout .symbin-main-menu a {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  color: inherit;\n  left: 0;\n  top: 0;\n  text-align: center;\n  line-height: 50px;\n}\n\n.layout .symbin-main-menu a:hover {\n  color: inherit;\n}\n\n.layout i.ivu-icon-ionic {\n  opacity: 0;\n}\n\n.layout .ivu-menu-item > a > i {\n  margin-right: 6px;\n}\n\n.layout .ivu-menu-submenu .ivu-menu-item {\n  padding-left: 24px !important;\n}\n", ""]);
 
 	// exports
 
@@ -22136,6 +22151,7 @@
 				}, 300);
 			}
 		}
+
 	};
 	exports['default'] = sysbinVerification;
 	module.exports = exports['default'];
@@ -22144,7 +22160,7 @@
 /* 17 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n    <div class=\"layout\">\r\n        <Layout v-if='$route.name !== \"login\"'>\r\n            <Header>\r\n               <div>\r\n                   <div class=\"layout-logo\">\r\n                        <img :src=\"imgs.logo\"  />\r\n                    </div>\r\n                    <div class=\"wm-title\">\r\n                        <img :src=\"imgs.titleBg\" alt=\"\">\r\n                        <span>2018年12月份考评</span>\r\n                    </div>\r\n               </div>\r\n               <div class=\"wm-user-info\">\r\n                   <img :src='imgs.man' />\r\n                   <span>{{userinfo.userrealname}}</span>\r\n                   <img :src=\"imgs.logout\" alt=\"\" class=\"wm-logout\">\r\n               </div>\r\n            </Header>\r\n            <Layout class=\"wm-main-layout\">\r\n                <div class=\"wm-tab-C\" :style='{height:(viewH - 64)+\"px\"}'>\r\n                    <ul>\r\n                        <li @click='tab(0)' :class=\"{'active':$route.name==='user'||$route.name==='score'||$route.name==='history'}\">\r\n                            <router-link to='/user'><img :src='imgs.user' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li @click='tab(1)' :class=\"{'active':$route.name==='grade'}\">\r\n                            <router-link to='/grade'><img :src='imgs.file' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li @click='tab(2)' :class=\"{'active':$route.name==='periods'||$route.name==='adminuser'||$route.name==='checkitem'}\">\r\n                            <router-link to='/periods'><img :src='imgs.setting' alt=\"\"></router-link>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n                <Layout>\r\n                   <router-view></router-view>\r\n                </Layout>\r\n            </Layout>\r\n        </Layout>\r\n        <div v-else>\r\n            <router-view></router-view>\r\n        </div>\r\n    </div>\r\n";
+	module.exports = "\r\n    <div class=\"layout\">\r\n        <Layout v-if='$route.name !== \"login\"'>\r\n            <Header>\r\n               <div>\r\n                   <div class=\"layout-logo\">\r\n                        <img :src=\"imgs.logo\"  />\r\n                    </div>\r\n                    <div class=\"wm-title\">\r\n                        <img :src=\"imgs.titleBg\" alt=\"\">\r\n                        <span>{{userinfo.periodsname}}</span>\r\n                    </div>\r\n               </div>\r\n               <div class=\"wm-user-info\">\r\n                   <img :src='imgs.man' />\r\n                   <span>{{userinfo.userrealname}}</span>\r\n                   <img @click='logout' :src=\"imgs.logout\" alt=\"\" class=\"wm-logout\" title='退出登录'>\r\n               </div>\r\n            </Header>\r\n            <Layout class=\"wm-main-layout\">\r\n                <div class=\"wm-tab-C\" :style='{height:(viewH - 64)+\"px\"}'>\r\n                    <ul>\r\n                        <li v-if='!userinfo.isadmin' @click='tab(0)' :class=\"{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}\">\r\n                            <router-link to='/user'><img :src='imgs.user' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li v-if='!userinfo.isadmin' @click='tab(1)' :class=\"{'active':$route.name === 'grade'}\">\r\n                            <router-link to='/grade'><img :src='imgs.file' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li v-if='userinfo.isadmin' @click='tab(2)' :class=\"{'active':$route.name === 'periods'||$route.name === 'adminuser'||$route.name==='checkitem'}\">\r\n                            <router-link to='/periods'><img :src='imgs.setting' alt=\"\"></router-link>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n                <Layout>\r\n                   <router-view></router-view>\r\n                </Layout>\r\n            </Layout>\r\n        </Layout>\r\n        <div v-else>\r\n            <router-view></router-view>\r\n        </div>\r\n    </div>\r\n";
 
 /***/ }),
 /* 18 */
@@ -22244,6 +22260,7 @@
 				isMove: false,
 				showError: false,
 				errorMsg: '',
+				loginType: "员工登录",
 				viewH: document.documentElement.clientHeight
 			};
 		},
@@ -22265,6 +22282,8 @@
 			login: function login() {
 				var _this = this;
 
+				var isAdmin = this.loginType === '超级管理员登录';
+
 				if (!this.username) {
 					this.toastError();
 					return;
@@ -22285,8 +22304,10 @@
 							var param = data;
 							delete param.getret;
 							delete param.getmsg;
+
 							_libUtil2['default'].clearCookie('login');
 							_libUtil2['default'].setCookie('login', JSON.stringify(param), 1);
+
 							if (_this.checked) {
 								window.localStorage.setItem('wm_username', _this.username);
 								window.localStorage.setItem('wm_password', _this.password);
@@ -22294,7 +22315,11 @@
 								window.localStorage.setItem('wm_username', '');
 								window.localStorage.setItem('wm_password', '');
 							}
-							window.location.hash = '/user/';
+							if (data.isadmin) {
+								window.location.hash = '/periods/';
+							} else {
+								window.location.hash = '/user/';
+							}
 							_this.$Message.success('登录成功~');
 							window.location.reload();
 							_this.isLogined = true;
@@ -22360,7 +22385,7 @@
 
 
 	// module
-	exports.push([module.id, "/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {\r\n    background-color: #fff;\r\n    border-color: #bf1616;\r\n    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);\r\n}*/\n.lt-full {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.zmiti-text-overflow {\n  overflow: hidden;\n  white-space: nowrap;\n  word-break: break-all;\n  text-overflow: ellipsis;\n  -webkit-text-overflow: ellipsis;\n}\n\n.zmiti-play {\n  width: .8rem;\n  height: .8rem;\n  border-radius: 50%;\n  position: fixed;\n  z-index: 1000;\n  right: .5rem;\n  top: .5rem;\n}\n\n.zmiti-play.rotate {\n  -webkit-animation: rotate 5s linear infinite;\n  animation: rotate 5s linear infinite;\n}\n\n.symbin-left {\n  float: left !important;\n}\n\n.symbin-right {\n  float: right !important;\n}\n\n@-webkit-keyframes rotate {\n  to {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n.wm-login-ui {\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: column;\n}\n\n.wm-login-ui > header {\n  height: 64px;\n  line-height: 64px;\n  width: 100%;\n  background: -webkit-linear-gradient(left, #e4270e, #cc0000);\n  background: linear-gradient(to left, #e4270e, #cc0000);\n}\n\n.wm-login-ui > header img {\n  width: 100px;\n  margin-left: 30px;\n  vertical-align: middle;\n  font-size: 0;\n}\n\n.wm-login-ui > header span {\n  position: absolute;\n  font-size: 36px;\n  color: #fff;\n  font-style: italic;\n  font-weight: bold;\n}\n\n.wm-login-ui > section {\n  flex-grow: 1;\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-align-items: center;\n  align-items: center;\n}\n\n.wm-login-ui > section .wm-login-C {\n  width: 300px;\n  min-height: 60vh;\n  position: relative;\n}\n\n.wm-login-ui > section .wm-login-C .wm-login-title {\n  margin-bottom: 7vh;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item {\n  margin-bottom: 20px;\n  border-bottom: 1px solid #ccc;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item input {\n  border: none;\n  width: 85%;\n  height: 30px;\n  margin-left: 20px;\n  font-size: 16px;\n  outline: none;\n  vertical-align: middle;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item input::-webkit-input-placeholder {\n  font-size: 14px;\n  color: #dadada;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item i {\n  font-size: 24px;\n  vertical-align: middle;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-remember {\n  text-align: right;\n  font-size: 16px;\n  color: #8b8c90;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-remember input {\n  vertical-align: middle;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn {\n  height: 120px;\n  position: relative;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-login-btn {\n  width: 100%;\n  height: 36px;\n  background: #df200c;\n  color: #fff;\n  text-align: center;\n  line-height: 36px;\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  font-size: 14px;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg {\n  width: 100%;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  color: #df200c;\n  background: rgba(119, 56, 51, 0.1);\n  font-size: 14px;\n  top: 30px;\n  position: absolute;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-enter-active, .wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-leave-active {\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-enter, .wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-leave-to {\n  opacity: 0;\n}\n\n.wm-login-ui > section .wm-login-C .wm-copyright {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {\r\n    background-color: #fff;\r\n    border-color: #bf1616;\r\n    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);\r\n}*/\n.lt-full {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n\n.zmiti-text-overflow {\n  overflow: hidden;\n  white-space: nowrap;\n  word-break: break-all;\n  text-overflow: ellipsis;\n  -webkit-text-overflow: ellipsis;\n}\n\n.zmiti-play {\n  width: .8rem;\n  height: .8rem;\n  border-radius: 50%;\n  position: fixed;\n  z-index: 1000;\n  right: .5rem;\n  top: .5rem;\n}\n\n.zmiti-play.rotate {\n  -webkit-animation: rotate 5s linear infinite;\n  animation: rotate 5s linear infinite;\n}\n\n.symbin-left {\n  float: left !important;\n}\n\n.symbin-right {\n  float: right !important;\n}\n\n@-webkit-keyframes rotate {\n  to {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n.wm-login-ui {\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: column;\n}\n\n.wm-login-ui > header {\n  height: 64px;\n  line-height: 64px;\n  width: 100%;\n  background: -webkit-linear-gradient(left, #e4270e, #cc0000);\n  background: linear-gradient(to left, #e4270e, #cc0000);\n}\n\n.wm-login-ui > header img {\n  width: 100px;\n  margin-left: 30px;\n  vertical-align: middle;\n  font-size: 0;\n}\n\n.wm-login-ui > header span {\n  position: absolute;\n  font-size: 36px;\n  color: #fff;\n  font-style: italic;\n  font-weight: bold;\n}\n\n.wm-login-ui > section {\n  flex-grow: 1;\n  display: flex;\n  display: -webkit-flex;\n  flex-flow: row;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-align-items: center;\n  align-items: center;\n}\n\n.wm-login-ui > section .wm-login-C {\n  width: 300px;\n  min-height: 60vh;\n  position: relative;\n}\n\n.wm-login-ui > section .wm-login-C .wm-login-title {\n  margin-bottom: 7vh;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item {\n  margin-bottom: 20px;\n  border-bottom: 1px solid #ccc;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item input {\n  border: none;\n  width: 85%;\n  height: 30px;\n  margin-left: 20px;\n  font-size: 16px;\n  outline: none;\n  vertical-align: middle;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill {\n  background-color: #FAFFBD;\n  background-image: none;\n  color: #000;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill, .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill:hover, .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill:focus {\n  box-shadow: 0 0 0 60px white inset;\n  -webkit-text-fill-color: #878787;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item input::-webkit-input-placeholder {\n  font-size: 14px;\n  color: #dadada;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-item i {\n  font-size: 24px;\n  vertical-align: middle;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-remember {\n  text-align: right;\n  font-size: 16px;\n  color: #8b8c90;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-remember input {\n  vertical-align: middle;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn {\n  height: 120px;\n  position: relative;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-login-btn {\n  width: 100%;\n  height: 36px;\n  background: #df200c;\n  color: #fff;\n  text-align: center;\n  line-height: 36px;\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  font-size: 14px;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg {\n  width: 100%;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  color: #df200c;\n  background: rgba(119, 56, 51, 0.1);\n  font-size: 14px;\n  top: 30px;\n  position: absolute;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-enter-active, .wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-leave-active {\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-enter, .wm-login-ui > section .wm-login-C .wm-form-login-btn .wm-form-errmsg.error-leave-to {\n  opacity: 0;\n}\n\n.wm-login-ui > section .wm-login-C .wm-copyright {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  text-align: center;\n}\n", ""]);
 
 	// exports
 
@@ -23217,6 +23242,10 @@
 		},
 		mounted: function mounted() {
 			this.userinfo = _libUtil2['default'].getUserInfo();
+			if (this.userinfo.isadmin) {
+
+				window.location.hash = '/periods';
+			}
 		},
 
 		methods: {}
@@ -23310,7 +23339,7 @@
 	// 			<section>
 	// 				<div v-for='(periods,i) in periodsList' :key="i" class="wm-periods-item">
 	// 					<h2>
-	// 						{{periods.periodsName}} <span>第{{i+1}}期</span>
+	// 						{{periods.periodsname}} <span>第{{i+1}}期</span>
 	// 					</h2>
 	// 					<section>
 	// 						<div>
@@ -23318,12 +23347,12 @@
 	// 						</div>
 	// 						<div>
 	// 							<span v-for='(standard ,k) in periods.checkitem' :key="k">
-	// 								{{standard}}
+	// 								{{standard.title}}
 	// 							</span>
 	// 						</div>
 	// 					</section>
 	// 					<footer>
-	// 						<div><span>{{periods.startdate}}</span> 至 <span>{{periods.enddate}}</span></div>
+	// 						<div><span>{{periods.starttime.substr(0,10)}}</span> 至 <span>{{periods.endtime.substr(0,10)}}</span></div>
 	// 						<div>
 	// 							<span class="wm-periods-del"><Icon type="android-delete"></Icon>删除</span>
 	// 							<span class="wm-periods-edit"><Icon type="edit"></Icon>编辑</span>
@@ -23417,16 +23446,28 @@
 		beforeCreate: function beforeCreate() {
 			var validate = _libVerification2['default'].validate(this);
 			//symbinUtil.clearCookie('login');
+			this.validate = validate;
 		},
 		mounted: function mounted() {
 			this.getPeriodsList();
 		},
 		methods: {
 			getPeriodsList: function getPeriodsList() {
-				var _this = this;
+				var s = this;
+				_libUtil2['default'].ajax({
+					url: window.config.baseUrl + '/wmuser/getperiodsnumberlist',
+					data: {},
+					validate: s.validate,
+					success: function success(data) {
+						if (data.getret === 0) {
+							s.periodsList = data.list;
+						}
+					}
+
+				});
 
 				_jquery2['default'].getJSON('./components/data/periods.json', function (data) {
-					_this.periodsList = data.list;
+					//this.periodsList = data.list;
 				});
 			}
 		}
@@ -23480,7 +23521,7 @@
 /* 57 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-periods-ui\">\r\n\t\t<header>\r\n\t\t\t<div>考评管理</div>\r\n\t\t\t<section>\r\n\t\t\t\t<Button icon='plus' @click='visible = true' type='primary'>添加</Button>\r\n\t\t\t</section>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<section>\r\n\t\t\t\t<div v-for='(periods,i) in periodsList' :key=\"i\" class=\"wm-periods-item\">\r\n\t\t\t\t\t<h2>\r\n\t\t\t\t\t\t{{periods.periodsName}} <span>第{{i+1}}期</span>\r\n\t\t\t\t\t</h2>\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t考评要求\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t<span v-for='(standard ,k) in periods.checkitem' :key=\"k\">\r\n\t\t\t\t\t\t\t\t{{standard}}\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t\t<footer>\r\n\t\t\t\t\t\t<div><span>{{periods.startdate}}</span> 至 <span>{{periods.enddate}}</span></div>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t<span class=\"wm-periods-del\"><Icon type=\"android-delete\"></Icon>删除</span>\r\n\t\t\t\t\t\t\t<span class=\"wm-periods-edit\"><Icon type=\"edit\"></Icon>编辑</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</footer>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t\t<Modal\r\n\t\t\tv-model=\"visible\"\r\n\t\t\t:title=\"currentIndex!==-1?'编辑考评':'添加考评'\"\r\n\t\t\t>\r\n\t\t\t<div class=\"wm-periods-dialog\">\r\n\t\t\t\t<Form ref=\"formItem\" :model=\"formItem\" :rules=\"ruleValidate\" :label-width='80' >\r\n\t\t\t\t\t<FormItem label=\"考评名称 ：\">\r\n\t\t\t\t\t\t<Input v-model=\"formItem.periodsName\" placeholder=\"考评名称\"></Input>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"开始时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.startdate\" format=\"yyyy-MM-dd\" type=\"date\" confirm placeholder=\"开始时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"结束时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.enddate\" format=\"yyyy-MM-dd\" type=\"date\" confirm placeholder=\"结束时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可用 ：\">\r\n\t\t\t\t\t\t<i-switch v-model=\"formItem.switch\" size=\"large\">\r\n\t\t\t\t\t\t\t<span slot=\"open\">可用</span>\r\n\t\t\t\t\t\t\t<span slot=\"close\">禁用</span>\r\n\t\t\t\t\t\t</i-switch>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\r\n\t\t\t\t</Form>\r\n\t\t\t</div>\r\n    </Modal>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-periods-ui\">\r\n\t\t<header>\r\n\t\t\t<div>考评管理</div>\r\n\t\t\t<section>\r\n\t\t\t\t<Button icon='plus' @click='visible = true' type='primary'>添加</Button>\r\n\t\t\t</section>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<section>\r\n\t\t\t\t<div v-for='(periods,i) in periodsList' :key=\"i\" class=\"wm-periods-item\">\r\n\t\t\t\t\t<h2>\r\n\t\t\t\t\t\t{{periods.periodsname}} <span>第{{i+1}}期</span>\r\n\t\t\t\t\t</h2>\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t考评要求\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t<span v-for='(standard ,k) in periods.checkitem' :key=\"k\">\r\n\t\t\t\t\t\t\t\t{{standard.title}}\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t\t<footer>\r\n\t\t\t\t\t\t<div><span>{{periods.starttime.substr(0,10)}}</span> 至 <span>{{periods.endtime.substr(0,10)}}</span></div>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t<span class=\"wm-periods-del\"><Icon type=\"android-delete\"></Icon>删除</span>\r\n\t\t\t\t\t\t\t<span class=\"wm-periods-edit\"><Icon type=\"edit\"></Icon>编辑</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</footer>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t\t<Modal\r\n\t\t\tv-model=\"visible\"\r\n\t\t\t:title=\"currentIndex!==-1?'编辑考评':'添加考评'\"\r\n\t\t\t>\r\n\t\t\t<div class=\"wm-periods-dialog\">\r\n\t\t\t\t<Form ref=\"formItem\" :model=\"formItem\" :rules=\"ruleValidate\" :label-width='80' >\r\n\t\t\t\t\t<FormItem label=\"考评名称 ：\">\r\n\t\t\t\t\t\t<Input v-model=\"formItem.periodsName\" placeholder=\"考评名称\"></Input>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"开始时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.startdate\" format=\"yyyy-MM-dd\" type=\"date\" confirm placeholder=\"开始时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"结束时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.enddate\" format=\"yyyy-MM-dd\" type=\"date\" confirm placeholder=\"结束时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可用 ：\">\r\n\t\t\t\t\t\t<i-switch v-model=\"formItem.switch\" size=\"large\">\r\n\t\t\t\t\t\t\t<span slot=\"open\">可用</span>\r\n\t\t\t\t\t\t\t<span slot=\"close\">禁用</span>\r\n\t\t\t\t\t\t</i-switch>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\r\n\t\t\t\t</Form>\r\n\t\t\t</div>\r\n    </Modal>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 58 */
@@ -23900,6 +23941,12 @@
 			}
 		},
 		mounted: function mounted() {
+			this.userinfo = _libUtil2['default'].getUserInfo();
+			if (this.userinfo.isadmin) {
+
+				window.location.hash = '/periods';
+				return;
+			}
 			this.getScoreList();
 
 			this.scroll = new _iscroll2['default'](this.$refs['list'], {
@@ -26099,7 +26146,7 @@
 	// 						<li>
 	// 							<div>姓名</div>
 	// 							<div v-for="(standard,h) in standardList" :key='h'>
-	// 								{{standard.name}}
+	// 								{{standard.title}}
 	// 							</div>
 	// 						</li>
 	// 						<li v-for="(list,j) in department.list" :key="j">
@@ -26158,11 +26205,21 @@
 		beforeCreate: function beforeCreate() {
 			var validate = _libVerification2['default'].validate(this);
 			//symbinUtil.clearCookie('login');
+			this.validate = validate;
 		},
 
 		methods: {
 			getHistoryList: function getHistoryList() {
 				var _this = this;
+
+				var s = this;
+				_libUtil2['default'].ajax({
+					url: window.config.baseUrl + "/wmuser/gethistorylist",
+					validate: s.validate,
+					success: function success(data) {
+						console.log(data);
+					}
+				});
 
 				_jquery2['default'].getJSON('./components/data/history.json', function (data) {
 					_this.historyList = data.list;
@@ -26176,6 +26233,11 @@
 			}
 		},
 		mounted: function mounted() {
+			this.userinfo = _libUtil2['default'].getUserInfo();
+			if (this.userinfo.isadmin) {
+				window.location.hash = '/periods';
+				return;
+			}
 			this.getHistoryList();
 			this.scroll = new _iscroll2['default'](this.$refs['list'], {
 				scrollbars: true,
@@ -26234,7 +26296,7 @@
 /* 78 */
 /***/ (function(module, exports) {
 
-	module.exports = "\n\t<div class=\"wm-history-ui\">\n\t\t<header>\n\t\t\t<div>历史评分</div>\n\t\t</header>\n\t\t<div ref='list'>\n\t\t\t<section class=\"wm-history-list\">\n\t\t\t\t<div v-for='(history,i) in historyList' :key='i'>\n\t\t\t\t\t<div class=\"wm-history-date\">\n\t\t\t\t\t\t<span>{{history.date}}</span>第{{i+1}}期\n\t\t\t\t\t</div>\n\t\t\t\t\t<ul v-for='(department,k) in history.departmentlist' :key='k'>\n\t\t\t\t\t\t<li>{{department.departmentname}}</li>\n\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t<div>姓名</div>\n\t\t\t\t\t\t\t<div v-for=\"(standard,h) in standardList\" :key='h'>\n\t\t\t\t\t\t\t\t{{standard.name}}\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t<li v-for=\"(list,j) in department.list\" :key=\"j\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<div class=\"wm-department-username\">{{list.name}}</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-for='(score,g) in list.score' :key=\"g\">\n\t\t\t\t\t\t\t\t{{score}} 分\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t</div>\n\t</div>\n";
+	module.exports = "\n\t<div class=\"wm-history-ui\">\n\t\t<header>\n\t\t\t<div>历史评分</div>\n\t\t</header>\n\t\t<div ref='list'>\n\t\t\t<section class=\"wm-history-list\">\n\t\t\t\t<div v-for='(history,i) in historyList' :key='i'>\n\t\t\t\t\t<div class=\"wm-history-date\">\n\t\t\t\t\t\t<span>{{history.date}}</span>第{{i+1}}期\n\t\t\t\t\t</div>\n\t\t\t\t\t<ul v-for='(department,k) in history.departmentlist' :key='k'>\n\t\t\t\t\t\t<li>{{department.departmentname}}</li>\n\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t<div>姓名</div>\n\t\t\t\t\t\t\t<div v-for=\"(standard,h) in standardList\" :key='h'>\n\t\t\t\t\t\t\t\t{{standard.title}}\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t<li v-for=\"(list,j) in department.list\" :key=\"j\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<div class=\"wm-department-username\">{{list.name}}</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div v-for='(score,g) in list.score' :key=\"g\">\n\t\t\t\t\t\t\t\t{{score}} 分\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</section>\n\t\t</div>\n\t</div>\n";
 
 /***/ }),
 /* 79 */
@@ -26401,7 +26463,6 @@
 	//                         {{menu.departmentname}}
 	//                     </template>
 	//                     <MenuItem :name="user.key+'-' + user.departmentid" v-for='(user,k) in menu.users' :key="k">
-	//
 	// 						<Icon type='person'></Icon>{{user.name}}
 	// 					</MenuItem>
 	//                     <Submenu :name="2" v-for='(group,h) in menu.group' v-if='menu.group' :key='h+"__"'>
@@ -26464,16 +26525,16 @@
 	// 												</p>
 	// 											</Poptip>
 	// 										</div>
-	// 										<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyb:'--'}}</div>
+	// 										<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyd:'--'}}</div>
 	// 										<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyc:'--'}}</div>
-	// 										<div>{{ userinfo.userjobid === '1000000001'? right.scorebyd:'--'}}</div>
+	// 										<div>{{ userinfo.userjobid === '1000000001'? right.scorebyb:'--'}}</div>
 	// 										<div>
 	// 											<aside></aside>
 	// 											<aside>
 	// 												<img :src="imgs.scoreIco" alt="">
 	// 											</aside>
 	// 											<aside>
-	// 												<Slider v-model="right.myscore" show-input></Slider>
+	// 												<Slider :disabled='right.isdisable' v-model="right.myscore" show-input></Slider>
 	// 											</aside>
 	// 											<aside></aside>
 	// 										</div>
@@ -26514,16 +26575,16 @@
 	// 												</Poptip>
 	//
 	// 											</div>
-	// 											<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyb:'--'}}</div>
+	// 											<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyd:'--'}}</div>
 	// 											<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyc:'--'}}</div>
-	// 											<div>{{ userinfo.userjobid === '1000000001'? right.scorebyd:'--'}}</div>
+	// 											<div>{{ userinfo.userjobid === '1000000001'? right.scorebyb:'--'}}</div>
 	// 											<div>
 	// 												<aside></aside>
 	// 												<aside>
 	// 													<img :src="imgs.scoreIco" alt="">
 	// 												</aside>
 	// 												<aside>
-	// 													<Slider v-model="right.myscore" show-input></Slider>
+	// 													<Slider  :disabled='right.isdisable' v-model="right.myscore" show-input></Slider>
 	// 												</aside>
 	// 												<aside></aside>
 	// 											</div>
@@ -26618,16 +26679,23 @@
 
 				var key = data.split('-')[0],
 				    departmentid = data.split('-')[1];
-				this.mainScroll.scrollTo(0, -key * 340, 500);
+				var y = -key * 340;
+				//
+
 				this.gradeList.map(function (item, i) {
 					if (departmentid === item.departmentid) {
 						_this2.index = i;
 					}
 				});
+
+				if (!this.gradeList[this.index].users.length) {
+					y = -key * 320 - 20;
+				}
+				//console.log(y);
+				this.mainScroll.scrollTo(0, y, 500);
 			},
 			submit: function submit() {
 				var s = this;
-				;
 				var arr = [];
 				for (var right in s.rightList) {
 					s.rightList[right].forEach(function (r, k) {
@@ -26640,7 +26708,12 @@
 						}
 					});
 				}
-				console.log(JSON.stringify(arr));
+				/* 	
+	   	if(arr.length <= 0){
+	   		this.$Message.error('没有要提交的分数');
+	   		return;
+	   	} */
+				//console.log(JSON.stringify(arr));
 				_libUtil2['default'].ajax({
 					url: window.config.baseUrl + '/wmuser/postscore/',
 					validate: s.userinfo,
@@ -26649,7 +26722,17 @@
 						scoredlist: JSON.stringify(arr)
 					},
 					success: function success(data) {
+						console.log(data.getret);
 						s.$Message[data.getret === 0 ? 'success' : 'error'](data.getmsg);
+						if (data.getret === 0) {
+							for (var right in s.rightList) {
+								s.rightList[right].forEach(function (r, k) {
+									if (r.myscore > 0) {
+										r.isdisable = true;
+									}
+								});
+							}
+						}
 					}
 				});
 			},
@@ -26673,69 +26756,74 @@
 
 						s.userinfo = userinfo;
 
-						for (var right in data.list.right) {
-							data.list.right[right] = [{
-								"employeeid": right, //"checkitemid": "1",  //评分项编号
+						console.log(data.list.right);
 
-								"checkitemtitle": "工作目标", //评分项名称
-								"checkitemid": "1",
-								"itemdetial": "①没有完成工作目标，或滞后比较严重（1-60分）②规定时间内完成工作目标，工作质量基本符合要求（61-70分）③及时的完成工作目标，工作质量比较让人满意（71-89分）④提前出色的完成工作目标（90-100分）",
-								"myscore": 0, //我的评分
-								"scorebyd": 0, //员工综合评分
-								"scorebyc": 0, //组长综合评分
-								"scorebyb": 0, //主任综合评分
-								"scorebya": 0 //领导综合评分
-							}, {
-								"employeeid": right, //"checkitemid": "2",  //评分项编号
-								"checkitemtitle": "工作态度", //评分项名称
-								"itemdetial": "①工作被动，行动迟缓，需要领导的反复督促，才能完成职责内的工作；（1-60分）②不需要他人督促，能够积极主动地完成职责内的工作；（61-70分）③在积极主动地完成职责内工作的同时，愿意接受各种临时、突发性工作；（71-89分）④能够积极主动地完成职责内的工作，主动承担各种临时、突发性工作任务，并且在遇到很大困难的情况下仍然去执行。（90-100分）",
-								"checkitemid": "2",
-								"myscore": 0, //我的评分
-								"scorebyd": 0, //员工综合评分
-								"scorebyc": 0, //组长综合评分
-								"scorebyb": 0, //主任综合评分
-								"scorebya": 0 //领导综合评分
-							}, {
-								"employeeid": right, //"checkitemid": "1",  //评分项编号
-								"checkitemtitle": "领导力", //评分项名称
-								"itemdetial": "①工作开展无计划、无章法，不善于分配工作与授权，缺乏知道员工的方法，下属怨言较大，不关心也不能有效的激励员工，协调能力差，不能协调各方面的关系，常常无法解决工作中遇到的棘手问题、冲突和矛盾。（1-60分）②基本能够按照要求制定工作计划，基本合理分配各项工作与授权，具备一定指导下属的能力，偶尔利用奖励等机制提高员工积极性，基本能协调各方面的关系，工作中遇到棘手问题、冲突和矛盾能够保持冷静，掌握基本的调解技巧。（61-70分）③具有较强的定制计划能力，能够较好的分配工作与授权并引导下属完成任务，能够利用奖励等机制提高员工积极性，能够协调各方面的关系，保持良好沟通，及时解决工作中遇到的棘手问题、冲突和矛盾。（71-89分）④具有极强的定制计划的能力，并且善于分配工作与授权，积极引导下属完成任务，并灵活运用奖励表彰等方式调动下属积极性，妥善处理各方面的关系，能够成功解决工作中遇到的棘手问题、冲突和矛盾，能用发展的眼光看待问题。（（90-100分）",
-								"checkitemid": "3",
-								"myscore": 0, //我的评分
-								"scorebyd": 0, //员工综合评分
-								"scorebyc": 0, //组长综合评分
-								"scorebyb": 0, //主任综合评分
-								"scorebya": 0 //领导综合评分
-							}, {
-								"employeeid": right, //"checkitemid": "1",  //评分项编号
-								"checkitemtitle": "创新思考", //评分项名称
-								"itemdetial": "①墨守成规，缺乏创新观念，工作中只是被动接受任务，缺乏主动思考；（1-60分）②根据工作需要，有创新观念，但没有举措，观念无法落地；（61-70分）③工作中主动思考，有创新观念且有可行举措，提议新的观点、方法或流程合理且得到采纳，工作效率和工作水平有所提升；（71-89分）④经常保持创造性思维，主动建议新观点、新方法，经常有计划、有步骤的进行能力和知识更新并与自身工作相结合，工作效率和工作水平有明显提升。（90-100分）",
-								"checkitemid": "4",
-								"myscore": 0, //我的评分
-								"scorebyd": 0, //员工综合评分
-								"scorebyc": 0, //组长综合评分
-								"scorebyb": 0, //主任综合评分
-								"scorebya": 0 //领导综合评分
-							}, {
-								"employeeid": right, //"checkitemid": "1",  //评分项编号
-								"checkitemtitle": "处理能力", //评分项名称
-								"itemdetial": "①理解、领悟能力较差，经常无法处理事务或处理事务经常出现错误，处理事务无头绪；（1 - 60 分） ②具有一定的理解力和领悟力，在主管的指导下能够正常处理事务且不常出现错误；（61-70分）③对事务有初步判断的能力，工作思路和工作方法清晰，能够自主处理事务且不出现错误；（71-89分）④对事物有准确的把握和判断,能够分清轻重缓急，计划性、条理性很强，处理事务非常得体。（90-100分）",
-								"checkitemid": "5",
-								"myscore": 0, //我的评分
-								"scorebyd": 0, //员工综合评分
-								"scorebyc": 0, //组长综合评分
-								"scorebyb": 0, //主任综合评分
-								"scorebya": 0 //领导综合评分
-							}, {
-								"employeeid": right, //"checkitemid": "1",  //评分项编号
-								"checkitemtitle": "工作纪律", //评分项名称
-								"itemdetial": "①劳动纪律散漫，经常迟到、早退、缺勤，经常请假，不注意着装规范，工作时间经常做与工作无关的事；（1-60分）②偶尔迟到、早退，工作时间偶尔浏览网页，着装基本符合要求，但有待进一步改进；（61-70分）③按时出勤，无迟到、早退现象，着装规范，遵守工作秩序和各项规章制度，在部门内起到带头作用；（71-89分）④严格自律，不出现任何违反劳动纪律的现象，主动规劝他人遵守劳动纪律，为部门劳动纪律管理起到模范作用。（90-100分）",
-								"checkitemid": "6",
-								"myscore": 0, //我的评分
-								"scorebyd": 0, //员工综合评分
-								"scorebyc": 0, //组长综合评分
-								"scorebyb": 0, //主任综合评分
-								"scorebya": 0 //领导综合评分
-							}];
+						for (var right in data.list.right) {
+
+							if (data.list.right[right].length <= 0) {
+								data.list.right[right] = [{
+									"employeeid": right, //"checkitemid": "1",  //评分项编号
+
+									"checkitemtitle": "工作目标", //评分项名称
+									"checkitemid": "1",
+									"itemdetial": "①没有完成工作目标，或滞后比较严重（1-60分）②规定时间内完成工作目标，工作质量基本符合要求（61-70分）③及时的完成工作目标，工作质量比较让人满意（71-89分）④提前出色的完成工作目标（90-100分）",
+									"myscore": 0, //我的评分
+									"scorebyd": 0, //员工综合评分
+									"scorebyc": 0, //组长综合评分
+									"scorebyb": 0, //主任综合评分
+									"scorebya": 0 //领导综合评分
+								}, {
+									"employeeid": right, //"checkitemid": "2",  //评分项编号
+									"checkitemtitle": "工作态度", //评分项名称
+									"itemdetial": "①工作被动，行动迟缓，需要领导的反复督促，才能完成职责内的工作；（1-60分）②不需要他人督促，能够积极主动地完成职责内的工作；（61-70分）③在积极主动地完成职责内工作的同时，愿意接受各种临时、突发性工作；（71-89分）④能够积极主动地完成职责内的工作，主动承担各种临时、突发性工作任务，并且在遇到很大困难的情况下仍然去执行。（90-100分）",
+									"checkitemid": "2",
+									"myscore": 0, //我的评分
+									"scorebyd": 0, //员工综合评分
+									"scorebyc": 0, //组长综合评分
+									"scorebyb": 0, //主任综合评分
+									"scorebya": 0 //领导综合评分
+								}, {
+									"employeeid": right, //"checkitemid": "1",  //评分项编号
+									"checkitemtitle": "领导力", //评分项名称
+									"itemdetial": "①工作开展无计划、无章法，不善于分配工作与授权，缺乏知道员工的方法，下属怨言较大，不关心也不能有效的激励员工，协调能力差，不能协调各方面的关系，常常无法解决工作中遇到的棘手问题、冲突和矛盾。（1-60分）②基本能够按照要求制定工作计划，基本合理分配各项工作与授权，具备一定指导下属的能力，偶尔利用奖励等机制提高员工积极性，基本能协调各方面的关系，工作中遇到棘手问题、冲突和矛盾能够保持冷静，掌握基本的调解技巧。（61-70分）③具有较强的定制计划能力，能够较好的分配工作与授权并引导下属完成任务，能够利用奖励等机制提高员工积极性，能够协调各方面的关系，保持良好沟通，及时解决工作中遇到的棘手问题、冲突和矛盾。（71-89分）④具有极强的定制计划的能力，并且善于分配工作与授权，积极引导下属完成任务，并灵活运用奖励表彰等方式调动下属积极性，妥善处理各方面的关系，能够成功解决工作中遇到的棘手问题、冲突和矛盾，能用发展的眼光看待问题。（（90-100分）",
+									"checkitemid": "3",
+									"myscore": 0, //我的评分
+									"scorebyd": 0, //员工综合评分
+									"scorebyc": 0, //组长综合评分
+									"scorebyb": 0, //主任综合评分
+									"scorebya": 0 //领导综合评分
+								}, {
+									"employeeid": right, //"checkitemid": "1",  //评分项编号
+									"checkitemtitle": "创新思考", //评分项名称
+									"itemdetial": "①墨守成规，缺乏创新观念，工作中只是被动接受任务，缺乏主动思考；（1-60分）②根据工作需要，有创新观念，但没有举措，观念无法落地；（61-70分）③工作中主动思考，有创新观念且有可行举措，提议新的观点、方法或流程合理且得到采纳，工作效率和工作水平有所提升；（71-89分）④经常保持创造性思维，主动建议新观点、新方法，经常有计划、有步骤的进行能力和知识更新并与自身工作相结合，工作效率和工作水平有明显提升。（90-100分）",
+									"checkitemid": "4",
+									"myscore": 0, //我的评分
+									"scorebyd": 0, //员工综合评分
+									"scorebyc": 0, //组长综合评分
+									"scorebyb": 0, //主任综合评分
+									"scorebya": 0 //领导综合评分
+								}, {
+									"employeeid": right, //"checkitemid": "1",  //评分项编号
+									"checkitemtitle": "处理能力", //评分项名称
+									"itemdetial": "①理解、领悟能力较差，经常无法处理事务或处理事务经常出现错误，处理事务无头绪；（1 - 60 分） ②具有一定的理解力和领悟力，在主管的指导下能够正常处理事务且不常出现错误；（61-70分）③对事务有初步判断的能力，工作思路和工作方法清晰，能够自主处理事务且不出现错误；（71-89分）④对事物有准确的把握和判断,能够分清轻重缓急，计划性、条理性很强，处理事务非常得体。（90-100分）",
+									"checkitemid": "5",
+									"myscore": 0, //我的评分
+									"scorebyd": 0, //员工综合评分
+									"scorebyc": 0, //组长综合评分
+									"scorebyb": 0, //主任综合评分
+									"scorebya": 0 //领导综合评分
+								}, {
+									"employeeid": right, //"checkitemid": "1",  //评分项编号
+									"checkitemtitle": "工作纪律", //评分项名称
+									"itemdetial": "①劳动纪律散漫，经常迟到、早退、缺勤，经常请假，不注意着装规范，工作时间经常做与工作无关的事；（1-60分）②偶尔迟到、早退，工作时间偶尔浏览网页，着装基本符合要求，但有待进一步改进；（61-70分）③按时出勤，无迟到、早退现象，着装规范，遵守工作秩序和各项规章制度，在部门内起到带头作用；（71-89分）④严格自律，不出现任何违反劳动纪律的现象，主动规劝他人遵守劳动纪律，为部门劳动纪律管理起到模范作用。（90-100分）",
+									"checkitemid": "6",
+									"myscore": 0, //我的评分
+									"scorebyd": 0, //员工综合评分
+									"scorebyc": 0, //组长综合评分
+									"scorebyb": 0, //主任综合评分
+									"scorebya": 0 //领导综合评分
+								}];
+							}
 						}
 
 						s.rightList = data.list.right;
@@ -26876,20 +26964,29 @@
 			}
 		},
 		mounted: function mounted() {
+
+			this.userinfo = _libUtil2['default'].getUserInfo();
+			if (this.userinfo.isadmin) {
+				window.location.hash = '/periods';
+				return;
+			}
 			this.getGradeList();
 			this.standardScroll = new _iscroll2['default'](this.$refs['wm-standard'], {
+				interactiveScrollbars: true,
 				mouseWheel: true,
 				scrollbars: true,
 				preventDefault: false
 			});
 
 			this.menuScroll = new _iscroll2['default'](this.$refs['menu'], {
+				interactiveScrollbars: true,
 				mouseWheel: true,
 				scrollbars: true,
 				preventDefault: false
 			});
 
 			this.mainScroll = new _iscroll2['default'](this.$refs['grade-list'], {
+				interactiveScrollbars: true,
 				mouseWheel: true,
 				scrollbars: true,
 				preventDefault: false
@@ -26946,7 +27043,7 @@
 /* 88 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-grade-ui\">\r\n\t\t<aside ref='menu' :style=\"{height:viewH - 64+'px',overflow:'hidden',position:'relative'}\">\r\n\t\t\t<Menu @on-select='select($event)' @on-open-change='openChange'  ref='side_menu' theme=\"dark\" width='200' :open-names=\"openkeys\">\r\n                <Submenu :name=\"i\" v-for='(menu,i) in gradeList' :key=\"i\">\r\n                    <template slot=\"title\">\r\n                        {{menu.departmentname}}\r\n                    </template>\r\n                    <MenuItem :name=\"user.key+'-' + user.departmentid\" v-for='(user,k) in menu.users' :key=\"k\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Icon type='person'></Icon>{{user.name}}\r\n\t\t\t\t\t</MenuItem>\r\n                    <Submenu :name=\"2\" v-for='(group,h) in menu.group' v-if='menu.group' :key='h+\"__\"'>\r\n\t\t                <template slot=\"title\">\r\n\t\t\t\t\t\t\t<Icon type='person-stalker'></Icon>{{group.groupname}}\r\n\t\t                </template>\r\n\t\t                <MenuItem class='wm-submenu' :name=\"user.key+'-' + user.departmentid\" :key=\"g+'-'\" v-for=\"(user,g) in group.users\"><Icon type='person'></Icon>\r\n\t\t\t\t\t\t{{user.name}}\r\n\t\t\t\t\t\t</MenuItem>\r\n\t\t            </Submenu>\r\n                </Submenu>\r\n               \r\n            </Menu>\r\n\t\t \r\n\t\t</aside>\r\n\t\t<aside>\r\n\t\t\t<header class=\"wm-grade-header\" v-if='gradeList[index]'>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t{{gradeList[index].departmentname}}\r\n\t\t\t\t\t<span v-for='(user,i) in gradeList[index].users' :key=\"i\">\r\n\t\t\t\t\t\t{{user.name}}\r\n\t\t\t\t\t</span>\r\n\t\t\t\t</div>\r\n\t\t\t</header>\r\n\t\t\t<section class=\"wm-grade-main-content\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div class=\"wm-grade-list\" ref='grade-list' :style=\"{height:viewH - 64*2-52+'px'}\">\r\n\t\t\t\t\t\t<section>\r\n\t\t\t\t\t\t\t<h1 style=\"height:20px;background:#f5f7f9\"></h1>\r\n\t\t\t\t\t\t\t<div v-for='(group,i) in gradeList' :key=\"i\">\r\n\t\t\t\t\t\t\t\t<ul  v-for='(user,j) in group.users' :key=\"j\" :data-index='j'>\r\n\t\t\t\t\t\t\t\t\t<li  class=\"wm-grade-group-ico\" >\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.group\" alt=\"\">\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<span v-for='(name,n) in user.name.split(\" \")' :key=\"n\">\r\n\t\t\t\t\t\t\t\t\t\t\t{{name}}\r\n\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t<li class=\"wm-grade-list-title\">\r\n\t\t\t\t\t\t\t\t\t\t<div v-for='(col,l) in colunms' :key=\"l\">\r\n\t\t\t\t\t\t\t\t\t\t\t<span v-if='l===0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t\t<label for=\"\"  v-if='l>0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t</label>\r\n\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t<li v-for='(right,h) in rightList[user.id]' :key='h'>\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{right.checkitemtitle}}\r\n\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t\t<Poptip width='400' trigger='hover' :title=\"right.checkitemtitle\"  placement=\"right-start\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label>?</label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<p slot='content' style=\"width:350px;min-height:150px;white-space:normal;word-wrap:break-word;box-sizing:border-box;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{right.itemdetial}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t</p>\r\n\t\t\t\t\t\t\t\t\t\t\t</Poptip>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyb:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyc:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>{{ userinfo.userjobid === '1000000001'? right.scorebyd:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.scoreIco\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<Slider v-model=\"right.myscore\" show-input></Slider>\r\n\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t<div v-for='(user,jj) in group.group' :key=\"jj+'-'\" class=\"wm-grade-leader-list\">\r\n\t\t\t\t\t\t\t\t\t<ul v-for='(u,k) in user.users' :key='k' :class=\"{'wm-has-leader':group.users.length}\" :data-index='k+jj*user.users.length+group.users.length'>\r\n\t\t\t\t\t\t\t\t\t\t<li  class=\"wm-grade-group-ico\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.group\" alt=\"\">\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t</div> \r\n\t\t\t\t\t\t\t\t\t\t\t<span v-for='(name,n) in u.name.split(\" \")' :key=\"n\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{name}}\r\n\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t\t<li class=\"wm-grade-list-title\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div v-for='(col,l) in colunms' :key=\"l\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span v-if='l===0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label for=\"\"  v-if='l>0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t\t<li v-for='(right,h) in rightList[u.id]' :key='h'>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{right.checkitemtitle}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t\t<Poptip width='400' trigger='hover' :title=\"right.checkitemtitle\"  placement=\"right-start\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<label>?</label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<p slot='content' style=\"width:350px;min-height:150px;white-space:normal;word-wrap:break-word;box-sizing:border-box;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t{{right.itemdetial}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</Poptip>\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyb:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyc:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>{{ userinfo.userjobid === '1000000001'? right.scorebyd:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.scoreIco\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<Slider v-model=\"right.myscore\" show-input></Slider>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</section>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<footer class=\"wm-grade-footer\">\r\n\t\t\t\t\t\t<Button type='primary' @click='submit'>提交</Button>\r\n\t\t\t\t\t</footer>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div ref='wm-standard' :style=\"{height:viewH - 50-64 +'px'}\" >\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<div class=\"wm-standard-item\" v-for='(standard,i) in standardList' :key='i'>\r\n\t\t\t\t\t\t\t<h3>{{standard.title}}</h3>\r\n\t\t\t\t\t\t\t<div>{{standard.itemdetial.replace(/\\|/g,'')}}</div>\r\n\t\t\t\t\t\t\t<div v-if='false' v-for=\"(desc,k) in standard.itemdetial.split('|')\" :key=\"k\">\r\n\t\t\t\t\t\t\t\t{{desc}}\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t</aside>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-grade-ui\">\r\n\t\t<aside ref='menu' :style=\"{height:viewH - 64+'px',overflow:'hidden',position:'relative'}\">\r\n\t\t\t<Menu @on-select='select($event)' @on-open-change='openChange'  ref='side_menu' theme=\"dark\" width='200' :open-names=\"openkeys\">\r\n                <Submenu :name=\"i\" v-for='(menu,i) in gradeList' :key=\"i\">\r\n                    <template slot=\"title\">\r\n                        {{menu.departmentname}}\r\n                    </template>\r\n                    <MenuItem :name=\"user.key+'-' + user.departmentid\" v-for='(user,k) in menu.users' :key=\"k\">\r\n\t\t\t\t\t\t<Icon type='person'></Icon>{{user.name}}\r\n\t\t\t\t\t</MenuItem>\r\n                    <Submenu :name=\"2\" v-for='(group,h) in menu.group' v-if='menu.group' :key='h+\"__\"'>\r\n\t\t                <template slot=\"title\">\r\n\t\t\t\t\t\t\t<Icon type='person-stalker'></Icon>{{group.groupname}}\r\n\t\t                </template>\r\n\t\t                <MenuItem class='wm-submenu' :name=\"user.key+'-' + user.departmentid\" :key=\"g+'-'\" v-for=\"(user,g) in group.users\"><Icon type='person'></Icon>\r\n\t\t\t\t\t\t{{user.name}}\r\n\t\t\t\t\t\t</MenuItem>\r\n\t\t            </Submenu>\r\n                </Submenu>\r\n               \r\n            </Menu>\r\n\t\t \r\n\t\t</aside>\r\n\t\t<aside>\r\n\t\t\t<header class=\"wm-grade-header\" v-if='gradeList[index]'>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t{{gradeList[index].departmentname}}\r\n\t\t\t\t\t<span v-for='(user,i) in gradeList[index].users' :key=\"i\">\r\n\t\t\t\t\t\t{{user.name}}\r\n\t\t\t\t\t</span>\r\n\t\t\t\t</div>\r\n\t\t\t</header>\r\n\t\t\t<section class=\"wm-grade-main-content\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div class=\"wm-grade-list\" ref='grade-list' :style=\"{height:viewH - 64*2-52+'px'}\">\r\n\t\t\t\t\t\t<section>\r\n\t\t\t\t\t\t\t<h1 style=\"height:20px;background:#f5f7f9\"></h1>\r\n\t\t\t\t\t\t\t<div v-for='(group,i) in gradeList' :key=\"i\">\r\n\t\t\t\t\t\t\t\t<ul  v-for='(user,j) in group.users' :key=\"j\" :data-index='j'>\r\n\t\t\t\t\t\t\t\t\t<li  class=\"wm-grade-group-ico\" >\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.group\" alt=\"\">\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<span v-for='(name,n) in user.name.split(\" \")' :key=\"n\">\r\n\t\t\t\t\t\t\t\t\t\t\t{{name}}\r\n\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t<li class=\"wm-grade-list-title\">\r\n\t\t\t\t\t\t\t\t\t\t<div v-for='(col,l) in colunms' :key=\"l\">\r\n\t\t\t\t\t\t\t\t\t\t\t<span v-if='l===0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t\t<label for=\"\"  v-if='l>0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t</label>\r\n\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t<li v-for='(right,h) in rightList[user.id]' :key='h'>\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{right.checkitemtitle}}\r\n\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t\t<Poptip width='400' trigger='hover' :title=\"right.checkitemtitle\"  placement=\"right-start\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label>?</label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<p slot='content' style=\"width:350px;min-height:150px;white-space:normal;word-wrap:break-word;box-sizing:border-box;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{right.itemdetial}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t</p>\r\n\t\t\t\t\t\t\t\t\t\t\t</Poptip>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyd:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyc:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>{{ userinfo.userjobid === '1000000001'? right.scorebyb:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.scoreIco\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<Slider :disabled='right.isdisable' v-model=\"right.myscore\" show-input></Slider>\r\n\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t<div v-for='(user,jj) in group.group' :key=\"jj+'-'\" class=\"wm-grade-leader-list\">\r\n\t\t\t\t\t\t\t\t\t<ul v-for='(u,k) in user.users' :key='k' :class=\"{'wm-has-leader':group.users.length}\" :data-index='k+jj*user.users.length+group.users.length'>\r\n\t\t\t\t\t\t\t\t\t\t<li  class=\"wm-grade-group-ico\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.group\" alt=\"\">\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t</div> \r\n\t\t\t\t\t\t\t\t\t\t\t<span v-for='(name,n) in u.name.split(\" \")' :key=\"n\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{name}}\r\n\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t\t<li class=\"wm-grade-list-title\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div v-for='(col,l) in colunms' :key=\"l\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span v-if='l===0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label for=\"\"  v-if='l>0'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{col}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t\t<li v-for='(right,h) in rightList[u.id]' :key='h'>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{right.checkitemtitle}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t</span>\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t\t<Poptip width='400' trigger='hover' :title=\"right.checkitemtitle\"  placement=\"right-start\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<label>?</label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<p slot='content' style=\"width:350px;min-height:150px;white-space:normal;word-wrap:break-word;box-sizing:border-box;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t{{right.itemdetial}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</Poptip>\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyd:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>{{userinfo.userjobid === '1000000001' || userinfo.userjobid === '1000000002'? right.scorebyc:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>{{ userinfo.userjobid === '1000000001'? right.scorebyb:'--'}}</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<img :src=\"imgs.scoreIco\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<Slider  :disabled='right.isdisable' v-model=\"right.myscore\" show-input></Slider>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</aside>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<aside></aside>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</section>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<footer class=\"wm-grade-footer\">\r\n\t\t\t\t\t\t<Button type='primary' @click='submit'>提交</Button>\r\n\t\t\t\t\t</footer>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div ref='wm-standard' :style=\"{height:viewH - 50-64 +'px'}\" >\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<div class=\"wm-standard-item\" v-for='(standard,i) in standardList' :key='i'>\r\n\t\t\t\t\t\t\t<h3>{{standard.title}}</h3>\r\n\t\t\t\t\t\t\t<div>{{standard.itemdetial.replace(/\\|/g,'')}}</div>\r\n\t\t\t\t\t\t\t<div v-if='false' v-for=\"(desc,k) in standard.itemdetial.split('|')\" :key=\"k\">\r\n\t\t\t\t\t\t\t\t{{desc}}\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t</aside>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 89 */

@@ -56,6 +56,19 @@ $color: #be0000;
 					font-size:16px;
 					outline: none;
 
+					&:-webkit-autofill {
+						background-color: #FAFFBD;
+						background-image: none;
+						color: #000;
+					}
+
+					&:-webkit-autofill,
+					&:-webkit-autofill:hover,
+					&:-webkit-autofill:focus {
+						box-shadow: 0 0 0 60px white inset;
+						-webkit-text-fill-color: #878787;
+					}
+
 					&::-webkit-input-placeholder{
 						font-size:14px;
 						color:#dadada;

@@ -54,6 +54,7 @@
 				isMove:false,
 				showError:false,
 				errorMsg:'',
+				loginType:"员工登录",
 				viewH:document.documentElement.clientHeight
 			}
 		},
@@ -72,6 +73,10 @@
 			login(){
 				var _this = this;
 				
+				var isAdmin = this.loginType === '超级管理员登录';
+
+			 
+				
 				if(!this.username){
 					this.toastError();
  					return;
@@ -80,8 +85,8 @@
 					this.toastError('密码不能为空');
  					return;
 				}
-				
-				
+			
+
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmuser/login/',
 					data:{
@@ -93,8 +98,10 @@
 							var param = data;
 							delete param.getret;
 							delete param.getmsg;
+							
 							symbinUtil.clearCookie('login');
 							symbinUtil.setCookie('login',JSON.stringify(param),1);
+
 							if(_this.checked){
 								window.localStorage.setItem('wm_username',_this.username);
 								window.localStorage.setItem('wm_password',_this.password);
@@ -102,7 +109,11 @@
 								window.localStorage.setItem('wm_username','');
 								window.localStorage.setItem('wm_password','');
 							}
-							window.location.hash = '/user/';
+							if(data.isadmin){
+								window.location.hash = '/periods/';
+							}else{
+								window.location.hash = '/user/';
+							}
 							_this.$Message.success('登录成功~')
 							window.location.reload();
 							_this.isLogined = true;
@@ -111,6 +122,7 @@
 						}
 					}
 				})
+				
 			},
 			checkCache(){
 				var username = window.localStorage.getItem('wm_username'),

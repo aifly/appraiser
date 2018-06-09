@@ -114,6 +114,17 @@
   vertical-align: middle;
 }
 
+.wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill {
+  background-color: #FAFFBD;
+  background-image: none;
+  color: #000;
+}
+
+.wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill, .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill:hover, .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill:focus {
+  box-shadow: 0 0 0 60px white inset;
+  -webkit-text-fill-color: #878787;
+}
+
 .wm-login-ui > section .wm-login-C .wm-form-item input::-webkit-input-placeholder {
   font-size: 14px;
   color: #dadada;

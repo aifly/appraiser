@@ -14,7 +14,7 @@
 						<li>
 							<div>姓名</div>
 							<div v-for="(standard,h) in standardList" :key='h'>
-								{{standard.name}}
+								{{standard.title}}
 							</div>
 						</li>
 						<li v-for="(list,j) in department.list" :key="j">
@@ -55,11 +55,21 @@
 		beforeCreate(){
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
+			this.validate = validate;
 
 		},
 		
 		methods:{
 			getHistoryList(){
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl+"/wmuser/gethistorylist",
+					validate:s.validate,
+					success(data){
+						console.log(data);
+					}
+				})
+
 				$.getJSON('./components/data/history.json',(data)=>{
 					this.historyList = data.list;
 					setTimeout(() => {
@@ -72,6 +82,11 @@
 			}
 		},
 		mounted(){
+			this.userinfo = symbinUtil.getUserInfo();
+			if(this.userinfo.isadmin){
+				window.location.hash = '/periods';
+				return;
+			}
 			this.getHistoryList();
 			this.scroll = new IScroll(this.$refs['list'],{
 				scrollbars:true,

@@ -8,25 +8,25 @@
                     </div>
                     <div class="wm-title">
                         <img :src="imgs.titleBg" alt="">
-                        <span>2018年12月份考评</span>
+                        <span>{{userinfo.periodsname}}</span>
                     </div>
                </div>
                <div class="wm-user-info">
                    <img :src='imgs.man' />
                    <span>{{userinfo.userrealname}}</span>
-                   <img :src="imgs.logout" alt="" class="wm-logout">
+                   <img @click='logout' :src="imgs.logout" alt="" class="wm-logout" title='退出登录'>
                </div>
             </Header>
             <Layout class="wm-main-layout">
                 <div class="wm-tab-C" :style='{height:(viewH - 64)+"px"}'>
                     <ul>
-                        <li @click='tab(0)' :class="{'active':$route.name==='user'||$route.name==='score'||$route.name==='history'}">
+                        <li v-if='!userinfo.isadmin' @click='tab(0)' :class="{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}">
                             <router-link to='/user'><img :src='imgs.user' alt=""></router-link>
                         </li>
-                        <li @click='tab(1)' :class="{'active':$route.name==='grade'}">
+                        <li v-if='!userinfo.isadmin' @click='tab(1)' :class="{'active':$route.name === 'grade'}">
                             <router-link to='/grade'><img :src='imgs.file' alt=""></router-link>
                         </li>
-                        <li @click='tab(2)' :class="{'active':$route.name==='periods'||$route.name==='adminuser'||$route.name==='checkitem'}">
+                        <li v-if='userinfo.isadmin' @click='tab(2)' :class="{'active':$route.name === 'periods'||$route.name === 'adminuser'||$route.name==='checkitem'}">
                             <router-link to='/periods'><img :src='imgs.setting' alt=""></router-link>
                         </li>
                     </ul>
@@ -99,7 +99,6 @@
 		},
         beforeCreate(){
             this.validateData = sysbinVerification.validate(this);
-
         },
         watch:{
             $route(to){
@@ -160,6 +159,21 @@
                         
                     }
                 })
+            },
+            logout(){
+                var s = this;
+                symbinUtil.ajax({
+                    url:window.config.baseUrl+'/wmuser/loginout/',
+                    data:{},
+                    validate:s.userinfo,
+                    success(data){
+                        if(data.getret === 0){
+                            s.$Message.success('注销成功');
+                            symbinUtil.clearCookie('login');
+                            window.location.hash = '/login'
+                        }
+                    }
+                });
             }
 		}
 	}

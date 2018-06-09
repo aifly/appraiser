@@ -10,7 +10,7 @@
 			<section>
 				<div v-for='(periods,i) in periodsList' :key="i" class="wm-periods-item">
 					<h2>
-						{{periods.periodsName}} <span>第{{i+1}}期</span>
+						{{periods.periodsname}} <span>第{{i+1}}期</span>
 					</h2>
 					<section>
 						<div>
@@ -18,12 +18,12 @@
 						</div>
 						<div>
 							<span v-for='(standard ,k) in periods.checkitem' :key="k">
-								{{standard}}
+								{{standard.title}}
 							</span>
 						</div>
 					</section>
 					<footer>
-						<div><span>{{periods.startdate}}</span> 至 <span>{{periods.enddate}}</span></div>
+						<div><span>{{periods.starttime.substr(0,10)}}</span> 至 <span>{{periods.endtime.substr(0,10)}}</span></div>
 						<div>
 							<span class="wm-periods-del"><Icon type="android-delete"></Icon>删除</span>
 							<span class="wm-periods-edit"><Icon type="edit"></Icon>编辑</span>
@@ -102,7 +102,7 @@
 		beforeCreate(){
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
-
+			this.validate = validate;
 		},
 		mounted(){
 			this.getPeriodsList();
@@ -110,8 +110,23 @@
 		},
 		methods:{
 			getPeriodsList(){
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmuser/getperiodsnumberlist',
+					data:{
+
+					},
+					validate:s.validate,
+					success(data){
+						if(data.getret === 0){
+							s.periodsList = data.list;
+						}
+					}
+					
+				})
+
 				$.getJSON('./components/data/periods.json',(data)=>{
-					this.periodsList = data.list;
+					//this.periodsList = data.list;
 				})
 			}
 		}
