@@ -288,7 +288,7 @@
 
 						s.userinfo = userinfo;
 
-						console.log(data.list.right);
+						console.log(data.list);
 
 						
 						for(var right in data.list.right){
@@ -394,7 +394,8 @@
 						s.gradeList.map((item,i)=>{
 
 							data.list.left.map((left,j)=>{
-								if((left.roleid === '1000000003' && left.pid === item.departmentid) || left.roleid === userinfo.userjobid){
+
+								if((left.roleid === '1000000003' && left.pid === item.departmentid) || left.roleid === userinfo.userjobid && left.roleid !== '1000000002'){
 									//组长
 									var leader = [];
 									if(left.roleid !== userinfo.userjobid){
@@ -404,6 +405,7 @@
 											departmentid:item.departmentid
 										}]
 									}
+
 									item.hasGroupLeader = true;
 									s.gradeList[i].group.push({
 										groupid:left.departmentid,
@@ -411,7 +413,9 @@
 										users:leader
 									})
 								}
-								else if (left.roleid === '1000000002' && left.departmentid === item.departmentid){//主任
+								if (left.roleid === '1000000002' && left.departmentid === item.departmentid){//主任
+
+									 
 
 									s.gradeList[i].users.push({
 										id:left.employeeid,
