@@ -66,16 +66,20 @@
 					url:window.config.baseUrl+"/wmuser/gethistorylist",
 					validate:s.validate,
 					success(data){
-						console.log(data);
+						
+						s.historyList = data.list;
+						setTimeout(() => {
+							s.scroll.refresh();
+						}, 100);
 					}
 				})
-
-				$.getJSON('./components/data/history.json',(data)=>{
+				
+				/*$.getJSON('./components/data/history.json',(data)=>{
 					this.historyList = data.list;
 					setTimeout(() => {
 						this.scroll.refresh();
 					}, 100);
-				});
+				});*/
 				symbinUtil.getStandard((data)=>{
 					this.standardList = data;
 				})
