@@ -65,6 +65,10 @@
 		},
 		mounted(){
 			this.userinfo = symbinUtil.getUserInfo();
+			if(this.userinfo.isselect === 0){//不可被评的，没有我的得分页面。
+				window.location.hash = '/user';
+				return;
+			}
 			if(this.userinfo.isadmin){
 				
 				window.location.hash = '/periods';
