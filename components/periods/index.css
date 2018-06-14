@@ -49,19 +49,79 @@
   }
 }
 
-.wm-periods-ui > header {
+.wm-periods-ui {
+  overflow: hidden;
+  position: relative;
+}
+
+.wm-periods-ui > section {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.wm-periods-ui > section.left {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.wm-periods-ui .wm-periods-left {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+  background: #f3f3f3;
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+}
+
+.wm-periods-ui .wm-periods-left > div {
+  flex-grow: 1;
+  width: 97%;
+  margin: 10px auto;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+}
+
+.wm-periods-ui .wm-periods-left > header {
+  background: #fff;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+}
+
+.wm-periods-ui .wm-periods-left > header > div {
+  font-size: 20px;
+  margin-left: 40px;
+  position: relative;
+}
+
+.wm-periods-ui .wm-periods-left > header > div:before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: #cc0000;
+  top: 15px;
+  left: -10px;
+}
+
+.wm-periods-ui .wm-periods-left > header {
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
   justify-content: space-between;
   -webkit-justify-content: space-between;
+  background: #fff;
 }
 
-.wm-periods-ui > header button {
+.wm-periods-ui .wm-periods-left > header button {
   margin-right: 20px;
 }
 
-.wm-periods-ui > div > section {
+.wm-periods-ui .wm-periods-left > div > section {
+  cursor: pointer;
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
@@ -70,22 +130,22 @@
   justify-content: space-between;
 }
 
-.wm-periods-ui .wm-periods-item {
+.wm-periods-ui .wm-periods-left .wm-periods-item {
   width: 32.6%;
   margin: 10px 0;
   background: #fff;
 }
 
-.wm-periods-ui .wm-periods-item:nth-of-type(3n-1) {
+.wm-periods-ui .wm-periods-left .wm-periods-item:nth-of-type(3n-1) {
   margin: 10px;
 }
 
-.wm-periods-ui .wm-periods-item > h2, .wm-periods-ui .wm-periods-item > footer {
+.wm-periods-ui .wm-periods-left .wm-periods-item > h2, .wm-periods-ui .wm-periods-left .wm-periods-item > footer {
   height: 60px;
   line-height: 60px;
 }
 
-.wm-periods-ui .wm-periods-item > section {
+.wm-periods-ui .wm-periods-left .wm-periods-item > section {
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
@@ -94,26 +154,26 @@
   font-size: 14px;
 }
 
-.wm-periods-ui .wm-periods-item > section > div:nth-of-type(1) {
-  width: 120px;
+.wm-periods-ui .wm-periods-left .wm-periods-item > section > div:nth-of-type(1) {
+  width: 112px;
 }
 
-.wm-periods-ui .wm-periods-item > section > div:nth-of-type(2) {
+.wm-periods-ui .wm-periods-left .wm-periods-item > section > div:nth-of-type(2) {
   flex-grow: 1;
   -webkit-flex-grow: 1;
   color: #888;
 }
 
-.wm-periods-ui .wm-periods-item > section > div:nth-of-type(2) span {
+.wm-periods-ui .wm-periods-left .wm-periods-item > section > div:nth-of-type(2) span {
   display: inline-block;
   height: 30px;
 }
 
-.wm-periods-ui .wm-periods-item > section span {
+.wm-periods-ui .wm-periods-left .wm-periods-item > section span {
   margin: 0 12px;
 }
 
-.wm-periods-ui .wm-periods-item > footer {
+.wm-periods-ui .wm-periods-left .wm-periods-item > footer {
   border-top: 1px solid #ccc;
   text-indent: 20px;
   display: flex;
@@ -123,38 +183,140 @@
   font-size: 14px;
 }
 
-.wm-periods-ui .wm-periods-item > footer > div {
+.wm-periods-ui .wm-periods-left .wm-periods-item > footer > div {
   flex-grow: 1;
   -webkit-flex-grow: 1;
 }
 
-.wm-periods-ui .wm-periods-item > footer > div:nth-of-type(2) {
+.wm-periods-ui .wm-periods-left .wm-periods-item > footer > div:nth-of-type(2) {
   text-align: right;
 }
 
-.wm-periods-ui .wm-periods-item > footer i {
+.wm-periods-ui .wm-periods-left .wm-periods-item > footer i {
   font-size: 16px;
   vertical-align: middle;
 }
 
-.wm-periods-ui .wm-periods-item > footer .wm-periods-del {
+.wm-periods-ui .wm-periods-left .wm-periods-item > footer .wm-periods-del {
   color: #666;
 }
 
-.wm-periods-ui .wm-periods-item > footer .wm-periods-edit {
+.wm-periods-ui .wm-periods-left .wm-periods-item > footer .wm-periods-edit {
   color: #56a4f3;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
-.wm-periods-ui .wm-periods-item > h2 {
+.wm-periods-ui .wm-periods-left .wm-periods-item > h2 {
   background: #f6f7fb;
   font-weight: normal;
   font-size: 16px;
   text-indent: 20px;
 }
 
-.wm-periods-ui .wm-periods-item > h2 span {
+.wm-periods-ui .wm-periods-left .wm-periods-item > h2 span {
   color: #56a4f3;
+}
+
+.wm-periods-ui .wm-periods-right {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  top: -0px;
+  left: 100%;
+  padding: 0 18px;
+  background: #fff;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+}
+
+.wm-periods-ui .wm-periods-right > header {
+  height: 60px;
+  line-height: 60px;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  border-bottom: 1px solid #e5e3e3;
+}
+
+.wm-periods-ui .wm-periods-right > header > div {
+  margin-right: 20px;
+}
+
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span {
+  background: #e5e3e3;
+  padding: 3px 6px 3px 30px;
+  border-radius: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:before, .wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 4px;
+}
+
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:before {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #4a5160;
+  border-left: none;
+}
+
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:after {
+  width: 0;
+  height: 0;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  border-right: 5px solid #4a5160;
+  top: 0;
+  left: 8px;
+}
+
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(2) {
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  padding-left: 20px;
+}
+
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(2):before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  top: 20px;
+  left: 0;
+  background: #e5e3e3;
+}
+
+.wm-periods-ui .wm-periods-right .wm-periods-table-list {
+  margin-top: 20px;
+}
+
+.wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  line-height: 40px;
+  font-size: 16px;
+}
+
+.wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title span {
+  color: #0189df;
+  margin-left: 10px;
+}
+
+.wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title button {
+  margin-right: 20px;
+}
+
+.wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title button span, .wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title button i {
+  color: #fff;
 }
 
 .wm-periods-dialog .ivu-form-item-label {

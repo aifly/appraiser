@@ -75,7 +75,9 @@
 										<div>
 											<aside></aside>
 											<aside>
-												<img :src="imgs.scoreIco" alt="">
+												<div class="wm-smile" :style="{background:'url('+imgs.smile+') no-repeat 0 '+-48*(right.myscore-1<0?0:right.myscore-1)+'px'}">
+													
+												</div>
 											</aside>
 											<aside>
 												<Slider :disabled='right.isdisable' v-model="right.myscore" show-input></Slider>
@@ -125,7 +127,9 @@
 											<div>
 												<aside></aside>
 												<aside>
-													<img :src="imgs.scoreIco" alt="">
+													<div class="wm-smile" :style="{background:'url('+imgs.smile+') no-repeat 0 '+-48*(right.myscore-1<0?0:right.myscore-1)+'px'}">
+													
+													</div>
 												</aside>
 												<aside>
 													<Slider  :disabled='right.isdisable' v-model="right.myscore" show-input></Slider>

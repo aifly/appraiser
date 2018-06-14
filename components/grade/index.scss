@@ -23,6 +23,13 @@
             -webkit-flex-grow: 1;
         }
 
+        .wm-smile{
+            margin-top: -4px;
+            width: 48px;
+            height: 48px;
+            @include transform(scale(.6))
+        }
+
         .ivu-menu-submenu {
             & > div {
                 padding-left: 20px !important;

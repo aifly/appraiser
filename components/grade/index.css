@@ -77,6 +77,14 @@
   -webkit-flex-grow: 1;
 }
 
+.wm-grade-ui > aside .wm-smile {
+  margin-top: -4px;
+  width: 48px;
+  height: 48px;
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+}
+
 .wm-grade-ui > aside .ivu-menu-submenu > div {
   padding-left: 20px !important;
 }
