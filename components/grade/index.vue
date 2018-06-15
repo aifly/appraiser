@@ -398,11 +398,12 @@
 							var exists = false;
 
 							data.list.left.map((left,j)=>{
-								if((left.roleid === '1000000003' && left.pid === item.departmentid) || left.roleid === userinfo.userjobid && left.roleid !== '1000000002'){
+								if((left.roleid === '1000000003' && left.pid === item.departmentid) ){//|| left.roleid === userinfo.userjobid && left.roleid !== '1000000002'
 									//组长
 									console.log(1)
 									var leader = [];
-									if(left.employeeid !== userinfo.employeeid){
+									if(left.employeeid !== userinfo.employeeid && left.pid === item.departmentid){
+
 										leader = [{
 											id:left.employeeid,
 											name:left.realname + ' '+ left.rolename,
