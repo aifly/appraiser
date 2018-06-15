@@ -394,24 +394,30 @@
 
 							}
 						});
-						
 						s.gradeList.map((item,i)=>{
+							var exists = false;
 
 							data.list.left.map((left,j)=>{
-
 								if((left.roleid === '1000000003' && left.pid === item.departmentid) || left.roleid === userinfo.userjobid && left.roleid !== '1000000002'){
 									//组长
+									console.log(1)
 									var leader = [];
-									if(left.roleid !== userinfo.userjobid){
+									if(left.employeeid !== userinfo.employeeid){
 										leader = [{
 											id:left.employeeid,
 											name:left.realname + ' '+ left.rolename,
 											departmentid:item.departmentid
 										}]
 									}
-
+									
 									item.hasGroupLeader = true;
-									s.gradeList[i].group.push({
+									
+									s.gradeList[i].group.map((item,i)=>{
+										if(item.groupid === left.departmentid){
+											exists = true;
+										}
+									})
+									!exists && s.gradeList[i].group.push({
 										groupid:left.departmentid,
 										groupname:left.departmentname,
 										users:leader
