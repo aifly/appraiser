@@ -13,7 +13,7 @@
 					</li>
 					<li class="wm-avg-score">
 						<div>综合评分</div>
-						<div>{{55}} 分</div>
+						<div>{{score.score[score.score.length-1]<60?'不合格':score.score[score.score.length-1]<=70?'基本合格':score.score[score.score.length-1]<=89?'合格':'优秀'}} <span>{{score.score[score.score.length-1]}}分</span> </div>
 					</li>
 				</ul>
 			</section>
@@ -44,22 +44,46 @@
 		beforeCreate(){
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
-
+			this.validate = validate;
 		},
 		methods:{
 			getScoreList(){//获取我的得分列表。
-				$.getJSON('./components/data/score.json',(data)=>{
+				var s = this;
+				symbinUtil.ajax({
+					validate:s.validate,
+					url:window.config.baseUrl+'/wmuser/getmyscorelist/',
+					data:{},
+					success(data){
+						symbinUtil.getStandard((d)=>{
+							s.standardList = d;
+							if(data.getret === 0){
+								data.list.map((dt,i)=>{
+									var score = [];
+									s.standardList.map((item,k)=>{
+										score.push(dt.score['score'+(k+1)])
+									});
+									
+									score.push(dt.score.avgscore);
+									s.scoreList.push({
+										date:dt.periodsname,
+										score
+									})
+									setTimeout(() => {
+										s.scroll.refresh();	
+									}, 100);
+								})
+							}
+						});
+					}
+				})
+
+				/* $.getJSON('./components/data/score.json',(data)=>{
 					//console.log(data);
 					this.scoreList = data.list;
 
-					setTimeout(() => {
-						this.scroll.refresh();	
-					}, 100);
-				});
+				}); */
 
-				symbinUtil.getStandard((data)=>{
-					this.standardList = data;
-				})
+				
 				console.log(this.standardList)
 			}
 		},

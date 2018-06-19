@@ -11,19 +11,21 @@
 				<div>
 					<section>
 						<div v-for='(periods,i) in periodsList' :key="i" class="wm-periods-item">
-							<h2>
-								{{periods.periodsname}} <span>第{{i+1}}期</span>
-							</h2>
-							<section @click="getPeriodsDetail(periods,i)">
-								<div>
-									考评要求
-								</div>
-								<div>
-									<span v-for='(standard ,k) in periods.checkitem' :key="k">
-										{{standard.title}}
-									</span>
-								</div>
-							</section>
+							<div>
+								<h2>
+									{{periods.periodsname}} <span>第{{i+1}}期</span>
+								</h2>
+								<section @click="getPeriodsDetail(periods,i)">
+									<div>
+										考评要求
+									</div>
+									<div>
+										<span v-for='(standard ,k) in periods.checkitem' :key="k">
+											{{standard.title}}
+										</span>
+									</div>
+								</section>
+							</div>
 							<footer>
 								<div><span>{{periods.starttime.substr(0,10)}}</span> 至 <span>{{periods.endtime.substr(0,10)}}</span></div>
 								<div>
@@ -202,7 +204,30 @@
 							title:'综合评分',
 							key:"avgscore",
 							align:'center',
-							sortable: true
+							sortable: true,
+							render: (h, params) => {
+								console.log(params)
+								var text = params.row.avgscore<60?'不合格':params.row.avgscore<=70?'基本合格':params.row.avgscore<=89?'合格':'优秀';
+								//text+= ' '+ params.row.avgscore + '分'
+								return h('div',[
+									h('span',{
+											style:{
+											color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
+											fontWeight:'bold',
+											fontSize:'14px',
+
+										}
+									},text),
+									h('span',{
+											style:{
+											color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
+											fontWeight:'bold',
+											marginLeft:'10px'
+
+										}
+									},params.row.avgscore+'分')
+								]);
+								}
 						})
 					}
 				});

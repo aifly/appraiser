@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {
     background-color: #fff;
     border-color: #bf1616;
@@ -140,12 +141,13 @@
   margin: 10px;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > h2, .wm-periods-ui .wm-periods-left .wm-periods-item > footer {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > h2, .wm-periods-ui .wm-periods-left .wm-periods-item > footer {
   height: 60px;
   line-height: 60px;
+  font-weight: normal;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > section {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > section {
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
@@ -154,22 +156,22 @@
   font-size: 14px;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > section > div:nth-of-type(1) {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > section > div:nth-of-type(1) {
   width: 112px;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > section > div:nth-of-type(2) {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > section > div:nth-of-type(2) {
   flex-grow: 1;
   -webkit-flex-grow: 1;
   color: #888;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > section > div:nth-of-type(2) span {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > section > div:nth-of-type(2) span {
   display: inline-block;
   height: 30px;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > section span {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > section span {
   margin: 0 12px;
 }
 
@@ -179,6 +181,8 @@
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
+  height: 60px;
+  line-height: 60px;
   color: #888;
   font-size: 14px;
 }
@@ -206,14 +210,22 @@
   margin-right: 10px;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > h2 {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div:hover {
+  box-shadow: 0 0 13px rgba(0, 0, 0, 0.3);
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > h2 {
   background: #f6f7fb;
   font-weight: normal;
   font-size: 16px;
   text-indent: 20px;
 }
 
-.wm-periods-ui .wm-periods-left .wm-periods-item > h2 span {
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > h2 span {
   color: #56a4f3;
 }
 
@@ -317,6 +329,28 @@
 
 .wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title button span, .wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title button i {
   color: #fff;
+}
+
+.ivu-table-body::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 8px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 8px;
+}
+
+.ivu-table-body::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ivu-table-body::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .wm-periods-dialog .ivu-form-item-label {

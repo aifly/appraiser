@@ -287,7 +287,7 @@
 					validate:s.validate,
 					data:{},
 					success(data){
-
+						var starttime =  new Date().getTime();
 						var userinfo = symbinUtil.getUserInfo();
 
 						s.userinfo = userinfo;
@@ -394,13 +394,13 @@
 
 							}
 						});
+
 						s.gradeList.map((item,i)=>{
 							var exists = false;
 
 							data.list.left.map((left,j)=>{
 								if((left.roleid === '1000000003' && left.pid === item.departmentid) ){//|| left.roleid === userinfo.userjobid && left.roleid !== '1000000002'
 									//组长
-									console.log(1)
 									var leader = [];
 									if(left.employeeid !== userinfo.employeeid && left.pid === item.departmentid){
 
@@ -408,7 +408,9 @@
 											id:left.employeeid,
 											name:left.realname + ' '+ left.rolename,
 											departmentid:item.departmentid
-										}]
+										}];
+
+										data.list.left.splice(j,1);
 									}
 									
 									item.hasGroupLeader = true;
@@ -433,12 +435,10 @@
 										name:left.realname + ' '+ left.rolename,
 										departmentid:item.departmentid
 									})
+									data.list.left.splice(j,1);
 								}
 							})
 						});
-
-
-						
 						s.gradeList.map((item,i)=>{
 							data.list.left.map((left,j)=>{
 								if(left.roleid === '1000000004' ){//员工
@@ -460,7 +460,8 @@
 												departmentid:item.departmentid,
 												id:left.employeeid,
 												name:left.realname,
-											})
+											});
+											data.list.left.splice(j,1);
 										}
 									})
 								}
@@ -489,6 +490,10 @@
 								})
 							})
 						});
+
+						var endtime =  new Date().getTime();
+
+						console.log('消耗时间：',endtime - starttime + 'ms');
 
 						
 						setTimeout(() => {

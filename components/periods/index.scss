@@ -1,189 +1,232 @@
 ﻿@import "../css/base.scss";
 
-
-.wm-periods-ui{
+.wm-periods-ui {
     overflow: hidden;
+
     @include pos(r);
-    &>section{
-        @include transition(.3s);
+
+    & > section {
+        @include transition(0.3s);
     }
-    &>section.left{
-        @include transform(translateX(-100%))
+
+    & > section.left {
+        @include transform(translateX(-100%));
     }
-    .wm-periods-left{
+
+    .wm-periods-left {
         @include displayFlex(column);
 
-         background: #f3f3f3;
-         height: 100%;
-         @include displayFlex(column);
-         &>div {
-             flex-grow: 1;
-             width: 97%;
-             margin: 10px auto;
-             @include displayFlex(column);
-         }
+        background: #f3f3f3;
+        height: 100%;
 
-         &>header {
-             background: #fff;
-             height: 50px;
-             width: 100%;
-             line-height: 50px;
-             &>div {
-                 font-size: 20px;
-                 margin-left: 40px;
-                 @include pos(r);
-                 &:before {
-                     content: "";
-                     @include pos(a);
-                     width: 2px;
-                     height: 20px;
-                     background: #cc0000;
-                     top: 15px;
-                     left: -10px;
-                 }
-             }
-         }
+        @include displayFlex(column);
 
-        &>header{
-            @include displayFlex(row);
-            justify-content:space-between;
-            -webkit-justify-content:space-between;
+        & > div {
+            flex-grow: 1;
+            width: 97%;
+            margin: 10px auto;
+
+            @include displayFlex(column);
+        }
+
+        & > header {
             background: #fff;
-            button{
+            height: 50px;
+            width: 100%;
+            line-height: 50px;
+
+            & > div {
+                font-size: 20px;
+                margin-left: 40px;
+
+                @include pos(r);
+
+                &:before {
+                    content: "";
+
+                    @include pos(a);
+
+                    width: 2px;
+                    height: 20px;
+                    background: #cc0000;
+                    top: 15px;
+                    left: -10px;
+                }
+            }
+        }
+
+        & > header {
+            @include displayFlex(row);
+
+            justify-content: space-between;
+            -webkit-justify-content: space-between;
+            background: #fff;
+
+            button {
                 margin-right: 20px;
             }
         }
-        &>div{
-            &>section{
+
+        & > div {
+            & > section {
                 cursor: pointer;
+
                 @include displayFlex(row);
+
                 flex-wrap: wrap;
                 -webkit-flex-wrap: wrap;
-                justify-content:space-between;
+                justify-content: space-between;
             }
         }
-        .wm-periods-item{
+
+        .wm-periods-item {
             width: 32.6%;
-    
-            &:nth-of-type(3n-1){
-                margin:10px;
-                
+
+            &:nth-of-type(3n-1) {
+                margin: 10px;
             }
-            
+
             margin: 10px 0;
-            background:#fff;
-    
-            &>h2,&>footer{
-                height:60px;
+            background: #fff;
+
+            &>div > h2, & > footer {
+                height: 60px;
                 line-height: 60px;
-                
+                font-weight: normal;
             }
-    
-            &>section{
+
+            &>div > section {
                 @include displayFlex(row);
+
                 height: 80px;
                 padding: 20px;
-                font-size:14px;
-                &>div{
-                    &:nth-of-type(1){
+                font-size: 14px;
+
+                & > div {
+                    &:nth-of-type(1) {
                         width: 112px;
                     }
-                    &:nth-of-type(2){
+
+                    &:nth-of-type(2) {
                         flex-grow: 1;
                         -webkit-flex-grow: 1;
-                        color:#888;
-                        span{
+                        color: #888;
+
+                        span {
                             display: inline-block;
                             height: 30px;
-    
                         }
                     }
                 }
-                span{
+
+                span {
                     margin: 0 12px;
-    
                 }
             }
-    
-            &>footer{
+
+            & > footer {
                 border-top: 1px solid #ccc;
                 text-indent: 20px;
+
                 @include displayFlex(row);
-                color:#888;
-                ;
-                font-size:14px;
-    
-                &>div{
+                height: 60px;
+                line-height: 60px;
+
+                color: #888;
+                font-size: 14px;
+
+                & > div {
                     flex-grow: 1;
-                    -webkit-flex-grow:1;
-                    &:nth-of-type(2){
-                        text-align: right
+                    -webkit-flex-grow: 1;
+
+                    &:nth-of-type(2) {
+                        text-align: right;
                     }
                 }
-                i{
-                    font-size:16px;
+
+                i {
+                    font-size: 16px;
                     vertical-align: middle;
                 }
-                .wm-periods-del{
-                    
-                    color:#666;
+
+                .wm-periods-del {
+                    color: #666;
                 }
-                .wm-periods-edit{
-                    color:#56a4f3;
+
+                .wm-periods-edit {
+                    color: #56a4f3;
                     margin-right: 10px;
                 }
-    
-    
             }
-    
-    
-            &>h2{
-                background:#f6f7fb;
+            & >div:hover{
+                box-shadow: 0 0 13px rgba(0,0,0,.3);
+                @include transform(translateY(-2px));
+                @include transition(.1s);
+            }
+            & >div > h2 {
+                background: #f6f7fb;
                 font-weight: normal;
-                font-size:16px;
+                font-size: 16px;
                 text-indent: 20px;
-                span{
-                    color:#56a4f3;
+
+                span {
+                    color: #56a4f3;
                 }
             }
         }
     }
-    .wm-periods-right{
+
+    .wm-periods-right {
         @include pos(a);
+
         width: 100%;
         height: 90%;
         top: -0px;
         left: 100%;
-        padding:0 18px;
+        padding: 0 18px;
         background: #fff;
+
         @include displayFlex(column);
-        &>header{
+
+        & > header {
             height: 60px;
-            line-height: 60px;;
+            line-height: 60px;
+
             @include displayFlex(row);
+
             border-bottom: 1px solid #e5e3e3;
-            &>div{
+
+            & > div {
                 margin-right: 20px;
-                &:nth-of-type(1){
-                    span{
+
+                &:nth-of-type(1) {
+                    span {
                         background: #e5e3e3;
                         padding: 3px 6px 3px 30px;
+
                         @include br(16px);
+
                         cursor: pointer;
+
                         @include pos(r);
-                        &:before,&:after{
-                            content:'';
+
+                        &:before, &:after {
+                            content: '';
+
                             @include pos(a);
-                            left:10px;
+
+                            left: 10px;
                             top: 4px;
                         }
-                        &:before{
+
+                        &:before {
                             width: 12px;
                             height: 12px;
-                            border:2px solid #4a5160;
+                            border: 2px solid #4a5160;
                             border-left: none;
                         }
-                        &:after{
+
+                        &:after {
                             width: 0;
                             height: 0;
                             border-bottom: 5px solid transparent;
@@ -192,52 +235,81 @@
                             top: 0;
                             left: 8px;
                         }
-                    };
+                    }
                 }
-                &:nth-of-type(2){
-                    font-size:16px;
+
+                &:nth-of-type(2) {
+                    font-size: 16px;
                     font-weight: bold;
+
                     @include pos(r);
+
                     padding-left: 20px;
-                    &:before{
-                        content:'';
-                        @include  pos(a);
+
+                    &:before {
+                        content: '';
+
+                        @include pos(a);
+
                         width: 2px;
                         height: 20px;
                         top: 20px;
-                        left:0;
-                        background:#e5e3e3;
+                        left: 0;
+                        background: #e5e3e3;
                     }
                 }
             }
         }
 
-        .wm-periods-table-list{
+        .wm-periods-table-list {
             margin-top: 20px;
-            .wm-periods-title{
+
+            .wm-periods-title {
                 @include displayFlex(row);
-                justify-content:space-between;
-                -webkit-justify-content:space-between;
+
+                justify-content: space-between;
+                -webkit-justify-content: space-between;
                 line-height: 40px;
-                font-size:16px;
-                span{
-                    color:#0189df;
-                    margin-left: 10px;;
+                font-size: 16px;
+
+                span {
+                    color: #0189df;
+                    margin-left: 10px;
                 }
-                button{
+
+                button {
                     margin-right: 20px;
-                    span,i{
-                        color:#fff;
+
+                    span, i {
+                        color: #fff;
                     }
                 }
             }
         }
     }
-
 }
-.wm-periods-dialog{
+
+.ivu-table-body::-webkit-scrollbar { /*滚动条整体样式*/
+    width: 8px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 8px;
+}
+
+.ivu-table-body::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.ivu-table-body::-webkit-scrollbar-track { /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.wm-periods-dialog {
     //border:1px solid red;
-    .ivu-form-item-label{
-        text-align: left!important;
+    .ivu-form-item-label {
+        text-align: left !important;
     }
 }

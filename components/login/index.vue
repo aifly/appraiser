@@ -109,13 +109,16 @@
 								window.localStorage.setItem('wm_username','');
 								window.localStorage.setItem('wm_password','');
 							}
+						
 							if(data.isadmin){
-								window.location.hash = '/periods/';
+								//window.location.hash = '/periods/';
+								window.location.href = window.location.href.split('#')[0]+'#/periods/'
 							}else{
-								window.location.hash = '/user/';
+								//window.location.hash = '/user/';
+								window.location.href = window.location.href.split('#')[0]+'#/user/'
 							}
 							_this.$Message.success('登录成功~')
-							window.location.reload();
+							//window.location.reload();
 							_this.isLogined = true;
 						}else{
 							_this.toastError(data.getmsg);
