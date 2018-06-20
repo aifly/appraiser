@@ -170,7 +170,8 @@
                         if(data.getret === 0){
                             s.$Message.success('注销成功');
                             symbinUtil.clearCookie('login');
-                            window.location.hash = '/login'
+                            window.location.hash = '/login';
+                            window.sessionStorage.clear();
                         }
                     }
                 });

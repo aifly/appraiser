@@ -26,7 +26,8 @@ var symbinUtil = {
 	},
 
 	getStandard(fn) { //获取得分标准
-		if(window.sessionStorage.getItem('wm_standard') &&false){
+		
+		if(window.sessionStorage.getItem('wm_standard')){
 			fn && fn(JSON.parse(window.sessionStorage.getItem('wm_standard')));
 			return;
 		}
@@ -39,6 +40,7 @@ var symbinUtil = {
 			validate.username = loginObj.userinfo.username;
 			validate.usertoken = loginObj.userinfo.usertoken;
 		} catch (error) {
+			window.sessionStorage.clear();
 			this.clearCookie('login');
 			window.location.hash = '/login';
 		}

@@ -54,7 +54,7 @@
 							<Input  v-model="keyword" placeholder="请输入你要查找的人员姓名" style="width:200px;" />
 						</div>
 					</div>
-					<Table stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table>
+					<Table :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table>
 				</div>
 			</div>
 		</section>
@@ -102,6 +102,7 @@
 				dataSource:[],
 				imgs:window.imgs,
 				visible:false,
+				loading:true,
 				currentIndex:-1,
 				periodsList:[],
 				viewH:window.innerHeight,
@@ -173,6 +174,7 @@
 					success(data){
 						if(data.getret === 0){
 							s.periodsList = data.list;
+							s.loading = false;
 						}
 					}
 				});
@@ -190,7 +192,30 @@
 						this.columns.push({
 							title:'姓名',
 							key:'username',
-							align:'center'
+							align:'center',
+							render:(h,params)=>{
+								return h('div',[
+									h('span',{},params.row.username),
+									h('a',{
+										props:{
+											href:"#",
+											title:"11111111"
+										},
+										on:{
+											click(e){
+												console.log(params.row)
+											}
+										},
+										style:{
+											position:'absolute',
+											top:'14px',
+											right:0,
+											fontSize:'14px',
+											fontWeight:"bold"
+										}
+									},params.row.activenum+'/'+params.row.totalnum)
+								]);
+							}
 						})
 						data.map((item,i)=>{
 							this.columns.push({
@@ -206,7 +231,6 @@
 							align:'center',
 							sortable: true,
 							render: (h, params) => {
-								console.log(params)
 								var text = params.row.avgscore<60?'不合格':params.row.avgscore<=70?'基本合格':params.row.avgscore<=89?'合格':'优秀';
 								//text+= ' '+ params.row.avgscore + '分'
 								return h('div',[
@@ -243,7 +267,6 @@
 						s.dataSource = data.list[0].user;
 						s.defaultSource = s.dataSource.concat([]);
 						s.title = data.list[0].periodsname
-						console.log(data);
 					}
 				})
 			}

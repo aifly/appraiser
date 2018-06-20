@@ -82,6 +82,8 @@
         .wm-periods-item {
             width: 32.6%;
 
+            
+
             &:nth-of-type(3n-1) {
                 margin: 10px;
             }
@@ -179,6 +181,8 @@
     .wm-periods-right {
         @include pos(a);
 
+
+
         width: 100%;
         height: 90%;
         top: -0px;
@@ -263,6 +267,10 @@
 
         .wm-periods-table-list {
             margin-top: 20px;
+
+            td{
+                @include pos(r);
+            }
 
             .wm-periods-title {
                 @include displayFlex(row);

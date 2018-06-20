@@ -308,6 +308,10 @@
   margin-top: 20px;
 }
 
+.wm-periods-ui .wm-periods-right .wm-periods-table-list td {
+  position: relative;
+}
+
 .wm-periods-ui .wm-periods-right .wm-periods-table-list .wm-periods-title {
   display: flex;
   display: -webkit-flex;

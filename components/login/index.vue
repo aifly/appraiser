@@ -24,7 +24,7 @@
 							{{errorMsg}}
 						</div>
 					</transition>
-					<div class="wm-login-btn" @click='login'>登录</div>
+					<div class="wm-login-btn" @click='login'>登录 <Icon v-if='showLoading' type="load-c" class="demo-spin-icon-load"></Icon></div>
 				</div>
 				<div class="wm-copyright">
 					中国文明网 &copy;版权所有
@@ -52,6 +52,7 @@
 				checked:false,
 				isLogined:false,
 				isMove:false,
+				showLoading:false,
 				showError:false,
 				errorMsg:'',
 				loginType:"员工登录",
@@ -75,6 +76,8 @@
 				
 				var isAdmin = this.loginType === '超级管理员登录';
 
+				
+				
 			 
 				
 				if(!this.username){
@@ -85,8 +88,8 @@
 					this.toastError('密码不能为空');
  					return;
 				}
-			
 
+				this.showLoading = true;
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmuser/login/',
 					data:{
@@ -109,6 +112,9 @@
 								window.localStorage.setItem('wm_username','');
 								window.localStorage.setItem('wm_password','');
 							}
+
+							
+							
 						
 							if(data.isadmin){
 								//window.location.hash = '/periods/';
@@ -117,9 +123,11 @@
 								//window.location.hash = '/user/';
 								window.location.href = window.location.href.split('#')[0]+'#/user/'
 							}
-							_this.$Message.success('登录成功~')
-							//window.location.reload();
+							_this.$Message.success('登录成功~');
+							
+							window.location.reload();
 							_this.isLogined = true;
+							
 						}else{
 							_this.toastError(data.getmsg);
 						}
@@ -146,4 +154,15 @@
 		}
 	}
 </script>
+ <style>
+	.demo-spin-icon-load{
+        animation: ani-demo-spin 1s linear infinite;
+    }
+    @keyframes ani-demo-spin {
+        from { transform: rotate(0deg);}
+        50%  { transform: rotate(180deg);}
+        to   { transform: rotate(360deg);}
+    }
+
+ </style>
  

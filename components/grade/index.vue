@@ -200,7 +200,20 @@
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
 			this.validate = validate;
-
+			this.$Spin.show({
+				render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                'class': 'demo-spin-icon-load',
+                                props: {
+                                    type: 'load-c',
+                                    size: 18
+                                }
+                            }),
+                            h('div', '数据加载中……')
+                        ])
+                    }
+			});
 		},
 		
 		methods:{
@@ -385,12 +398,23 @@
  
 						data.list.department.map((item,i)=>{
 							if(!item.pid){
+								var group = [];
+								if(item.departmentid === userinfo.pid){
+									group = [
+										{
+											groupid:userinfo.departmentid,
+											groupname:userinfo.departmentname,
+											users:[]
+										}
+									]
+								}
 								s.gradeList.push({
 									departmentid:item.departmentid,
 									departmentname:item.departmentname,
 									users:[],
-									group:[]
+									group:group
 								});
+
 
 							}
 						});
@@ -401,6 +425,7 @@
 							data.list.left.map((left,j)=>{
 								if((left.roleid === '1000000003' && left.pid === item.departmentid) ){//|| left.roleid === userinfo.userjobid && left.roleid !== '1000000002'
 									//组长
+									
 									var leader = [];
 									if(left.employeeid !== userinfo.employeeid && left.pid === item.departmentid){
 
@@ -410,22 +435,30 @@
 											departmentid:item.departmentid
 										}];
 
-										data.list.left.splice(j,1);
+										//data.list.left.splice(j,1);
 									}
 									
 									item.hasGroupLeader = true;
-									
+									var index = -1;
 									s.gradeList[i].group.map((item,i)=>{
 										if(item.groupid === left.departmentid){
 											exists = true;
+											index = i;
 										}
 									})
-									!exists && s.gradeList[i].group.push({
-										groupid:left.departmentid,
-										groupname:left.departmentname,
-										users:leader
-									})
+
+									if(!exists){
+										s.gradeList[i].group.push({
+											groupid:left.departmentid,
+											groupname:left.departmentname,
+											users:leader
+										})
+									}else{//当前人员的所在组，有了，就更新组长上去
+										s.gradeList[i].group[index].users = leader;
+									}
+									 
 								}
+								//console.log(s.gradeList[i].group)
 								if (left.roleid === '1000000002' && left.departmentid === item.departmentid){//主任
 
 									 
@@ -435,25 +468,26 @@
 										name:left.realname + ' '+ left.rolename,
 										departmentid:item.departmentid
 									})
-									data.list.left.splice(j,1);
+									//data.list.left.splice(j,1);
 								}
 							})
 						});
 						s.gradeList.map((item,i)=>{
 							data.list.left.map((left,j)=>{
+								
 								if(left.roleid === '1000000004' ){//员工
-									if(!item.hasGroupLeader){//没有组长和主任
+									
+									/* if(!item.hasGroupLeader){//没有组长和主任
 										item.users.push({
 											department:left.departmentname,
 											departmentid:item.departmentid,
 											id:left.employeeid,
 											name:left.realname,
 										});
-									}
+									} */
 									
 									item.group.map((group,k)=>{
 										if(group.groupid === left.departmentid){
-											
 											group.usersArr = group.usersArr || []
 											group.usersArr.push({
 												department:left.departmentname,
@@ -461,7 +495,7 @@
 												id:left.employeeid,
 												name:left.realname,
 											});
-											data.list.left.splice(j,1);
+											//data.list.left.splice(j,1);
 										}
 									})
 								}
@@ -494,7 +528,7 @@
 						var endtime =  new Date().getTime();
 
 						console.log('消耗时间：',endtime - starttime + 'ms');
-
+						s.$Spin.hide();
 						
 						setTimeout(() => {
 							$('.ivu-menu-submenu-title').trigger('click')
@@ -561,4 +595,8 @@
 		
 	}
 </script>
- 
+ <style>
+    .demo-spin-icon-load{
+        animation: ani-demo-spin 1s linear infinite;
+    }
+</style>
