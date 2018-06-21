@@ -65,6 +65,11 @@
   transform: translateX(-100%);
 }
 
+.wm-periods-ui > section.left1 {
+  -webkit-transform: translateX(-200%);
+  transform: translateX(-200%);
+}
+
 .wm-periods-ui .wm-periods-left {
   display: flex;
   display: -webkit-flex;
@@ -229,19 +234,7 @@
   color: #56a4f3;
 }
 
-.wm-periods-ui .wm-periods-right {
-  position: absolute;
-  width: 100%;
-  height: 90%;
-  top: -0px;
-  left: 100%;
-  padding: 0 18px;
-  background: #fff;
-  display: flex;
-  display: -webkit-flex;
-  flex-flow: column;
-}
-
+.wm-periods-ui .wm-periods-right-detail > header,
 .wm-periods-ui .wm-periods-right > header {
   height: 60px;
   line-height: 60px;
@@ -251,10 +244,12 @@
   border-bottom: 1px solid #e5e3e3;
 }
 
+.wm-periods-ui .wm-periods-right-detail > header > div,
 .wm-periods-ui .wm-periods-right > header > div {
   margin-right: 20px;
 }
 
+.wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(1) span,
 .wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span {
   background: #e5e3e3;
   padding: 3px 6px 3px 30px;
@@ -263,13 +258,16 @@
   position: relative;
 }
 
-.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:before, .wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:after {
+.wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(1) span:before, .wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(1) span:after,
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:before,
+.wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:after {
   content: '';
   position: absolute;
   left: 10px;
   top: 4px;
 }
 
+.wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(1) span:before,
 .wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:before {
   width: 12px;
   height: 12px;
@@ -277,6 +275,7 @@
   border-left: none;
 }
 
+.wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(1) span:after,
 .wm-periods-ui .wm-periods-right > header > div:nth-of-type(1) span:after {
   width: 0;
   height: 0;
@@ -287,6 +286,7 @@
   left: 8px;
 }
 
+.wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(2),
 .wm-periods-ui .wm-periods-right > header > div:nth-of-type(2) {
   font-size: 16px;
   font-weight: bold;
@@ -294,6 +294,7 @@
   padding-left: 20px;
 }
 
+.wm-periods-ui .wm-periods-right-detail > header > div:nth-of-type(2):before,
 .wm-periods-ui .wm-periods-right > header > div:nth-of-type(2):before {
   content: '';
   position: absolute;
@@ -302,6 +303,35 @@
   top: 20px;
   left: 0;
   background: #e5e3e3;
+}
+
+.wm-periods-ui .wm-periods-right-detail {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  top: -0px;
+  left: 200%;
+  padding: 0 18px;
+  background: #fff;
+}
+
+.wm-periods-ui .wm-periods-right-detail .wm-periods-not-list {
+  margin-top: 10px;
+}
+
+.wm-periods-ui .wm-periods-right {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  top: -0px;
+  left: 100%;
+  padding: 0 18px;
+  background: #fff;
+  -webkit-transform: translate3d(200%, 0, 0);
+  transform: translate3d(200%, 0, 0);
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
 }
 
 .wm-periods-ui .wm-periods-right .wm-periods-table-list {

@@ -1,6 +1,6 @@
 <template>
 	<div class="wm-periods-ui" :style="{height:viewH-64+'px'}">
-		<section :class='{"left":entryDetail}' >
+		<section :class='{"left1":entryDetail}' >
 			<div class="wm-periods-left">
 				<header>
 					<div>考评管理</div>
@@ -57,6 +57,20 @@
 					<Table :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table>
 				</div>
 			</div>
+			<div class="wm-periods-right-detail" :style="{height:viewH-64-10+'px'}">
+				<header>
+					<div>
+						<span @click='entryDetail = false'>返回考评详情</span>
+					</div>
+				</header>
+				
+				<div class="wm-periods-not-list">
+					<header>
+
+					</header>
+					<Table stripe :data='dataSource1' :columns='columns1'></Table>
+				</div>
+			</div>
 		</section>
 		<Modal
 			v-model="visible"
@@ -99,7 +113,9 @@
 		data(){
 			return{
 				columns:[],
+				columns1:[],
 				dataSource:[],
+				dataSource1:[],
 				imgs:window.imgs,
 				visible:false,
 				loading:true,
@@ -217,8 +233,16 @@
 								]);
 							}
 						})
+						this.columns1[0] =  this.columns[0];
 						data.map((item,i)=>{
 							this.columns.push({
+								title:item.title,
+								key:'score'+(i+1),
+								align:'center',
+								sortable: true
+							})
+
+							this.columns1.push({
 								title:item.title,
 								key:'score'+(i+1),
 								align:'center',

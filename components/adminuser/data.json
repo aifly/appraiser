@@ -3,15 +3,139 @@
 {
     "getret":0,
     "getmsg":"登录成功",
-    "userinfo":{
-        "username":"xuchang",
-        "usermobile":"15718879215",
-        "userrealname":"徐畅",
-        "usersex":"男",
-        "departmentid":"1",
-        "departmentname":"编辑部",
-        "userjobid":"1",
-        "userjob":"主任",
-        "userhead":"用户头像地址(绝对地址)"
-    }
+    "role":[
+        {
+            "roleid": "100000001",
+            "rolename":"领导",
+            "pid":""
+        }, {
+            "roleid": "100000002",
+            "rolename": "主任",
+            "pid": "100000001"
+        }, {
+            "roleid": "100000003",
+            "rolename": "组长",
+            "pid": "100000002"
+        }, {
+            "roleid": "100000004",
+            "rolename": "员工",
+            "pid": "100000003"
+        }
+    ],
+    "department":[
+        {
+            "departmentid":"100000001",
+            "pid":"",
+            "departmentname":"编辑部"
+        }, {
+            "departmentid": "100000002",
+            "pid": "",
+            "departmentname": "宣传活动部"
+        }, {
+            "departmentid": "100000003",
+            "pid": "",
+            "departmentname": "行政事务部"
+        }, {
+            "departmentid": "100000004",
+            "pid": "100000001",
+            "departmentname": "综合新闻组"
+        }, {
+            "departmentid": "100000005",
+            "pid": "100000001",
+            "departmentname": "音视频组"
+        }, {
+            "departmentid": "100000006",
+            "pid": "100000001",
+            "departmentname": "新媒体组"
+        }, {
+            "departmentid": "100000007",
+            "pid": "100000002",
+            "departmentname": "身边好人活动组"
+        }, {
+            "departmentid": "100000008",
+            "pid": "100000002",
+            "departmentname": "网络文明传播组"
+        }, {
+            "departmentid": "100000009",
+            "pid": "100000002",
+            "departmentname": "网络公益组"
+        }, {
+            "departmentid": "1000000010",
+            "pid": "100000003",
+            "departmentname": "综合兼品牌组"
+        }
+    ],
+    "list":[
+        {
+            "username":"徐畅",
+            "sex":"男",
+            "useraccount":"徐畅",
+            "departmentid": "100000001",
+            "departmentname":"编辑部",
+            "job":"组长",
+            "mobile":"1578558458",
+            "isselect":true,
+            "isinselect":true
+        }, {
+            "username": "徐畅",
+            "sex": "男",
+            "useraccount": "徐畅",
+            "departmentid": "100000001",
+            "departmentname": "编辑部",
+            "job": "主任",
+            "mobile": "1578558458",
+            "isselect":true,
+            "isinselect":true
+        }, {
+            "username": "徐畅",
+            "sex": "男",
+            "useraccount": "徐畅",
+            "departmentid": "100000001",
+            "departmentname": "编辑部",
+            "job": "员工",
+            "mobile": "1578558458",
+            "isselect":true,
+            "isinselect":true
+        }, {
+            "username": "徐畅",
+            "sex": "男",
+            "useraccount": "徐畅",
+            "departmentid": "100000001",
+            "departmentname": "编辑部",
+            "job": "领导",
+            "mobile": "1578558458",
+            "isselect":true,
+            "isinselect":true
+        }, {
+            "username": "徐畅",
+            "sex": "男",
+            "useraccount": "徐畅",
+            "departmentid": "100000001",
+            "departmentname": "编辑部",
+            "job": "员工",
+            "mobile": "1578558458",
+            "isselect":true,
+            "isinselect":true
+        }, {
+            "username": "徐畅",
+            "sex": "男",
+            "useraccount": "徐畅",
+            "departmentid": "100000001",
+            "departmentname": "编辑部",
+            "job": "员工",
+            "mobile": "1578558458",
+            "isselect":true,
+            "isinselect":true
+        }, {
+            "username": "徐畅",
+            "sex": "男",
+            "useraccount": "徐畅",
+            "departmentid": "100000001",
+            "departmentname": "编辑部",
+            "job": "员工",
+            "mobile": "1578558458",
+            "isselect":true,
+            "isinselect":true
+        }
+    ]
 }
