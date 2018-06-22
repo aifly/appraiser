@@ -17,22 +17,22 @@
 			<Table  @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>
 		</div>
 		<Modal v-model="visible" title="人员管理" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
-				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="70" >
-					<FormItem label="姓名 :" prop="username">
+				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="72" >
+					<FormItem label="姓名：" prop="username">
 						<Input style="width:320px;" v-model="formAdmin.username" placeholder="姓名" autocomplete="off" />
 						<RadioGroup v-model="formAdmin.sex">
-							<Radio label="1">
+							<Radio :label="1">
 								<span>男</span>
 							</Radio>
-							<Radio label="0">
+							<Radio :label="0">
 								<span>女</span>
 							</Radio>
 						</RadioGroup>
 					</FormItem>
-					<FormItem label="职位 :" prop="job">
+					<FormItem label="职位：" prop="job">
 						<Row type='flex'>
 							<Col span='15'>
-								<Cascader change-on-select style="width:220px" :data="department" v-model="departmentArr"></Cascader>
+								<Cascader change-on-select style="width:220px" :data="department" v-model="formAdmin.departmentid"></Cascader>
 							</Col>
 							<Col  span='5'>
 								<Select v-model="formAdmin.roleid" style="width:120px">
@@ -44,14 +44,16 @@
 							</Col>
 						</Row>
 					</FormItem>
-					<FormItem label="电话 :" prop="mobile">
+					<FormItem label="电话：" prop="mobile">
 						<Input v-model="formAdmin.mobile" placeholder="电话" autocomplete="off" />
 					</FormItem>
-					<FormItem label="是否可评 :" prop="mobile">
-						 <Checkbox :label="formAdmin.isinselect">
+					<FormItem label="是否可评：">
+						 
+						<Checkbox :label="true" v-model='formAdmin.isinselect'>
 							<span>可参评</span>
 						</Checkbox>
-						<Checkbox :label="formAdmin.isselect">
+						
+						<Checkbox :label="formAdmin.isselect" v-model="formAdmin.isselect">
 							<span>可被评</span>
 						</Checkbox>
 					</FormItem>
@@ -95,7 +97,10 @@
 					},{
 						title:"性别",
 						key:"sex",
-						align:'center'
+						align:'center',
+						render:(h,params)=>{
+							return h('div',{},params.row.sex === 1? '男':'女')
+						}
 					},{
 						title:"账号",
 						key:"useraccount",
@@ -106,16 +111,18 @@
 						align:'center'
 					},{
 						title:"职位",
-						key:"job",
+						key:"rolename",
 						align:'center'
 					},{
 						title:"电话",
 						key:"mobile",
-						align:'center'
+						align:'center',
+						width:112,
 					},{
 						title:"历届评分详情",
 						key:"	",
 						align:'center',
+						width:110,
 						render:(h,params)=>{
 							return h('div',{
 								props:{
@@ -145,7 +152,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.showModal(params.index)
+                                            this.showModal(params.row)
                                         }
                                     }
                                 }, '编辑'),
@@ -186,8 +193,10 @@
 			},
 			ok(){},
 			cancel(){},	
-			showModal(){
-
+			showModal(row){
+				this.formAdmin = row;
+				this.visible = true;
+				console.log(row);
 			},
 			remove(){
 

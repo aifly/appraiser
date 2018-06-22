@@ -68,71 +68,84 @@
     "list":[
         {
             "username":"徐畅",
-            "sex":"男",
+            "sex":1,
             "useraccount":"徐畅",
-            "departmentid": "100000001",
+            "departmentid":[ "100000001"],
             "departmentname":"编辑部",
-            "job":"组长",
+            "rolename":"组长",
+            "roleid":"100000001",
             "mobile":"1578558458",
             "isselect":true,
             "isinselect":true
         }, {
             "username": "徐畅",
-            "sex": "男",
+            "sex": 1,
             "useraccount": "徐畅",
-            "departmentid": "100000001",
+            "departmentid":[ "100000001"],
             "departmentname": "编辑部",
-            "job": "主任",
+            "rolename": "主任",
+            "roleid":"100000001",
+
             "mobile": "1578558458",
             "isselect":true,
             "isinselect":true
         }, {
             "username": "徐畅",
-            "sex": "男",
+            "sex": 1,
             "useraccount": "徐畅",
-            "departmentid": "100000001",
+            "departmentid":[ "100000001"],
             "departmentname": "编辑部",
-            "job": "员工",
+            "rolename": "员工",
+            "roleid":"100000001",
+
             "mobile": "1578558458",
             "isselect":true,
             "isinselect":true
         }, {
             "username": "徐畅",
-            "sex": "男",
+            "sex": 1,
             "useraccount": "徐畅",
-            "departmentid": "100000001",
+            "departmentid":[ "100000001"],
             "departmentname": "编辑部",
-            "job": "领导",
+            "rolename": "领导",
+            "roleid":"100000001",
+
             "mobile": "1578558458",
             "isselect":true,
             "isinselect":true
         }, {
             "username": "徐畅",
-            "sex": "男",
+            "sex": 1,
             "useraccount": "徐畅",
-            "departmentid": "100000001",
+            "departmentid":[ "100000001"],
             "departmentname": "编辑部",
-            "job": "员工",
+            "rolename": "员工",
+            "roleid":"100000001",
+
             "mobile": "1578558458",
             "isselect":true,
             "isinselect":true
         }, {
             "username": "徐畅",
-            "sex": "男",
+            "sex": 0,
             "useraccount": "徐畅",
-            "departmentid": "100000001",
+            "departmentid":[ "100000001"],
             "departmentname": "编辑部",
-            "job": "员工",
+            "rolename": "员工",
+            "roleid":"100000001",
+
             "mobile": "1578558458",
             "isselect":true,
             "isinselect":true
         }, {
             "username": "徐畅",
-            "sex": "男",
+            "sex": 1,
             "useraccount": "徐畅",
-            "departmentid": "100000001",
+            "departmentid": ["100000001", "100000005"],
             "departmentname": "编辑部",
-            "job": "员工",
+            "rolename": "员工",
+            "roleid":"100000004",
+
             "mobile": "1578558458",
             "isselect":true,
             "isinselect":true
