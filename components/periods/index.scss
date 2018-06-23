@@ -254,10 +254,29 @@
 
         .wm-periods-not-list{
             margin-top: 10px;
+            header{
+                @include displayFlex(row);
+                -webkit-justify-content: space-between;
+                justify-content: space-between;
+                font-size:14px;
+                &>div{
+                    width: 200px;
+                }
+            }
+            
+            .zmiti-periods-not-header-item{
+                width: 350px;
+                 @include displayFlex(row);
+                 -webkit-justify-content: space-between;
+                 justify-content: space-between;
+                div{
+                    margin-left:10px;
+                }
+            }
         }
         
 
-        //@include transform(translate3d(200%,0,0));
+       // @include transform(translate3d(200%,0,0));
    
     }
 
@@ -271,7 +290,7 @@
         padding: 0 18px;
         background: #fff;
 
-        @include transform(translate3d(200%, 0, 0));
+       // @include transform(translate3d(100%, 0, 0));
 
         @include displayFlex(column);
         .wm-periods-table-list {

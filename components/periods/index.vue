@@ -1,6 +1,6 @@
 <template>
 	<div class="wm-periods-ui" :style="{height:viewH-64+'px'}">
-		<section :class='{"left1":entryDetail}' >
+		<section :class='{"left":entryDetail,"left1":entryDetail1}' >
 			<div class="wm-periods-left">
 				<header>
 					<div>考评管理</div>
@@ -54,21 +54,31 @@
 							<Input  v-model="keyword" placeholder="请输入你要查找的人员姓名" style="width:200px;" />
 						</div>
 					</div>
-					<Table :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table>
+					<Table @on-row-click='entryDetailPage' :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table>
 				</div>
 			</div>
 			<div class="wm-periods-right-detail" :style="{height:viewH-64-10+'px'}">
 				<header>
 					<div>
-						<span @click='entryDetail = false'>返回考评详情</span>
+						<span @click='backToDetail'>返回考评详情</span>
 					</div>
 				</header>
 				
 				<div class="wm-periods-not-list">
 					<header>
+                        <div class="zmiti-periods-not-header"><span style="color:#f00;font-size:16px;">{{periodsUserName}}</span> 的得分详情
 
-					</header>
-					<Table stripe :data='dataSource1' :columns='columns1'></Table>
+						</div>
+                        <div class="zmiti-periods-not-header-item">
+							<Checkbox label="twitter" v-model="isNoScore" @on-change='filterScore'>
+								<span>看未评的</span>
+							</Checkbox>
+							<div  v-for='(score,i) in　noscorelist' :key="i">{{score.rolename}}: {{score.num}} 
+							</div>
+							<div>未评</div>
+                        </div>
+                    </header>
+					<Table :height='viewH - 64-60-62' stripe :data='dataSource1' :columns='columns1'></Table>
 				</div>
 			</div>
 		</section>
@@ -116,6 +126,7 @@
 				columns1:[],
 				dataSource:[],
 				dataSource1:[],
+				noscorelist:[],
 				imgs:window.imgs,
 				visible:false,
 				loading:true,
@@ -125,9 +136,14 @@
 				scoreList:[],
 				keyword:'',
 				entryDetail:false,
+				isNoScore:false,
+				entryDetail1:false,
+
 				standardList:[],
 				title:"",
 				periodsIndex:1,
+				periodsnumberid:-1,//当前的考评期数
+				periodsUserName:'',
 				formItem:{
 					periodsName:'',
 					switch:true,
@@ -160,6 +176,7 @@
 		mounted(){
 			this.getPeriodsList();
 			
+			
 		},
 		watch:{
 			keyword(val){
@@ -169,10 +186,35 @@
 			}
 		},
 		methods:{
+			filterScore(e){
+				///console.log(e);
+				var s = this;
+				if(e){
+					s.dataSource1 = s.defaultSource1.filter((item,i)=>{
+						return item.score1 === 0 || item.score2 === 0||item.score3 === 0||item.score4 === 0||item.score5 === 0||item.score6 === 0
+					});
+				}
+				else{
+					s.dataSource1 = s.defaultSource1.concat([]);
+				}
+			},
+			entryDetailPage(e){
+				var s = this;
+				s.entryDetail1 = true;
+				s.entryDetail = false;
+				s.periodsUserName = e.username;
+				s.getEmployeescoreList(e.userid);
+			},
+			backToDetail(){
+				this.entryDetail = true;
+				this.entryDetail1 =false;
+			},
 			getPeriodsDetail(periods,i){
 				this.entryDetail = true;
 				this.periodsIndex = i+1;
 				this.getScoreList(periods.periodsnumberid);
+
+				this.periodsnumberid = periods.periodsnumberid;
 			},
 			exportData(){
 				 this.$refs.scorelist.exportCsv({
@@ -181,6 +223,7 @@
 			},
 			getPeriodsList(){
 				var s = this;
+			
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmuser/getperiodsnumberlist',
 					data:{
@@ -219,7 +262,9 @@
 										},
 										on:{
 											click(e){
-												console.log(params.row)
+												
+
+												
 											}
 										},
 										style:{
@@ -233,7 +278,11 @@
 								]);
 							}
 						})
-						this.columns1[0] =  this.columns[0];
+						this.columns1[0] =  {
+							key:"username",
+							title:'姓名',
+							align:'center'
+						};
 						data.map((item,i)=>{
 							this.columns.push({
 								title:item.title,
@@ -246,7 +295,14 @@
 								title:item.title,
 								key:'score'+(i+1),
 								align:'center',
-								sortable: true
+								sortable: true,
+								render:(h,params)=>{
+									return h('div',{
+										style:{
+											color:params.row['score'+(i+1)] === 0 ? '#f00' : '#000'
+										}
+									},params.row['score'+(i+1)] === 0 ?'未评':params.row['score'+(i+1)])
+								}
 							})
 						})
 						this.columns.push({
@@ -291,6 +347,30 @@
 						s.dataSource = data.list[0].user;
 						s.defaultSource = s.dataSource.concat([]);
 						s.title = data.list[0].periodsname
+					}
+				})
+			},
+			getEmployeescoreList(userid=''){
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/getemployeescorelist/',
+					validate:s.validate,
+					data:{
+						userid,
+						periodsnumberid:s.periodsnumberid
+					},
+					success(data){
+						if(data.getret === 0){
+							var arr = [];
+							data.list.userlist.forEach((item,i)=>{
+								arr.push(item.items);
+							});
+							s.noscorelist = data.list.noscorelist;
+							console.log(s.columns)
+							s.dataSource1 = data.list.userlist;
+							s.defaultSource1 = s.dataSource1.concat([]);
+						}
+						console.log(data);
 					}
 				})
 			}

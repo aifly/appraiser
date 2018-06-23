@@ -319,6 +319,32 @@
   margin-top: 10px;
 }
 
+.wm-periods-ui .wm-periods-right-detail .wm-periods-not-list header {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.wm-periods-ui .wm-periods-right-detail .wm-periods-not-list header > div {
+  width: 200px;
+}
+
+.wm-periods-ui .wm-periods-right-detail .wm-periods-not-list .zmiti-periods-not-header-item {
+  width: 350px;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.wm-periods-ui .wm-periods-right-detail .wm-periods-not-list .zmiti-periods-not-header-item div {
+  margin-left: 10px;
+}
+
 .wm-periods-ui .wm-periods-right {
   position: absolute;
   width: 100%;
@@ -327,8 +353,6 @@
   left: 100%;
   padding: 0 18px;
   background: #fff;
-  -webkit-transform: translate3d(200%, 0, 0);
-  transform: translate3d(200%, 0, 0);
   display: flex;
   display: -webkit-flex;
   flex-flow: column;

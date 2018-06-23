@@ -14,7 +14,7 @@
 				</div>
 			</div>
 
-			<Table  @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>
+			<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>
 		</div>
 		<Modal v-model="visible" title="人员管理" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
 				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="72" >
@@ -29,18 +29,21 @@
 							</Radio>
 						</RadioGroup>
 					</FormItem>
-					<FormItem label="职位：" prop="job">
+					<FormItem label="部门：" prop="job">
 						<Row type='flex'>
-							<Col span='15'>
-								<Cascader change-on-select style="width:220px" :data="department" v-model="formAdmin.departmentid"></Cascader>
+							<Col span='13'>
+								<div v-for='(de,i) in formAdmin.departmentid' :key="i" >
+									<Cascader change-on-select style="width:180px" :data="department" v-model="formAdmin.departmentid[i]"></Cascader>
+									<span @click='delDepartment'><Icon v-if='i===0'  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-minus" ></Icon></span>
+								</div>
+								<div @click="addDepartment"> <Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></div>
 							</Col>
+							
 							<Col  span='5'>
-								<Select v-model="formAdmin.roleid" style="width:120px">
+								
+								<Select　placeholder='职位' v-model="formAdmin.roleid" style="width:120px">
 									<Option v-for="item in roleList" :value="item.roleid" :key="item.roleid">{{ item.rolename }}</Option>
 								</Select>
-							</Col>
-							<Col span='1'>
-								<Icon style="margin-left:40px;font-size:20px;margin-top:6px;" type="ios-plus"></Icon>
 							</Col>
 						</Row>
 					</FormItem>
@@ -48,12 +51,11 @@
 						<Input v-model="formAdmin.mobile" placeholder="电话" autocomplete="off" />
 					</FormItem>
 					<FormItem label="是否可评：">
-						 
-						<Checkbox :label="true" v-model='formAdmin.isinselect'>
+						<Checkbox  v-model='formAdmin.isinselect'>
 							<span>可参评</span>
 						</Checkbox>
 						
-						<Checkbox :label="formAdmin.isselect" v-model="formAdmin.isselect">
+						<Checkbox v-model="formAdmin.isselect">
 							<span>可被评</span>
 						</Checkbox>
 					</FormItem>
@@ -75,12 +77,16 @@
 		data(){
 			return{
 				imgs:window.imgs,
-				visible:true,
+				visible:false,
 				isLoading:false,
-				formAdmin:{},
+				formAdmin:{
+					departmentid:[]
+				},
 				departmentArr:[],
+				viewH:window.innerHeight,
 				adminForm:{},
 				pid:-1,
+				currentUserId:-1,
 				model1:"",
 				department:[],
 				roleList:[],
@@ -101,24 +107,33 @@
 						render:(h,params)=>{
 							return h('div',{},params.row.sex === 1? '男':'女')
 						}
-					},{
+					},/* {
 						title:"账号",
 						key:"useraccount",
 						align:'center'
-					},{
+					}, */{
 						title:"部门",
 						key:"departmentname",
-						align:'center'
+						align:'center',
+						render:(h,params)=>{
+							if(typeof params.row.departmentname === 'string'){
+								return h('div',{},params.row.departmentname || '--')
+							}else{
+								return h('div',{},params.row.departmentname.join(' , ') || '--')
+							}
+						}
 					},{
 						title:"职位",
 						key:"rolename",
 						align:'center'
-					},{
+					},
+					/* {
 						title:"电话",
 						key:"mobile",
 						align:'center',
 						width:112,
-					},{
+					}
+					, */{
 						title:"历届评分详情",
 						key:"	",
 						align:'center',
@@ -152,6 +167,7 @@
                                     },
                                     on: {
                                         click: () => {
+											
                                             this.showModal(params.row)
                                         }
                                     }
@@ -181,6 +197,16 @@
 		beforeCreate(){
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
+			/* {
+				username:'aaa',
+				score1:14,
+				score2:14,
+				score3:14,
+				score4:14,
+				score5:14,
+				score6:14,
+
+			} */
 			this.validate = validate;
 		},
 		mounted(){
@@ -191,50 +217,145 @@
 			selectall(e){
 				console.log(e);
 			},
-			ok(){},
+			addDepartment(){
+				
+				this.formAdmin.departmentid.push(['','']);
+			},
+			delDepartment(){
+				//this.formAdmin.departmentid.pop();
+			},
+			ok(){
+				//
+				var s =  this;
+				if(this.currentUserId!==-1){//编辑
+					console.log(s.formAdmin.departmentid.length);
+					var departmentids = '';
+					var len = s.formAdmin.departmentid;
+					s.formAdmin.departmentid.forEach((item,i)=>{
+						var d = item.pop();
+						if(item && d){
+							departmentids += d+',';
+						}
+					});
+					departmentids = departmentids.substr(0,departmentids.length-1)
+					symbinUtil.ajax({
+						url:window.config.baseUrl+'/wmadmin/editemployee/',
+						data:{
+							employeeid:s.currentUserId,
+							realname:s.formAdmin.username,
+							mobile:s.formAdmin.mobile,
+							sex:s.formAdmin.sex,
+							isinselect:s.formAdmin.isinselect|0,
+							isselect:s.formAdmin.isselect|0,
+							roleid:s.formAdmin.roleid,
+							departmentid:departmentids
+
+							
+						},
+						validate:s.validate,
+						success(data){
+							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+							//console.log(data);
+						}
+					})
+				}
+			},
 			cancel(){},	
 			showModal(row){
+
 				this.formAdmin = row;
+				this.formAdmin.isinselect = !!this.formAdmin.isinselect;
+				this.formAdmin.isselect = !!this.formAdmin.isselect;
+				this.currentUserId = row.employeeid;
 				this.visible = true;
-				console.log(row);
+				
 			},
 			remove(){
 
 			},
 			getUserList(){
 				var s = this;
-				$.getJSON("./components/adminuser/data.json",data=>{
+
+				/* $.getJSON("./components/adminuser/data.json",data=>{
 					if(data.getret === 0){
-						s.dataSource = data.list;
-						var defaultDepartment = data.department.concat([]);
-						data.department.map((item,i)=>{
-							if(item.pid === ''){
-								s.department.push({
-									value:item.departmentid,
-									label:item.departmentname,
-									children:[]
-								})
-							}
-						});
-						
-						defaultDepartment.map((dt,a)=>{
-							
-							s.department.forEach((department,k)=>{
-								//console.log(department.value , ' ------ ',dt)
-								if(department.value === dt.pid){
-									department.children.push({
-										value:dt.departmentid,
-										label:dt.departmentname,
+							//console.log(data);
+							//var data = data.list;
+							s.dataSource = data.list;
+							var defaultDepartment = data.department.concat([]);
+							data.department.map((item,i)=>{
+								if(item.pid === ''){
+									s.department.push({
+										value:item.departmentid,
+										label:item.departmentname,
+										children:[]
 									})
 								}
-							}) 
+							});
 							
+							defaultDepartment.map((dt,a)=>{
+								
+								s.department.forEach((department,k)=>{
+									//console.log(department.value , ' ------ ',dt)
+									if(department.value === dt.pid){
+										department.children.push({
+											value:dt.departmentid,
+											label:dt.departmentname,
+										})
+									}
+								}) 
+								
+								
+							});
+
 							
-						});
-						//s.department = data.department;
-						s.roleList = data.role;
+							//s.department = data.department;
+							s.roleList = data.role;
+						}
+				}) */
+
+
+				
+
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/getemployeeuserlist',
+					validate:s.validate,
+					data:{},
+					success(data){
+						if(data.getret === 0){
+							console.log(data);
+							var data = data.list;
+							s.dataSource = data.list;
+							var defaultDepartment = data.department.concat([]);
+							data.department.map((item,i)=>{
+								if(item.pid === ''){
+									s.department.push({
+										value:item.departmentid,
+										label:item.departmentname,
+										children:[]
+									})
+								}
+							});
+							
+							defaultDepartment.map((dt,a)=>{
+								
+								s.department.forEach((department,k)=>{
+									//console.log(department.value , ' ------ ',dt)
+									if(department.value === dt.pid){
+										department.children.push({
+											value:dt.departmentid,
+											label:dt.departmentname,
+										})
+									}
+								}) 
+								
+								
+							});
+							//s.department = data.department;
+							s.roleList = data.role;
+						}
 					}
 				})
+				 
 			}
 		}
 	}
