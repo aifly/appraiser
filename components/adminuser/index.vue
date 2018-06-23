@@ -34,9 +34,10 @@
 							<Col span='13'>
 								<div v-for='(de,i) in formAdmin.departmentid' :key="i" >
 									<Cascader change-on-select style="width:180px" :data="department" v-model="formAdmin.departmentid[i]"></Cascader>
-									<span @click='delDepartment'><Icon v-if='i===0'  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-minus" ></Icon></span>
+									<span @click='delDepartment'></span>
 								</div>
-								<div @click="addDepartment"> <Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></div>
+								<div> <span><Icon  @click="addDepartment"  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></span>
+								<span><Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-minus" ></Icon></span></div>
 							</Col>
 							
 							<Col  span='5'>
