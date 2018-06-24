@@ -34,10 +34,11 @@
 							<Col span='13'>
 								<div v-for='(de,i) in formAdmin.departmentid' :key="i" >
 									<Cascader change-on-select style="width:180px" :data="department" v-model="formAdmin.departmentid[i]"></Cascader>
-									<span @click='delDepartment'></span>
+									<span v-if='i>0' @click='delDepartment(i)'><Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="minus-circled" ></Icon></span>
+									<span  @click="addDepartment" v-if='i===0'><Icon   style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></span>
 								</div>
-								<div> <span><Icon  @click="addDepartment"  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></span>
-								<span><Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-minus" ></Icon></span></div>
+								<div> 
+								</div>
 							</Col>
 							
 							<Col  span='5'>
@@ -222,7 +223,8 @@
 				
 				this.formAdmin.departmentid.push(['','']);
 			},
-			delDepartment(){
+			delDepartment(index){
+				this.formAdmin.departmentid.splice(index,1);
 				//this.formAdmin.departmentid.pop();
 			},
 			ok(){
