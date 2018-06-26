@@ -8,6 +8,9 @@
 				<div>
 					<Button icon='plus' type="primary">添加</Button>
 					<Button icon='trash-a' >删除</Button>
+					<Tooltip content="初始化人员评分基础数据" placement="top">
+						<Button icon='ios-loop-strong' @click="initData">初始化</Button>
+					</Tooltip>
 				</div>
 				<div>
 					<Input  />
@@ -65,6 +68,10 @@
 					</FormItem>
 				</Form>
 		</Modal>
+		<Spin fix v-if="spinShow">
+			<Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+			<div>Loading</div>
+		</Spin>
 	</div>
 </template>
 
@@ -83,6 +90,7 @@
 				imgs:window.imgs,
 				visible:false,
 				isLoading:false,
+				spinShow:false,
 				formAdmin:{
 					departmentid:[]
 				},
@@ -199,6 +207,7 @@
 		},
 
 		beforeCreate(){
+			
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
 			/* {
@@ -214,10 +223,61 @@
 			this.validate = validate;
 		},
 		mounted(){
+			
 			this.getUserList();
 		},
 		
 		methods:{
+			initData(){
+				var  s = this;
+				this.spinShow = true;
+				this.$Spin.show({
+					render: (h) => {
+							return h('div', [
+								h('Icon', {
+									'class': 'demo-spin-icon-load',
+									props: {
+										type: 'load-c',
+										size: 18
+									}
+								}),
+								h('div', '数据正在初始化……')
+							])
+						}
+				});
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/inituserscore/',
+					data:{},
+					validate:s.validate,
+					success(data){ 
+						if(data.getret === 0){
+							symbinUtil.ajax({
+								url:window.config.baseUrl+'/wmadmin/inituserscoreperson/',
+								data:{},
+								validate:s.validate,
+								success(data){
+									if(data.getret === 0){
+										symbinUtil.ajax({
+											url:window.config.baseUrl+'/wmadmin/initusertotal/',
+											data:{},
+											validate:s.validate,
+											success(data){
+												if(data.getret === 0){
+													s.$Message.success('数据初始化成功')
+													s.spinShow = false;
+													s.$Spin.hide();
+												}
+											}
+											
+										})			
+									}
+								}
+								
+							})
+						}
+					}
+				})
+			},
 			selectall(e){
 				console.log(e);
 			},
@@ -365,4 +425,17 @@
 		}
 	}
 </script>
+ 
+ <style>
+	
+	 .demo-spin-icon-load{
+        animation: ani-demo-spin 1s linear infinite;
+    }
+    @keyframes ani-demo-spin {
+        from { transform: rotate(0deg);}
+        50%  { transform: rotate(180deg);}
+        to   { transform: rotate(360deg);}
+    }
+
+ </style>
  
