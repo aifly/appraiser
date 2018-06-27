@@ -30,7 +30,7 @@
 							<footer>
 								<div><span>{{periods.starttime}}</span> 至 <span>{{periods.endtime}}</span></div>
 								<div>
-									<span class="wm-periods-del"><Icon type="android-delete"></Icon>删除</span>
+									<span class="wm-periods-del" @click='deletePeriods(periods.periodsid)'><Icon type="android-delete"></Icon>删除</span>
 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
 							</footer>
@@ -106,10 +106,10 @@
 						<Input v-model="formItem.periodsname" placeholder="考评名称"></Input>
 					</FormItem>
 					<FormItem label="开始时间 ：">
-						<DatePicker v-model="formItem.starttime1" format="yyyy-MM-dd" type="date" confirm placeholder="开始时间"  style="width:100%"></DatePicker>
+						<DatePicker v-model="formItem.starttime" format="yyyy-MM-dd" type="date" confirm placeholder="开始时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="结束时间 ：">
-						<DatePicker v-model="formItem.endtime1" format="yyyy-MM-dd" type="date" confirm placeholder="结束时间"  style="width:100%"></DatePicker>
+						<DatePicker v-model="formItem.endtime" format="yyyy-MM-dd" type="date" confirm placeholder="结束时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="是否可用 ：">
 						<i-switch v-model="formItem.switch" size="large">
@@ -205,13 +205,27 @@
 				this.currentIndex = -1;
 				this.visible = true;
 			},
+			deletePeriods(periodsid){
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/delperiodsnumber/',
+					validate:s.validate,
+					data:{
+						periodsnumberid:2
+					},
+					success(data){
+						console.log(data);
+					}
+				})
+			} ,
 			periodsAction(){
 				var s = this;
 				if(this.currentIndex>-1){//编辑
 					symbinUtil.ajax({
-						url:window.config.baseUrl+'/wmuser/editperiodsnumber/',
+						url:window.config.baseUrl+'/wmadmin/editperiodsnumber/',
 						validate:s.validate,
 						data:{
+							periodsnumberid:s.periodsnumberid,
+
 							periodsname:s.formItem.periodsname
 						},
 						success(data){
@@ -220,8 +234,11 @@
 					})
 				}
 				else{
+					console.log(s.formItem);
+					s.formItem.starttime = '2018-06-12';
+					s.formItem.endtime = '2018-06-27';
 					symbinUtil.ajax({
-						url:window.config.baseUrl+'/wmuser/addperiodsnumber/',
+						url:window.config.baseUrl+'/wmadmin/addperiodsnumber/',
 						validate:s.validate,
 						data:s.formItem,
 						success(data){
