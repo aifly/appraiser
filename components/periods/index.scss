@@ -98,7 +98,16 @@
                 line-height: 60px;
                 font-weight: normal;
             }
-
+             &>div>h2{
+                 @include displayFlex(row);
+                 justify-content: space-between;
+                -webkit-justify-content: space-between;
+                 img{
+                     width: 23px;
+                     margin-right: 10px;
+                     cursor: pointer;
+                 }
+             }
             & > div > section {
                 @include displayFlex(row);
 
@@ -183,6 +192,7 @@
         }
     }
 
+    .wm-periods-rule,
     .wm-periods-right-detail,
     .wm-periods-right{
         &>header {
@@ -240,6 +250,17 @@
                 }
             }
         }
+    }
+
+    .wm-periods-rule{
+        @include pos(a);
+        width: 100%;
+        height: 90%;
+        top: -0px;
+        //left: 200%;
+        left: 0;;
+        padding: 0 18px;
+        background: #fff;
     }
 
     .wm-periods-right-detail {

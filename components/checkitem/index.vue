@@ -114,6 +114,13 @@
 		},
 		mounted(){
 			this.getCheckitemList();
+			/* symbinUtil.ajax({
+				url:'https://api.symbin.cn/v1/wmadmin/getRoleList/?username=admin&usertoken=c6f263a5-d09d-c37a-e610-5b3301030917&status=1',
+				data:{},
+				success(data){
+					console.log(data);
+				}
+			}) */
 		},
 		
 		methods:{

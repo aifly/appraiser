@@ -5,7 +5,7 @@
 				<header>
 					<div>考评管理</div>
 					<section>
-						<Button icon='plus' @click='visible = true' type='primary'>添加</Button>
+						<Button icon='plus' @click='open' type='primary'>添加</Button>
 					</section>
 				</header>
 				<div>
@@ -13,7 +13,8 @@
 						<div v-for='(periods,i) in periodsList' :key="i" class="wm-periods-item">
 							<div>
 								<h2>
-									{{periods.periodsname}} <span>第{{i+1}}期</span>
+									<div>{{periods.periodsname}} <span>第{{i+1}}期</span></div>
+									<div title='评分规则管理'><img :src="imgs.ruleIco" alt=""></div>
 								</h2>
 								<section @click="getPeriodsDetail(periods,i)">
 									<div>
@@ -27,16 +28,28 @@
 								</section>
 							</div>
 							<footer>
-								<div><span>{{periods.starttime.substr(0,10)}}</span> 至 <span>{{periods.endtime.substr(0,10)}}</span></div>
+								<div><span>{{periods.starttime}}</span> 至 <span>{{periods.endtime}}</span></div>
 								<div>
 									<span class="wm-periods-del"><Icon type="android-delete"></Icon>删除</span>
-									<span class="wm-periods-edit"><Icon type="edit"></Icon>编辑</span>
+									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
 							</footer>
 						</div>
 					</section>
 				</div>
 			</div>
+
+			<div class="wm-periods-rule" hidden :style="{height:viewH-64-10+'px'}">
+				<header>
+					<div>
+						<span @click='entryDetail = false'>返回考评管理列表</span>
+					</div>
+					<div>考评规则管理</div>
+				</header>
+				
+			</div>
+
+
 			<div class="wm-periods-right" :style="{height:viewH-64-10+'px'}">
 				<header>
 					<div>
@@ -85,17 +98,18 @@
 		<Modal
 			v-model="visible"
 			:title="currentIndex!==-1?'编辑考评':'添加考评'"
+			@on-ok='periodsAction'
 			>
 			<div class="wm-periods-dialog">
 				<Form ref="formItem" :model="formItem" :rules="ruleValidate" :label-width='80' >
 					<FormItem label="考评名称 ：">
-						<Input v-model="formItem.periodsName" placeholder="考评名称"></Input>
+						<Input v-model="formItem.periodsname" placeholder="考评名称"></Input>
 					</FormItem>
 					<FormItem label="开始时间 ：">
-						<DatePicker v-model="formItem.startdate" format="yyyy-MM-dd" type="date" confirm placeholder="开始时间"  style="width:100%"></DatePicker>
+						<DatePicker v-model="formItem.starttime1" format="yyyy-MM-dd" type="date" confirm placeholder="开始时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="结束时间 ：">
-						<DatePicker v-model="formItem.enddate" format="yyyy-MM-dd" type="date" confirm placeholder="结束时间"  style="width:100%"></DatePicker>
+						<DatePicker v-model="formItem.endtime1" format="yyyy-MM-dd" type="date" confirm placeholder="结束时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="是否可用 ：">
 						<i-switch v-model="formItem.switch" size="large">
@@ -175,7 +189,7 @@
 		},
 		mounted(){
 			this.getPeriodsList();
-			
+			this.getRoleList();
 			
 		},
 		watch:{
@@ -186,6 +200,43 @@
 			}
 		},
 		methods:{
+			open(){//新增考评。
+				this.formItem = {};
+				this.currentIndex = -1;
+				this.visible = true;
+			},
+			periodsAction(){
+				var s = this;
+				if(this.currentIndex>-1){//编辑
+					symbinUtil.ajax({
+						url:window.config.baseUrl+'/wmuser/editperiodsnumber/',
+						validate:s.validate,
+						data:{
+							periodsname:s.formItem.periodsname
+						},
+						success(data){
+							console.log(data);
+						}
+					})
+				}
+				else{
+					symbinUtil.ajax({
+						url:window.config.baseUrl+'/wmuser/addperiodsnumber/',
+						validate:s.validate,
+						data:s.formItem,
+						success(data){
+							console.log(data);
+						}
+					})
+				}
+
+			},
+			edit(periods,index){
+				this.currentIndex = index;
+				console.log(periods)
+				this.formItem = periods;
+				this.visible = true;
+			},
 			filterScore(e){
 				///console.log(e);
 				var s = this;
@@ -223,7 +274,7 @@
 			},
 			getPeriodsList(){
 				var s = this;
-			
+				window.s = this;
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmuser/getperiodsnumberlist',
 					data:{
@@ -232,6 +283,12 @@
 					validate:s.validate,
 					success(data){
 						if(data.getret === 0){
+							data.list.forEach((item,i)=>{
+								item.starttime = item.starttime.substr(0,10);
+								item.starttime1 = item.starttime;
+								item.endtime = item.endtime.substr(0,10);
+								item.endtime1 = item.endtime;
+							})
 							s.periodsList = data.list;
 							s.loading = false;
 						}
@@ -370,6 +427,17 @@
 							s.dataSource1 = data.list.userlist;
 							s.defaultSource1 = s.dataSource1.concat([]);
 						}
+						console.log(data);
+					}
+				})
+			},
+			getRoleList(){
+				var  s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl + '/wmadmin/getRoleList',
+					validate:s.validate,
+					data:{},
+					success(data){
 						console.log(data);
 					}
 				})

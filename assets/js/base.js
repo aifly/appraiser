@@ -18,6 +18,7 @@ var imgs = {
 	setting:'./assets/images/setting.png',
 	smile:'./assets/images/smile.png',
 	titleBg:'./assets/images/title-bg.png',
+	ruleIco:'./assets/images/rule-ico.png'
 
 }
 window.config = {
