@@ -14,7 +14,7 @@
 							<div>
 								<h2>
 									<div>{{periods.periodsname}} <span>第{{i+1}}期</span></div>
-									<div title='评分规则管理'><img :src="imgs.ruleIco" alt=""></div>
+									<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
 								</h2>
 								<section @click="getPeriodsDetail(periods,i)">
 									<div>
@@ -28,9 +28,9 @@
 								</section>
 							</div>
 							<footer>
-								<div><span>{{periods.starttime}}</span> 至 <span>{{periods.endtime}}</span></div>
+								<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>
 								<div>
-									<span class="wm-periods-del" @click='deletePeriods(periods.periodsid)'><Icon type="android-delete"></Icon>删除</span>
+									<span class="wm-periods-del" @click='deletePeriods(periods)'><Icon type="android-delete"></Icon>删除</span>
 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
 							</footer>
@@ -39,14 +39,63 @@
 				</div>
 			</div>
 
-			<div class="wm-periods-rule" hidden :style="{height:viewH-64-10+'px'}">
+			<div class="wm-periods-rule" :class="{'active':showRulePage}" :style="{height:viewH-64-10+'px'}">
 				<header>
 					<div>
 						<span @click='entryDetail = false'>返回考评管理列表</span>
 					</div>
 					<div>考评规则管理</div>
 				</header>
-				
+
+				<div class="wm-person-rule-list">
+					<header>
+						{{periodsName}}  <span>第 {{ruleIndex}} 期</span>
+					</header>
+					<ul class="wm-role-rule" :style="{height:viewH - 60-60 - 60 - 60 + 'px'}">
+						<li class="wm-role-item" v-for="(role,i) in roleList" :key="i">
+							<div class="wm-role-name">{{role.rolename}}</div>
+							<div class="wm-checkitem-weight">
+								<div>评分项名称</div>
+								<div>权重</div>
+								<div style="opacity:0;width:80px;flex-grow:0;-webkit-flex-grow:0;">权</div>
+							</div>
+							
+							<div v-for='(checkitemweight,k) in role.checkitemWeightList' :key="k">
+								<div class="wm-checkitem-rule-item">
+									<div>
+										<Select style="width:100px" v-model="checkitemweight.checkitemid">
+											<Option  v-for="(item) in checkItemList" :value="item.checkitemid" :key="item.checkitemid">{{ item.title }}</Option>
+										</Select>
+									</div>
+									<div>
+										<Input type='text' v-model="checkitemweight.weight"/>
+									</div>
+									<div>
+										<span @click="delCheckitemWeight(i,k)"><Icon type="ios-minus-outline"></Icon></span>
+										<span @click="addCheckitemWeight(i)" v-if='k === role.checkitemWeightList.length-1'><Icon type='ios-plus'/> </span>
+									</div>
+								</div>
+							</div>
+							<div class="wm-checkitem-rule-item" v-if='role.checkitemWeightList.length<=0'>
+								<div>
+									<Select style="width:100px" v-model="role.checkitemWeightList.checkitemid">
+										<Option v-for="item in checkItemList" :value="item.checkitemid" :key="item.checkitemid">{{ item.title }}</Option>
+									</Select>
+								</div>
+								<div>
+									<Input type='text' v-model="role.checkitemWeightList.weight"/>
+								</div>
+								<div>
+									<span @click="addCheckitemWeight(i)"><Icon type='ios-plus'/> </span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<footer class="wm-rule-bottom">
+					<Button @click="submit" type="primary">提交</Button>
+				</footer>
 			</div>
 
 
@@ -106,10 +155,10 @@
 						<Input v-model="formItem.periodsname" placeholder="考评名称"></Input>
 					</FormItem>
 					<FormItem label="开始时间 ：">
-						<DatePicker v-model="formItem.starttime" format="yyyy-MM-dd" type="date" confirm placeholder="开始时间"  style="width:100%"></DatePicker>
+						<DatePicker v-model="formItem.starttime" :value='formItem.starttime' format="yyyy-MM-dd" type="date"  placeholder="开始时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="结束时间 ：">
-						<DatePicker v-model="formItem.endtime" format="yyyy-MM-dd" type="date" confirm placeholder="结束时间"  style="width:100%"></DatePicker>
+						<DatePicker v-model="formItem.endtime" format="yyyy-MM-dd" type="date"  placeholder="结束时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="是否可用 ：">
 						<i-switch v-model="formItem.switch" size="large">
@@ -146,16 +195,21 @@
 				loading:true,
 				currentIndex:-1,
 				periodsList:[],
+				showRulePage:false,
 				viewH:window.innerHeight,
 				scoreList:[],
 				keyword:'',
+				ruleIndex:-1,
 				entryDetail:false,
 				isNoScore:false,
 				entryDetail1:false,
-
+				checkitemWeightList:[],
+				checkItemList:[],
 				standardList:[],
+				roleList:[],
 				title:"",
 				periodsIndex:1,
+				periodsName:'',
 				periodsnumberid:-1,//当前的考评期数
 				periodsUserName:'',
 				formItem:{
@@ -190,7 +244,8 @@
 		mounted(){
 			this.getPeriodsList();
 			this.getRoleList();
-			
+			this.getCheckItemList();
+			window.s = this;
 		},
 		watch:{
 			keyword(val){
@@ -200,17 +255,98 @@
 			}
 		},
 		methods:{
+			submit(){
+				var s = this;
+				
+				var arrCache = [],
+					arr  = [];
+				s.roleList.forEach((role,i)=>{
+					arrCache = arrCache.concat(role.checkitemWeightList);
+				});
+				arrCache.forEach((item,i)=>{
+					if(JSON.stringify(item) !==  "{}"){
+						arr.push(item)
+					}
+				})
+				console.log(arr);
+
+				return;
+				symbinUtil.ajax({
+					url:window.config.baseUrl + '/wmadmin/editcheckitemweight/',
+					validate:s.validate,
+					data:{
+
+					},
+					success(data){
+						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+					}
+				})
+			},
+			addCheckitemWeight(k){
+				var s = this;
+				var weightObj = {
+					roleid:this.roleList[k].roleid,
+					levelnum:this.roleList[k].levelnum,
+					periodsnumberid:s.periodsnumberid
+				}
+				this.roleList[k].checkitemWeightList.push(weightObj);
+				this.roleList = this.roleList.concat([]);
+			},
+			delCheckitemWeight(i,k){
+				if(this.roleList[i].checkitemWeightList.length<=1){
+					return;
+				}
+				this.roleList[i].checkitemWeightList.splice(k,1);
+				this.roleList = this.roleList.concat([]);	
+			},
+			openRulePage(periods,index){//打开规则管理页面
+				this.entryDetail = true;
+				this.showRulePage = true;
+				this.periodsnumberid = periods.periodsnumberid;
+				this.periodsName = periods.periodsname;
+				this.ruleIndex = index+1;
+
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/getcheckitemweightlist/',
+					validate:s.validate,
+					data:{
+						status:1
+					},
+					success(data){
+						if(data.getret === 0){
+							s.roleList.forEach((role,i)=>{
+								
+								data.list.forEach((dt,k)=>{
+								
+									if(role.roleid === dt.roleid ){
+										if(JSON.stringify(role.checkitemWeightList[0]) === "{}"){
+											role.checkitemWeightList.shift();
+										}
+										role.checkitemWeightList.push(dt);
+									}
+								})
+								
+							})
+							s.roleList = s.roleList.concat([]);
+							
+							//s.checkitemWeightList = data.list;
+						}
+					}
+				})
+			},
 			open(){//新增考评。
 				this.formItem = {};
 				this.currentIndex = -1;
 				this.visible = true;
 			},
 			deletePeriods(periodsid){
+				
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmadmin/delperiodsnumber/',
 					validate:s.validate,
 					data:{
-						periodsnumberid:2
+						periodsnumberid:periodsid.periodsnumberid
 					},
 					success(data){
 						console.log(data);
@@ -220,13 +356,17 @@
 			periodsAction(){
 				var s = this;
 				if(this.currentIndex>-1){//编辑
+					s.formItem.starttime = new Date(s.formItem.starttime).toLocaleDateString().replace(/\//ig,'-');
+					s.formItem.endtime = new Date(s.formItem.endtime).toLocaleDateString().replace(/\//ig,'-');
 					symbinUtil.ajax({
 						url:window.config.baseUrl+'/wmadmin/editperiodsnumber/',
 						validate:s.validate,
 						data:{
 							periodsnumberid:s.periodsnumberid,
-
-							periodsname:s.formItem.periodsname
+							periodsname:s.formItem.periodsname,
+							starttime:s.formItem.starttime,
+							endtime:s.formItem.endtime,
+							switch:s.formItem.status
 						},
 						success(data){
 							console.log(data);
@@ -234,9 +374,7 @@
 					})
 				}
 				else{
-					console.log(s.formItem);
-					s.formItem.starttime = '2018-06-12';
-					s.formItem.endtime = '2018-06-27';
+				
 					symbinUtil.ajax({
 						url:window.config.baseUrl+'/wmadmin/addperiodsnumber/',
 						validate:s.validate,
@@ -250,8 +388,8 @@
 			},
 			edit(periods,index){
 				this.currentIndex = index;
-				console.log(periods)
 				this.formItem = periods;
+				this.periodsnumberid = periods.periodsnumberid;
 				this.visible = true;
 			},
 			filterScore(e){
@@ -280,6 +418,7 @@
 			getPeriodsDetail(periods,i){
 				this.entryDetail = true;
 				this.periodsIndex = i+1;
+				this.showRulePage = false;
 				this.getScoreList(periods.periodsnumberid);
 
 				this.periodsnumberid = periods.periodsnumberid;
@@ -301,10 +440,9 @@
 					success(data){
 						if(data.getret === 0){
 							data.list.forEach((item,i)=>{
-								item.starttime = item.starttime.substr(0,10);
-								item.starttime1 = item.starttime;
-								item.endtime = item.endtime.substr(0,10);
-								item.endtime1 = item.endtime;
+								//item.starttime = new Date(item.starttime).Format("yyyy-MM-dd");
+								//item.endtime = new Date(item.endtime).Format("yyyy-MM-dd");
+							//	item.endtime.Format("yyyy-MM-dd")
 							})
 							s.periodsList = data.list;
 							s.loading = false;
@@ -455,7 +593,25 @@
 					validate:s.validate,
 					data:{},
 					success(data){
-						console.log(data);
+						if(data.getret === 0){
+							s.roleList = data.list;
+							s.roleList.forEach((role,i)=>{
+								role.checkitemWeightList = role.checkitemWeightList || [{}]
+							})
+						}
+					}
+				})
+			},
+			getCheckItemList(){
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl + '/wmadmin/getcheckitemlist/',
+					data:{},
+					validate:s.validate,
+					success(data){
+						if(data.getret === 0){
+							s.checkItemList = data.list;
+						}
 					}
 				})
 			}

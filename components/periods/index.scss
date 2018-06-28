@@ -98,16 +98,20 @@
                 line-height: 60px;
                 font-weight: normal;
             }
-             &>div>h2{
-                 @include displayFlex(row);
-                 justify-content: space-between;
+
+            & > div > h2 {
+                @include displayFlex(row);
+
+                justify-content: space-between;
                 -webkit-justify-content: space-between;
-                 img{
-                     width: 23px;
-                     margin-right: 10px;
-                     cursor: pointer;
-                 }
-             }
+
+                img {
+                    width: 23px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+            }
+
             & > div > section {
                 @include displayFlex(row);
 
@@ -194,34 +198,46 @@
 
     .wm-periods-rule,
     .wm-periods-right-detail,
-    .wm-periods-right{
-        &>header {
+    .wm-periods-right {
+        & > header {
             height: 60px;
             line-height: 60px;
+
             @include displayFlex(row);
+
             border-bottom: 1px solid #e5e3e3;
-            &>div {
+
+            & > div {
                 margin-right: 20px;
+
                 &:nth-of-type(1) {
                     span {
                         background: #e5e3e3;
                         padding: 3px 6px 3px 30px;
+
                         @include br(16px);
+
                         cursor: pointer;
+
                         @include pos(r);
+
                         &:before,
                         &:after {
                             content: '';
+
                             @include pos(a);
+
                             left: 10px;
                             top: 4px;
                         }
+
                         &:before {
                             width: 12px;
                             height: 12px;
                             border: 2px solid #4a5160;
                             border-left: none;
                         }
+
                         &:after {
                             width: 0;
                             height: 0;
@@ -233,14 +249,20 @@
                         }
                     }
                 }
+
                 &:nth-of-type(2) {
                     font-size: 16px;
                     font-weight: bold;
+
                     @include pos(r);
+
                     padding-left: 20px;
+
                     &:before {
                         content: '';
+
                         @include pos(a);
+
                         width: 2px;
                         height: 20px;
                         top: 20px;
@@ -252,15 +274,135 @@
         }
     }
 
-    .wm-periods-rule{
+    .wm-periods-rule {
         @include pos(a);
+
         width: 100%;
         height: 90%;
         top: -0px;
-        //left: 200%;
-        left: 0;;
+        left: 100%;
+
+        //left: 0;;
         padding: 0 18px;
         background: #fff;
+        z-index: -1;
+
+        &.active {
+            z-index: 10;
+        }
+
+        .wm-person-rule-list {
+            header {
+                font-size: 16px;
+                height: 50px;
+                line-height: 50px;
+
+                span {
+                    margin-left: 10px;
+                    color: #56a4f3;
+                    font-size: 14px;
+                }
+            }
+
+            .wm-role-rule {
+                text-align: center;
+
+                @include displayFlex(row);
+
+                height: 100%;
+
+                li.wm-role-item {
+                    -webkit-flex-grow: 1;
+                    flex-grow: 1;
+                    text-align: center;
+                    border: 1px solid #ccc;
+                    border-right: none;
+                    height: 100%;
+
+                    &:last-of-type {
+                        border-right: 1px solid #ccc;
+                    }
+
+                    .wm-role-name {
+                        background: #f3f3f3;
+                        height: 50px;
+                        line-height: 50px;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+
+                    .wm-checkitem-weight {
+                        @include displayFlex(row);
+
+                        text-align: center;
+                        justify-content: space-between;
+                        -webkit-justify-content: space-between;
+                        height: 30px;
+                        line-height: 30px;
+                        border-bottom: 1px solid #ccc;
+                        width: 100%;
+
+                        & > div {
+                            -webkit-flex-grow: 1;
+                            flex-grow: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .wm-checkitem-rule-item {
+            @include displayFlex(row);
+
+            margin: 20px 6px;
+
+            i.ivu-icon-ios-plus, i.ivu-icon-ios-minus-outline {
+                font-size: 20px;
+                vertical-align: middle;
+                cursor: pointer;
+                margin-top: 4px;
+            }
+
+            input {
+                width: 100px;
+                margin-left: 0px;
+            }
+
+            & > div {
+                -webkit-flex-grow: 1;
+
+                &:last-of-type {
+                    width: 50px;
+                    -webkit-flex-grow: 0;
+                    flex-grow: 0;
+                }
+            }
+        }
+
+        .wm-rule-bottom{
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background: #fff;
+            @include pos(r);
+            &:before{
+                content:'';
+                @include pos(a);
+                height: 100%;
+                width: 100%;
+                left: 0;
+                top: 0;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                z-index: -1;
+            }
+            button{
+                width: 100px;
+                height: 30px;
+                cursor: pointer;
+                
+            }
+        }
     }
 
     .wm-periods-right-detail {
@@ -273,31 +415,36 @@
         padding: 0 18px;
         background: #fff;
 
-        .wm-periods-not-list{
+        .wm-periods-not-list {
             margin-top: 10px;
-            header{
+
+            header {
                 @include displayFlex(row);
+
                 -webkit-justify-content: space-between;
                 justify-content: space-between;
-                font-size:14px;
-                &>div{
+                font-size: 14px;
+
+                & > div {
                     width: 200px;
                 }
             }
-            
-            .zmiti-periods-not-header-item{
+
+            .zmiti-periods-not-header-item {
                 width: 350px;
-                 @include displayFlex(row);
-                 -webkit-justify-content: space-between;
-                 justify-content: space-between;
-                div{
-                    margin-left:10px;
+
+                @include displayFlex(row);
+
+                -webkit-justify-content: space-between;
+                justify-content: space-between;
+
+                div {
+                    margin-left: 10px;
                 }
             }
         }
-        
 
-       // @include transform(translate3d(200%,0,0));
+        // @include transform(translate3d(200%,0,0));
    
     }
 
@@ -311,9 +458,10 @@
         padding: 0 18px;
         background: #fff;
 
-       // @include transform(translate3d(100%, 0, 0));
+        // @include transform(translate3d(100%, 0, 0));
 
         @include displayFlex(column);
+
         .wm-periods-table-list {
             margin-top: 20px;
 

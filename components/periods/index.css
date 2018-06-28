@@ -333,9 +333,128 @@
   width: 100%;
   height: 90%;
   top: -0px;
-  left: 0;
+  left: 100%;
   padding: 0 18px;
   background: #fff;
+  z-index: -1;
+}
+
+.wm-periods-ui .wm-periods-rule.active {
+  z-index: 10;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list header {
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list header span {
+  margin-left: 10px;
+  color: #56a4f3;
+  font-size: 14px;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list .wm-role-rule {
+  text-align: center;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  height: 100%;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list .wm-role-rule li.wm-role-item {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-right: none;
+  height: 100%;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list .wm-role-rule li.wm-role-item:last-of-type {
+  border-right: 1px solid #ccc;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list .wm-role-rule li.wm-role-item .wm-role-name {
+  background: #f3f3f3;
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list .wm-role-rule li.wm-role-item .wm-checkitem-weight {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  text-align: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-person-rule-list .wm-role-rule li.wm-role-item .wm-checkitem-weight > div {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-checkitem-rule-item {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  margin: 20px 6px;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-checkitem-rule-item i.ivu-icon-ios-plus, .wm-periods-ui .wm-periods-rule .wm-checkitem-rule-item i.ivu-icon-ios-minus-outline {
+  font-size: 20px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-checkitem-rule-item input {
+  width: 100px;
+  margin-left: 0px;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-checkitem-rule-item > div {
+  -webkit-flex-grow: 1;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-checkitem-rule-item > div:last-of-type {
+  width: 50px;
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-rule-bottom {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-rule-bottom:before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.wm-periods-ui .wm-periods-rule .wm-rule-bottom button {
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
 }
 
 .wm-periods-ui .wm-periods-right-detail {
