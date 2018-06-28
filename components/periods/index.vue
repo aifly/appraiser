@@ -270,12 +270,11 @@
 				})
 				console.log(arr);
 
-				return;
 				symbinUtil.ajax({
-					url:window.config.baseUrl + '/wmadmin/editcheckitemweight/',
+					url:window.config.baseUrl + '/wmadmin/addcheckitemweight/',
 					validate:s.validate,
 					data:{
-
+						list:JSON.stringify(arr)
 					},
 					success(data){
 						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
