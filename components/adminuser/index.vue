@@ -6,7 +6,7 @@
 		<div>
 			<div class="wm-adminuser-header">
 				<div>
-					<Button icon='plus' type="primary">添加</Button>
+					<Button icon='plus' type="primary" @click="addPerson">添加</Button>
 					<Button icon='trash-a' >删除</Button>
 					<Tooltip content="初始化人员评分基础数据" placement="top">
 						<Button icon='ios-loop-strong' @click="initData">初始化</Button>
@@ -41,7 +41,7 @@
 									<span v-if='i>0' @click='delDepartment(i)'><Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="minus-circled" ></Icon></span>
 									<span  @click="addDepartment" v-if='i===0'><Icon   style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></span>
 								</div>
-								<div v-if='formAdmin.departmentid.length<=0'> 
+								<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'> 
 									无
 								</div>
 							</Col>
@@ -184,18 +184,33 @@
                                         }
                                     }
                                 }, '编辑'),
-                                h('Button', {
-                                    props: {
-                                        type: 'error',
-										size: 'small',
-										icon:'trash-a'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.remove(params.index)
-                                        }
-                                    }
-                                }, '删除')
+								h('Poptip',{
+									props:{
+										confirm:true,
+										title:"确定要删除吗？"
+									},
+									on:{
+										'on-ok':()=>{
+											this.remove(params.index,params.row.employeeid)
+										},
+										
+									}
+								},[
+									h('Button', {
+										props: {
+											type: 'error',
+											size: 'small',
+											icon:'trash-a'
+										},
+										on: {
+											click: () => {
+												
+												//this.remove(params.index,params.row.employeeid)
+											}
+										}
+									}, '删除')
+								]),
+                                
 							])
 						}
 					}
@@ -225,9 +240,16 @@
 		mounted(){
 			
 			this.getUserList();
+			this.userinfo = symbinUtil.getUserInfo();
 		},
 		
 		methods:{
+			addPerson(){//添加人员
+				this.visible = true;
+				this.currentUserId = -1;
+				this.formAdmin.departmentid = [[]];
+				//this.formAdmin = {};
+			},
 			initData(){
 				var  s = this;
 				this.spinShow = true;
@@ -292,6 +314,7 @@
 			ok(){
 				//
 				var s =  this;
+				
 				if(this.currentUserId!==-1){//编辑
 					console.log(s.formAdmin.departmentid.length);
 					var departmentids = '';
@@ -323,6 +346,38 @@
 							//console.log(data);
 						}
 					})
+				}else{//
+					var departmentids = '';
+					var len = s.formAdmin.departmentid;
+					s.formAdmin.departmentid.forEach((item,i)=>{
+						var d = item.pop();
+						if(item && d){
+							departmentids += d+',';
+						}
+					});
+					departmentids = departmentids.substr(0,departmentids.length-1)
+					symbinUtil.ajax({
+						url:window.config.baseUrl+'/wmadmin/addemployee/',
+						data:{
+							realname:s.formAdmin.username,
+							loginusername:s.formAdmin.username,
+							companyid:s.userinfo.companyid,
+							userpwd:'123456',
+							mobile:s.formAdmin.mobile,
+							sex:s.formAdmin.sex,
+							isinselect:s.formAdmin.isinselect|0,
+							isselect:s.formAdmin.isselect|0,
+							roleid:s.formAdmin.roleid,
+							departmentid:departmentids
+							
+						},
+						validate:s.validate,
+						success(data){
+							console.log(data);
+							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+							//console.log(data);
+						}
+					})
 				}
 			},
 			cancel(){},	
@@ -335,8 +390,20 @@
 				this.visible = true;
 				
 			},
-			remove(){
-
+			remove(index,employeeid){
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl + '/wmadmin/delemployee/',
+					validate:s.validate,
+					data:{
+						employeeid,
+						deltype:1
+					},
+					success(data){
+						s.dataSource.splice(index,1);
+						s.$Message[data.getret === 0 ?'success':'error'](data.getmsg);
+					}
+				})
 			},
 			getUserList(){
 				var s = this;

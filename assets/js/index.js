@@ -24144,7 +24144,7 @@
 	// 		<div>
 	// 			<div class="wm-adminuser-header">
 	// 				<div>
-	// 					<Button icon='plus' type="primary">添加</Button>
+	// 					<Button icon='plus' type="primary" @click="addPerson">添加</Button>
 	// 					<Button icon='trash-a' >删除</Button>
 	// 					<Tooltip content="初始化人员评分基础数据" placement="top">
 	// 						<Button icon='ios-loop-strong' @click="initData">初始化</Button>
@@ -24179,7 +24179,7 @@
 	// 									<span v-if='i>0' @click='delDepartment(i)'><Icon  style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="minus-circled" ></Icon></span>
 	// 									<span  @click="addDepartment" v-if='i===0'><Icon   style="cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;" type="ios-plus" ></Icon></span>
 	// 								</div>
-	// 								<div v-if='formAdmin.departmentid.length<=0'>
+	// 								<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'>
 	// 									无
 	// 								</div>
 	// 							</Col>
@@ -24336,7 +24336,18 @@
 									_this.showModal(params.row);
 								}
 							}
-						}, '编辑'), h('Button', {
+						}, '编辑'), h('Poptip', {
+							props: {
+								confirm: true,
+								title: "确定要删除吗？"
+							},
+							on: {
+								'on-ok': function onOk() {
+									_this.remove(params.index, params.row.employeeid);
+								}
+
+							}
+						}, [h('Button', {
 							props: {
 								type: 'error',
 								size: 'small',
@@ -24344,10 +24355,11 @@
 							},
 							on: {
 								click: function click() {
-									_this.remove(params.index);
+
+									//this.remove(params.index,params.row.employeeid)
 								}
 							}
-						}, '删除')]);
+						}, '删除')])]);
 					}
 				}],
 				dataSource: []
@@ -24373,9 +24385,17 @@
 		mounted: function mounted() {
 
 			this.getUserList();
+			this.userinfo = _libUtil2['default'].getUserInfo();
 		},
 
 		methods: {
+			addPerson: function addPerson() {
+				//添加人员
+				this.visible = true;
+				this.currentUserId = -1;
+				this.formAdmin.departmentid = [[]];
+				//this.formAdmin = {};
+			},
 			initData: function initData() {
 				var s = this;
 				this.spinShow = true;
@@ -24437,6 +24457,7 @@
 			ok: function ok() {
 				//
 				var s = this;
+
 				if (this.currentUserId !== -1) {
 					//编辑
 					console.log(s.formAdmin.departmentid.length);
@@ -24468,7 +24489,40 @@
 							//console.log(data);
 						}
 					});
-				}
+				} else {
+						//
+						var departmentids = '';
+						var len = s.formAdmin.departmentid;
+						s.formAdmin.departmentid.forEach(function (item, i) {
+							var d = item.pop();
+							if (item && d) {
+								departmentids += d + ',';
+							}
+						});
+						departmentids = departmentids.substr(0, departmentids.length - 1);
+						_libUtil2['default'].ajax({
+							url: window.config.baseUrl + '/wmadmin/addemployee/',
+							data: {
+								realname: s.formAdmin.username,
+								loginusername: s.formAdmin.username,
+								companyid: s.userinfo.companyid,
+								userpwd: '123456',
+								mobile: s.formAdmin.mobile,
+								sex: s.formAdmin.sex,
+								isinselect: s.formAdmin.isinselect | 0,
+								isselect: s.formAdmin.isselect | 0,
+								roleid: s.formAdmin.roleid,
+								departmentid: departmentids
+
+							},
+							validate: s.validate,
+							success: function success(data) {
+								console.log(data);
+								s.$Message[data.getret === 0 ? 'success' : 'error'](data.getmsg);
+								//console.log(data);
+							}
+						});
+					}
 			},
 			cancel: function cancel() {},
 			showModal: function showModal(row) {
@@ -24479,7 +24533,21 @@
 				this.currentUserId = row.employeeid;
 				this.visible = true;
 			},
-			remove: function remove() {},
+			remove: function remove(index, employeeid) {
+				var s = this;
+				_libUtil2['default'].ajax({
+					url: window.config.baseUrl + '/wmadmin/delemployee/',
+					validate: s.validate,
+					data: {
+						employeeid: employeeid,
+						deltype: 1
+					},
+					success: function success(data) {
+						s.dataSource.splice(index, 1);
+						s.$Message[data.getret === 0 ? 'success' : 'error'](data.getmsg);
+					}
+				});
+			},
 			getUserList: function getUserList() {
 				var s = this;
 
@@ -24621,7 +24689,7 @@
 /* 66 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-adminuser-ui\">\r\n\t\t<header>\r\n\t\t\t<div>人员管理</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-adminuser-header\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Button icon='plus' type=\"primary\">添加</Button>\r\n\t\t\t\t\t<Button icon='trash-a' >删除</Button>\r\n\t\t\t\t\t<Tooltip content=\"初始化人员评分基础数据\" placement=\"top\">\r\n\t\t\t\t\t\t<Button icon='ios-loop-strong' @click=\"initData\">初始化</Button>\r\n\t\t\t\t\t</Tooltip>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Input  />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>\r\n\t\t</div>\r\n\t\t<Modal v-model=\"visible\" title=\"人员管理\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t\t<Form ref=\"formAdmin\" :model=\"formAdmin\" :rules=\"adminForm\" :label-width=\"72\" >\r\n\t\t\t\t\t<FormItem label=\"姓名：\" prop=\"username\">\r\n\t\t\t\t\t\t<Input style=\"width:320px;\" v-model=\"formAdmin.username\" placeholder=\"姓名\" autocomplete=\"off\" />\r\n\t\t\t\t\t\t<RadioGroup v-model=\"formAdmin.sex\">\r\n\t\t\t\t\t\t\t<Radio :label=\"1\">\r\n\t\t\t\t\t\t\t\t<span>男</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t\t<Radio :label=\"0\">\r\n\t\t\t\t\t\t\t\t<span>女</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t</RadioGroup>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"部门：\" prop=\"job\">\r\n\t\t\t\t\t\t<Row type='flex'>\r\n\t\t\t\t\t\t\t<Col span='13'>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<div v-for='(de,i) in formAdmin.departmentid' :key=\"i\" >\r\n\t\t\t\t\t\t\t\t\t<Cascader change-on-select style=\"width:180px\" :data=\"department\" v-model=\"formAdmin.departmentid[i]\"></Cascader>\r\n\t\t\t\t\t\t\t\t\t<span v-if='i>0' @click='delDepartment(i)'><Icon  style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"minus-circled\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t\t<span  @click=\"addDepartment\" v-if='i===0'><Icon   style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"ios-plus\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div v-if='formAdmin.departmentid.length<=0'> \r\n\t\t\t\t\t\t\t\t\t无\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<Col  span='5'>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<Select　placeholder='职位' v-model=\"formAdmin.roleid\" style=\"width:120px\">\r\n\t\t\t\t\t\t\t\t\t<Option v-for=\"item in roleList\" :value=\"item.roleid\" :key=\"item.roleid\">{{ item.rolename }}</Option>\r\n\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t</Row>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"电话：\" prop=\"mobile\">\r\n\t\t\t\t\t\t<Input v-model=\"formAdmin.mobile\" placeholder=\"电话\" autocomplete=\"off\" />\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可评：\">\r\n\t\t\t\t\t\t<Checkbox  v-model='formAdmin.isinselect'>\r\n\t\t\t\t\t\t\t<span>可参评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Checkbox v-model=\"formAdmin.isselect\">\r\n\t\t\t\t\t\t\t<span>可被评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t</Form>\r\n\t\t</Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-adminuser-ui\">\r\n\t\t<header>\r\n\t\t\t<div>人员管理</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-adminuser-header\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Button icon='plus' type=\"primary\" @click=\"addPerson\">添加</Button>\r\n\t\t\t\t\t<Button icon='trash-a' >删除</Button>\r\n\t\t\t\t\t<Tooltip content=\"初始化人员评分基础数据\" placement=\"top\">\r\n\t\t\t\t\t\t<Button icon='ios-loop-strong' @click=\"initData\">初始化</Button>\r\n\t\t\t\t\t</Tooltip>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Input  />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>\r\n\t\t</div>\r\n\t\t<Modal v-model=\"visible\" title=\"人员管理\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t\t<Form ref=\"formAdmin\" :model=\"formAdmin\" :rules=\"adminForm\" :label-width=\"72\" >\r\n\t\t\t\t\t<FormItem label=\"姓名：\" prop=\"username\">\r\n\t\t\t\t\t\t<Input style=\"width:320px;\" v-model=\"formAdmin.username\" placeholder=\"姓名\" autocomplete=\"off\" />\r\n\t\t\t\t\t\t<RadioGroup v-model=\"formAdmin.sex\">\r\n\t\t\t\t\t\t\t<Radio :label=\"1\">\r\n\t\t\t\t\t\t\t\t<span>男</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t\t<Radio :label=\"0\">\r\n\t\t\t\t\t\t\t\t<span>女</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t</RadioGroup>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"部门：\" prop=\"job\">\r\n\t\t\t\t\t\t<Row type='flex'>\r\n\t\t\t\t\t\t\t<Col span='13'>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<div v-for='(de,i) in formAdmin.departmentid' :key=\"i\" >\r\n\t\t\t\t\t\t\t\t\t<Cascader change-on-select style=\"width:180px\" :data=\"department\" v-model=\"formAdmin.departmentid[i]\"></Cascader>\r\n\t\t\t\t\t\t\t\t\t<span v-if='i>0' @click='delDepartment(i)'><Icon  style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"minus-circled\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t\t<span  @click=\"addDepartment\" v-if='i===0'><Icon   style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"ios-plus\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'> \r\n\t\t\t\t\t\t\t\t\t无\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<Col  span='5'>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<Select　placeholder='职位' v-model=\"formAdmin.roleid\" style=\"width:120px\">\r\n\t\t\t\t\t\t\t\t\t<Option v-for=\"item in roleList\" :value=\"item.roleid\" :key=\"item.roleid\">{{ item.rolename }}</Option>\r\n\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t</Row>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"电话：\" prop=\"mobile\">\r\n\t\t\t\t\t\t<Input v-model=\"formAdmin.mobile\" placeholder=\"电话\" autocomplete=\"off\" />\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可评：\">\r\n\t\t\t\t\t\t<Checkbox  v-model='formAdmin.isinselect'>\r\n\t\t\t\t\t\t\t<span>可参评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Checkbox v-model=\"formAdmin.isselect\">\r\n\t\t\t\t\t\t\t<span>可被评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t</Form>\r\n\t\t</Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 67 */
@@ -27858,11 +27926,8 @@
 					}
 				});
 
-				if (!this.gradeList[this.index].users.length) {
-					y = -key * 320 - 20;
-				}
-				//console.log(y);
-				this.mainScroll.scrollTo(0, y, 500);
+				//console.log(document.querySelectorAll('.wm-grade-group-ico')[key],key);
+				this.mainScroll.scrollToElement(document.querySelectorAll('.wm-grade-group-ico')[key], 400);
 			},
 			submit: function submit() {
 				var s = this;
