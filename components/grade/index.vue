@@ -234,11 +234,9 @@
 					}
 				});
 	
-				if(!this.gradeList[this.index].users.length){
-					y = -key * 320-20;
-				}
-				//console.log(y);
-				this.mainScroll.scrollTo(0,y,500);
+				
+				//console.log(document.querySelectorAll('.wm-grade-group-ico')[key],key);
+				this.mainScroll.scrollToElement(document.querySelectorAll('.wm-grade-group-ico')[key],400);
 			},
 			submit(){
 				var s = this;
