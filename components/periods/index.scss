@@ -318,6 +318,7 @@
                     border: 1px solid #ccc;
                     border-right: none;
                     height: 100%;
+                    overflow: auto;
 
                     &:last-of-type {
                         border-right: 1px solid #ccc;
@@ -379,16 +380,20 @@
             }
         }
 
-        .wm-rule-bottom{
+        .wm-rule-bottom {
             width: 100%;
             height: 60px;
             line-height: 60px;
             text-align: center;
             background: #fff;
+
             @include pos(r);
-            &:before{
-                content:'';
+
+            &:before {
+                content: '';
+
                 @include pos(a);
+
                 height: 100%;
                 width: 100%;
                 left: 0;
@@ -396,11 +401,11 @@
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
                 z-index: -1;
             }
-            button{
+
+            button {
                 width: 100px;
                 height: 30px;
                 cursor: pointer;
-                
             }
         }
     }
@@ -469,13 +474,26 @@
                 @include pos(r);
             }
 
+            @include pos(r);
+
             .wm-periods-title {
                 @include displayFlex(row);
+                @include pos(a);
 
+                right: 0;
+                z-index: 100;
+                width: 80%;
+                margin-top: -12px;
                 justify-content: space-between;
                 -webkit-justify-content: space-between;
-                line-height: 40px;
+                line-height: 44px;
                 font-size: 16px;
+
+                & > div {
+                    &:nth-of-type(1) {
+                        line-height: 54px;
+                    }
+                }
 
                 span {
                     color: #0189df;
@@ -494,19 +512,19 @@
     }
 }
 
-.ivu-table-body::-webkit-scrollbar { /*滚动条整体样式*/
+.ivu-table-body::-webkit-scrollbar, .wm-scroll::-webkit-scrollbar { /*滚动条整体样式*/
     width: 8px; /*高宽分别对应横竖滚动条的尺寸*/
     height: 8px;
 }
 
-.ivu-table-body::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+.ivu-table-body::-webkit-scrollbar-thumb, .wm-scroll::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
     border-radius: 5px;
     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     background: rgba(0, 0, 0, 0.2);
 }
 
-.ivu-table-body::-webkit-scrollbar-track { /*滚动条里面轨道*/
+.ivu-table-body::-webkit-scrollbar-track, .wm-scroll::-webkit-scrollbar-track { /*滚动条里面轨道*/
     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: 0;
     background: rgba(0, 0, 0, 0.1);

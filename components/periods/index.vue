@@ -52,7 +52,7 @@
 						{{periodsName}}  <span>第 {{ruleIndex}} 期</span>
 					</header>
 					<ul class="wm-role-rule" :style="{height:viewH - 60-60 - 60 - 60 + 'px'}">
-						<li class="wm-role-item" v-for="(role,i) in roleList" :key="i">
+						<li class="wm-role-item wm-scroll" v-for="(role,i) in roleList" :key="i">
 							<div class="wm-role-name">{{role.rolename}}</div>
 							<div class="wm-checkitem-weight">
 								<div>评分项名称</div>
@@ -106,7 +106,7 @@
 					</div>
 					<div>考评记录</div>
 				</header>
-				<div class="wm-periods-table-list">
+				<div class="wm-periods-table-list" v-if='!showRulePage'>
 					<div class="wm-periods-title">
 						<div>
 							{{title}} <span>第{{periodsIndex}}期</span>
@@ -116,7 +116,12 @@
 							<Input  v-model="keyword" placeholder="请输入你要查找的人员姓名" style="width:200px;" />
 						</div>
 					</div>
-					<Table @on-row-click='entryDetailPage' :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table>
+					<!-- <Table @on-row-click='entryDetailPage' :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table> -->
+					 <Tabs v-model="tab" type="card">
+						<TabPane :label='item.groupid' v-for='(item,i) in dataSource'  :key='i'>
+							<Table ref='scorelist' @on-row-click='entryDetailPage'  :height='viewH - 64-60 - 80' :data='item.user' :columns='item.columns' :loading='loading' stripe></Table>
+						</TabPane>
+					</Tabs>
 				</div>
 			</div>
 			<div class="wm-periods-right-detail" :style="{height:viewH-64-10+'px'}">
@@ -189,6 +194,7 @@
 				columns1:[],
 				dataSource:[],
 				dataSource1:[],
+				tab:0,
 				noscorelist:[],
 				imgs:window.imgs,
 				visible:false,
@@ -315,7 +321,7 @@
 					success(data){
 						if(data.getret === 0){
 							s.roleList.forEach((role,i)=>{
-								
+								role.checkitemWeightList = [];
 								data.list.forEach((dt,k)=>{
 								
 									if(role.roleid === dt.roleid ){
@@ -354,6 +360,14 @@
 			} ,
 			periodsAction(){
 				var s = this;
+				/* console.log({
+							periodsnumberid:s.periodsnumberid,
+							periodsname:s.formItem.periodsname,
+							starttime:s.formItem.starttime,
+							endtime:s.formItem.endtime,
+							switch:s.formItem.status
+						});
+						return; */
 				if(this.currentIndex>-1){//编辑
 					s.formItem.starttime = new Date(s.formItem.starttime).toLocaleDateString().replace(/\//ig,'-');
 					s.formItem.endtime = new Date(s.formItem.endtime).toLocaleDateString().replace(/\//ig,'-');
@@ -368,6 +382,7 @@
 							switch:s.formItem.status
 						},
 						success(data){
+							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 							console.log(data);
 						}
 					})
@@ -423,8 +438,9 @@
 				this.periodsnumberid = periods.periodsnumberid;
 			},
 			exportData(){
-				 this.$refs.scorelist.exportCsv({
-					filename: '考评结果'
+				var s = this;
+				this.$refs.scorelist[this.tab].exportCsv({
+					filename: s.title+'_考评结果'
 				});
 			},
 			getPeriodsList(){
@@ -439,10 +455,11 @@
 					success(data){
 						if(data.getret === 0){
 							data.list.forEach((item,i)=>{
-								//item.starttime = new Date(item.starttime).Format("yyyy-MM-dd");
-								//item.endtime = new Date(item.endtime).Format("yyyy-MM-dd");
+								/* item.starttime = new Date(item.starttime).Format("yyyy-MM-dd");
+								item.endtime = new Date(item.endtime).Format("yyyy-MM-dd");*/
 							//	item.endtime.Format("yyyy-MM-dd")
 							})
+							console.log(data.list)
 							s.periodsList = data.list;
 							s.loading = false;
 						}
@@ -502,19 +519,7 @@
 								sortable: true
 							})
 
-							this.columns1.push({
-								title:item.title,
-								key:'score'+(i+1),
-								align:'center',
-								sortable: true,
-								render:(h,params)=>{
-									return h('div',{
-										style:{
-											color:params.row['score'+(i+1)] === 0 ? '#f00' : '#000'
-										}
-									},params.row['score'+(i+1)] === 0 ?'未评':params.row['score'+(i+1)])
-								}
-							})
+							
 						})
 						this.columns.push({
 							title:'综合评分',
@@ -556,6 +561,51 @@
 					},
 					success(data){
 						s.dataSource = data.list[0].user;
+						s.dataSource.forEach((item,i)=>{
+							item.columns = [
+								{
+									title:'姓名',
+									key:'username',
+									align:'center',
+								}
+							];
+							item.checkitemlist.forEach((user,k)=>{
+								item.columns.push({
+									title:user.title,
+									align:'center',
+									key:['score'+(k+1)]
+								});
+								k===0 && console.log(item.columns)
+							});
+							item.columns.push({
+								title:'综合评分',
+								key:"avgscore",
+								align:'center',
+								sortable: true,
+								render: (h, params) => {
+									var text = params.row.avgscore<60?'不合格':params.row.avgscore<=70?'基本合格':params.row.avgscore<=89?'合格':'优秀';
+									//text+= ' '+ params.row.avgscore + '分'
+									return h('div',[
+										h('span',{
+												style:{
+												color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
+												fontWeight:'bold',
+												fontSize:'14px',
+
+											}
+										},text),
+										h('span',{
+												style:{
+												color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
+												fontWeight:'bold',
+												marginLeft:'10px'
+
+											}
+										},params.row.avgscore+'分')
+									]);
+									}
+							})
+						});
 						s.defaultSource = s.dataSource.concat([]);
 						s.title = data.list[0].periodsname
 					}
@@ -576,8 +626,31 @@
 							data.list.userlist.forEach((item,i)=>{
 								arr.push(item.items);
 							});
+							var len = 0;
+							s.columns1 = [s.columns1.shift()];
+							s.dataSource.forEach((dt,i)=>{
+								dt.user.forEach((d,k)=>{
+									if(d.userid === userid){
+										len = dt.checkitemlist.length;
+										dt.checkitemlist.forEach((item,l)=>{
+											s.columns1.push({
+												title:item.title,
+												key:'score'+(l+1),
+												align:'center'
+											})
+										})
+									}
+								})
+							})
+							
+							//console.log("score"+len);
+							s.columns1.push({
+								title:'综合评分',
+								key:"score"+(len+1),
+								align:'center',
+								sortable: true,
+							})
 							s.noscorelist = data.list.noscorelist;
-							console.log(s.columns)
 							s.dataSource1 = data.list.userlist;
 							s.defaultSource1 = s.dataSource1.concat([]);
 						}
