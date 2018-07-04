@@ -646,7 +646,7 @@
 							//console.log("score"+len);
 							s.columns1.push({
 								title:'综合评分',
-								key:"score"+(len+1),
+								key:"avgscore",
 								align:'center',
 								sortable: true,
 							})
