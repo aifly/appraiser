@@ -24039,12 +24039,12 @@
 							});
 
 							//console.log("score"+len);
-							s.columns1.push({
-								title: '综合评分',
-								key: "avgscore",
-								align: 'center',
-								sortable: true
-							});
+							/*s.columns1.push({
+	      	title:'综合评分',
+	      	key:"avgscore",
+	      	align:'center',
+	      	sortable: true,
+	      })*/
 							s.noscorelist = data.list.noscorelist;
 							s.dataSource1 = data.list.userlist;
 							s.defaultSource1 = s.dataSource1.concat([]);
