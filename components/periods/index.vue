@@ -573,7 +573,7 @@
 								item.columns.push({
 									title:user.title,
 									align:'center',
-									key:['score'+(k+1)]
+									key:['score'+user.checkitemid]
 								});
 								k===0 && console.log(item.columns)
 							});
@@ -635,7 +635,7 @@
 										dt.checkitemlist.forEach((item,l)=>{
 											s.columns1.push({
 												title:item.title,
-												key:'score'+(l+1),
+												key:'score'+item.checkitemid,
 												align:'center'
 											})
 										})
