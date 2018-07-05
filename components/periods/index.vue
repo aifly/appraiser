@@ -410,8 +410,17 @@
 				///console.log(e);
 				var s = this;
 				if(e){
+					var checkItemList = s.dataSource[s.tab].checkitemlist;
+					
 					s.dataSource1 = s.defaultSource1.filter((item,i)=>{
-						return item.score1 === 0 || item.score2 === 0||item.score3 === 0||item.score4 === 0||item.score5 === 0||item.score6 === 0
+						var flag = false;
+						checkItemList.forEach((ch,ik)=>{
+							if(item['score'+ch.checkitemid] === 0){
+								flag = true;
+							}
+						});
+
+						return flag;
 					});
 				}
 				else{
@@ -472,85 +481,11 @@
 			},
 			getScoreList(periodsnumberid=1){
 				var s = this;
-				symbinUtil.getStandard((data)=>{
-					//this.standardList = data;
-					if(!this.columns.length){
-
-						this.columns.push({
-							title:'姓名',
-							key:'username',
-							align:'center',
-							render:(h,params)=>{
-								return h('div',[
-									h('span',{},params.row.username),
-									h('a',{
-										props:{
-											href:"#",
-											title:"11111111"
-										},
-										on:{
-											click(e){
-												
-
-												
-											}
-										},
-										style:{
-											position:'absolute',
-											top:'14px',
-											right:0,
-											fontSize:'14px',
-											fontWeight:"bold"
-										}
-									},params.row.activenum+'/'+params.row.totalnum)
-								]);
-							}
-						})
-						this.columns1[0] =  {
-							key:"username",
-							title:'姓名',
-							align:'center'
-						};
-						data.map((item,i)=>{
-							this.columns.push({
-								title:item.title,
-								key:'score'+(i+1),
-								align:'center',
-								sortable: true
-							})
-
-							
-						})
-						this.columns.push({
-							title:'综合评分',
-							key:"avgscore",
-							align:'center',
-							sortable: true,
-							render: (h, params) => {
-								var text = params.row.avgscore<60?'不合格':params.row.avgscore<=70?'基本合格':params.row.avgscore<=89?'合格':'优秀';
-								//text+= ' '+ params.row.avgscore + '分'
-								return h('div',[
-									h('span',{
-											style:{
-											color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
-											fontWeight:'bold',
-											fontSize:'14px',
-
-										}
-									},text),
-									h('span',{
-											style:{
-											color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
-											fontWeight:'bold',
-											marginLeft:'10px'
-
-										}
-									},params.row.avgscore+'分')
-								]);
-								}
-						})
-					}
-				});
+				 this.columns1[0] =  {
+					key:"username",
+					title:'姓名',
+					align:'center'
+				};
 				 
 
 				symbinUtil.ajax({
@@ -573,7 +508,7 @@
 								item.columns.push({
 									title:user.title,
 									align:'center',
-									key:['score'+user.checkitemid]
+									key:'score'+user.checkitemid
 								});
 								k===0 && console.log(item.columns)
 							});
@@ -581,29 +516,7 @@
 								title:'综合评分',
 								key:"avgscore",
 								align:'center',
-								sortable: true,
-								render: (h, params) => {
-									var text = params.row.avgscore<60?'不合格':params.row.avgscore<=70?'基本合格':params.row.avgscore<=89?'合格':'优秀';
-									//text+= ' '+ params.row.avgscore + '分'
-									return h('div',[
-										h('span',{
-												style:{
-												color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
-												fontWeight:'bold',
-												fontSize:'14px',
-
-											}
-										},text),
-										h('span',{
-												style:{
-												color:params.row.avgscore<60?'#f00':params.row.avgscore<=70?'#00f':params.row.avgscore<=89?'#000':'green',
-												fontWeight:'bold',
-												marginLeft:'10px'
-
-											}
-										},params.row.avgscore+'分')
-									]);
-									}
+								sortable: true
 							})
 						});
 						s.defaultSource = s.dataSource.concat([]);
@@ -636,7 +549,16 @@
 											s.columns1.push({
 												title:item.title,
 												key:'score'+item.checkitemid,
-												align:'center'
+												align:'center',
+												render:(h,params)=>{
+													var text = params.row['score'+item.checkitemid]<=0?'未评分':params.row['score'+item.checkitemid];
+													return h('div',{
+														style:{
+															color:params.row['score'+item.checkitemid]<=0?'#f00':"#000",
+															fontWeight:'bold'
+														}
+													},text);
+												}
 											})
 										})
 									}
