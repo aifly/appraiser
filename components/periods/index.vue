@@ -166,7 +166,7 @@
 						<DatePicker v-model="formItem.endtime" format="yyyy-MM-dd" type="date"  placeholder="结束时间"  style="width:100%"></DatePicker>
 					</FormItem>
 					<FormItem label="是否可用 ：">
-						<i-switch v-model="formItem.switch" size="large">
+						<i-switch v-model="formItem.status" size="large">
 							<span slot="open">可用</span>
 							<span slot="close">禁用</span>
 						</i-switch>
@@ -220,7 +220,7 @@
 				periodsUserName:'',
 				formItem:{
 					periodsName:'',
-					switch:true,
+					status:true,
 					startdate:'',
 					enddate:''
 				},
@@ -311,14 +311,18 @@
 				this.periodsName = periods.periodsname;
 				this.ruleIndex = index+1;
 
+
+
 				var s = this;
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmadmin/getcheckitemweightlist/',
 					validate:s.validate,
 					data:{
-						status:1
+						status:1,
+						periodsnumberid:periods.periodsnumberid
 					},
 					success(data){
+						console.log(data);
 						if(data.getret === 0){
 							s.roleList.forEach((role,i)=>{
 								role.checkitemWeightList = [];
@@ -371,6 +375,7 @@
 				if(this.currentIndex>-1){//编辑
 					s.formItem.starttime = new Date(s.formItem.starttime).toLocaleDateString().replace(/\//ig,'-');
 					s.formItem.endtime = new Date(s.formItem.endtime).toLocaleDateString().replace(/\//ig,'-');
+
 					symbinUtil.ajax({
 						url:window.config.baseUrl+'/wmadmin/editperiodsnumber/',
 						validate:s.validate,
@@ -379,7 +384,7 @@
 							periodsname:s.formItem.periodsname,
 							starttime:s.formItem.starttime,
 							endtime:s.formItem.endtime,
-							switch:s.formItem.status
+							status:s.formItem.status
 						},
 						success(data){
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
@@ -388,7 +393,9 @@
 					})
 				}
 				else{
-				
+					s.formItem.starttime = new Date(s.formItem.starttime).toLocaleDateString().replace(/\//ig,'-');
+					s.formItem.endtime = new Date(s.formItem.endtime).toLocaleDateString().replace(/\//ig,'-');
+
 					symbinUtil.ajax({
 						url:window.config.baseUrl+'/wmadmin/addperiodsnumber/',
 						validate:s.validate,
@@ -456,7 +463,7 @@
 				var s = this;
 				window.s = this;
 				symbinUtil.ajax({
-					url:window.config.baseUrl+'/wmuser/getperiodsnumberlist',
+					url:window.config.baseUrl+'/wmadmin/getperiodsnumberlist',
 					data:{
 
 					},
@@ -468,7 +475,7 @@
 								item.endtime = new Date(item.endtime).Format("yyyy-MM-dd");*/
 							//	item.endtime.Format("yyyy-MM-dd")
 							})
-							console.log(data.list)
+							console.log(data,'= ==')
 							s.periodsList = data.list;
 							s.loading = false;
 						}
@@ -484,7 +491,23 @@
 				 this.columns1[0] =  {
 					key:"username",
 					title:'姓名',
-					align:'center'
+					align:'center',
+					width:120,
+					render:(h,params)=>{
+						return h('div',[
+							h('span',{
+								style:{
+									marginRight:'10px'
+								}
+							},params.row.username),
+							h('span',{
+								style:{
+									color:'#f00',
+									fontWeight:'bold'
+								}
+							},'('+params.row.rolename+")")
+						])
+					}
 				};
 				 
 
@@ -501,7 +524,22 @@
 								{
 									title:'姓名',
 									key:'username',
+									width:120,
 									align:'center',
+									render:(h,params)=>{
+										return h('div',[
+											h('span',{
+												style:{
+													marginRight:'10px'
+												}
+											},params.row.username),
+											h('span',{
+												style:{
+													color:'blue'
+												}
+											},params.row.activenum + '/' + params.row.totalnum)
+										])
+									}
 								}
 							];
 							item.checkitemlist.forEach((user,k)=>{

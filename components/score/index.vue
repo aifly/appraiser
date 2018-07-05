@@ -9,7 +9,7 @@
 					<li><span>{{score.date}}</span> 第{{i+1}}期</li>
 					<li v-for='(standard ,k ) in standardList' :key='k'>
 						<div>{{standard.title}}</div>
-						<div>{{score.score[k]}} 分</div>
+						<div>{{score.score[standard.checkitemid]}} 分</div>
 					</li>
 					<li class="wm-avg-score">
 						<div>综合评分</div>
