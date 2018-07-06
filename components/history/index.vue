@@ -9,20 +9,20 @@
 					<div class="wm-history-date">
 						<span>{{history.date}}</span>第{{i+1}}期
 					</div>
-					<ul v-for='(department,k) in history.departmentlist' :key='k'>
-						<li>{{department.departmentname}}</li>
+					<ul v-for='(role,k) in history.rolelist' :key='k'>
+						<li>{{role.rolename}}</li>
 						<li>
-							<div>姓名</div>
-							<div v-for="(standard,h) in standardList" :key='h'>
+							<div :style="{width:100 / role.checkitemlist.length+'%'}">姓名</div>
+							<div :style="{width:100 / role.checkitemlist.length+'%'}" v-for="(standard,h) in role.checkitemlist" :key='h'>
 								{{standard.title}}
 							</div>
 						</li>
-						<li v-for="(list,j) in department.list" :key="j">
-							<div>
-								<div class="wm-department-username">{{list.name}}</div>
+						<li v-for="(list,j) in role.scorelist" :key="j">
+							<div :style="{width:100 / role.checkitemlist.length+'%'}" >
+								<div class="wm-department-username">{{list.username}}</div>
 							</div>
-							<div v-for='(score,g) in list.score' :key="g">
-								{{score}} 分
+							<div :style="{width:100 / role.checkitemlist.length+'%'}"  v-for="(standard,h) in role.checkitemlist" :key='h'>
+								{{list['score'+standard.checkitemid]}} 分
 							</div>
 						</li>
 					</ul>
@@ -62,7 +62,7 @@
 		methods:{
 			getHistoryList(){
 				var s = this;
-				symbinUtil.ajax({
+				/* symbinUtil.ajax({
 					url:window.config.baseUrl+"/wmuser/gethistorylist",
 					validate:s.validate,
 					success(data){
@@ -72,14 +72,14 @@
 							s.scroll.refresh();
 						}, 100);
 					}
-				})
+				}) */
 				
-				/*$.getJSON('./components/data/history.json',(data)=>{
+				$.getJSON('./components/data/history.json',(data)=>{
 					this.historyList = data.list;
 					setTimeout(() => {
 						this.scroll.refresh();
 					}, 100);
-				});*/
+				});
 				symbinUtil.getStandard((data)=>{
 					this.standardList = data;
 				})

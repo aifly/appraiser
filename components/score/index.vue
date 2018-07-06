@@ -7,13 +7,14 @@
 			<section class="wm-score-list">
 				<ul v-for='(score,i) in scoreList' :key='i' class="wm-score-item">
 					<li><span>{{score.date}}</span> 第{{i+1}}期</li>
-					<li v-for='(standard ,k ) in standardList' :key='k'>
+					<li v-for='(standard ,k ) in score.checkitemlist' :key='k'>
 						<div>{{standard.title}}</div>
-						<div>{{score.score[standard.checkitemid]}} 分</div>
+						<div>{{score['score'+standard.checkitemid]}} 分</div>
+						
 					</li>
 					<li class="wm-avg-score">
 						<div>综合评分</div>
-						<div>{{score.score[score.score.length-1]<60?'不合格':score.score[score.score.length-1]<=70?'基本合格':score.score[score.score.length-1]<=89?'合格':'优秀'}} <span>{{score.score[score.score.length-1]}}分</span> </div>
+						<div>{{score['avgscore'] < 60?'不合格':score['avgscore']<=70?'基本合格':score['avgscore']<=89?'合格':'优秀'}} <span>{{score['avgscore']}}分</span> </div>
 					</li>
 				</ul>
 			</section>
@@ -49,7 +50,7 @@
 		methods:{
 			getScoreList(){//获取我的得分列表。
 				var s = this;
-				symbinUtil.ajax({
+				/* symbinUtil.ajax({
 					validate:s.validate,
 					url:window.config.baseUrl+'/wmuser/getmyscorelist/',
 					data:{},
@@ -75,13 +76,13 @@
 							}
 						});
 					}
-				})
+				}) */
 
-				/* $.getJSON('./components/data/score.json',(data)=>{
+				$.getJSON('./components/data/score.json',(data)=>{
 					//console.log(data);
 					this.scoreList = data.list;
 
-				}); */
+				});
 
 				
 				console.log(this.standardList)

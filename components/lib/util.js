@@ -29,7 +29,7 @@ var symbinUtil = {
 		
 		if(window.sessionStorage.getItem('wm_standard')){
 			fn && fn(JSON.parse(window.sessionStorage.getItem('wm_standard')));
-			return;
+			//return;
 		}
 
 		var loginObj = '',
@@ -52,7 +52,7 @@ var symbinUtil = {
 			},
 			success(data){
 				fn && fn(data.list);
-				//console.log(data.list)
+				console.log(data.list,' ---------- ')
 				window.sessionStorage.setItem('wm_standard', JSON.stringify(data.list));
 			}
 		})

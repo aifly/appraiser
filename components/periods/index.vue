@@ -13,7 +13,7 @@
 						<div v-for='(periods,i) in periodsList' :key="i" class="wm-periods-item">
 							<div>
 								<h2>
-									<div>{{periods.periodsname}} <span>第{{i+1}}期</span></div>
+									<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>
 									<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
 								</h2>
 								<section @click="getPeriodsDetail(periods,i)">
@@ -465,7 +465,7 @@
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmadmin/getperiodsnumberlist',
 					data:{
-
+						status:1
 					},
 					validate:s.validate,
 					success(data){
@@ -518,6 +518,10 @@
 						periodsnumberid
 					},
 					success(data){
+						if(!data.list[0]){
+
+							return;
+						}
 						s.dataSource = data.list[0].user;
 						s.dataSource.forEach((item,i)=>{
 							item.columns = [

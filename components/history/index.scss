@@ -28,7 +28,7 @@ $color: #be0000;
             @include displayFlex(row);
          
             &>div{
-                width: 16.6666%;
+                text-align: center;
                  border-bottom: 1px solid #e9eaec;
                  border-right: 1px solid #e9eaec;
                 //border:1px solid red;
@@ -50,7 +50,7 @@ $color: #be0000;
                 max-width: 80px;
                 //border:1px solid red;
                 margin: 0 auto;
-                text-align: left;
+//                text-align: left;
                 
             }
         }

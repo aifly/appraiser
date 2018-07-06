@@ -128,9 +128,6 @@
 
 .wm-periods-ui .wm-periods-left > div > section {
   cursor: pointer;
-  display: flex;
-  display: -webkit-flex;
-  flex-flow: row;
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   justify-content: space-between;
@@ -138,6 +135,7 @@
 
 .wm-periods-ui .wm-periods-left .wm-periods-item {
   width: 32.6%;
+  float: left;
   margin: 10px 0;
   background: #fff;
 }

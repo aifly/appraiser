@@ -7,13 +7,13 @@
 			<div class="wm-adminuser-header">
 				<div>
 					<Button icon='plus' type="primary" @click="addPerson">添加</Button>
-					<Button icon='trash-a' >删除</Button>
+					<Button icon='trash-a' v-if='false' >删除</Button>
 					<Tooltip content="初始化人员评分基础数据" placement="top">
 						<Button icon='ios-loop-strong' @click="initData">初始化</Button>
 					</Tooltip>
 				</div>
 				<div>
-					<Input  />
+					<Input type="text" v-model="keyword" @on-change='searchEmployee' />
 				</div>
 			</div>
 
@@ -100,6 +100,7 @@
 				pid:-1,
 				currentUserId:-1,
 				model1:"",
+				keyword:'',
 				department:[],
 				roleList:[],
 				columns:[
@@ -215,7 +216,8 @@
 						}
 					}
 				],
-				dataSource:[]
+				dataSource:[],
+				defaultSource:[]
 			}
 		},
 		components:{
@@ -244,6 +246,12 @@
 		},
 		
 		methods:{
+			searchEmployee(){
+				this.dataSource = this.defaultSource.filter((item)=>{
+					return item.username.indexOf(this.keyword)>-1
+				})
+				//console.log(this.keyword)
+			},
 			addPerson(){//添加人员
 				this.visible = true;
 				this.currentUserId = -1;
@@ -343,6 +351,9 @@
 						validate:s.validate,
 						success(data){
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+							if(data.getret === 0){
+								s.initData();
+							}
 							//console.log(data);
 						}
 					})
@@ -373,8 +384,11 @@
 						},
 						validate:s.validate,
 						success(data){
-							console.log(data);
+							//console.log(data);
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+							if(data.getret === 0){
+								s.initData();
+							}
 							//console.log(data);
 						}
 					})
@@ -454,9 +468,10 @@
 					data:{},
 					success(data){
 						if(data.getret === 0){
-							console.log(data);
+							//console.log(data);
 							var data = data.list;
 							s.dataSource = data.list;
+							s.defaultSource = data.list.concat([]);
 							var defaultDepartment = data.department.concat([]);
 							data.department.map((item,i)=>{
 								if(item.pid === ''){
