@@ -50,42 +50,31 @@
 		methods:{
 			getScoreList(){//获取我的得分列表。
 				var s = this;
-				/* symbinUtil.ajax({
+				 symbinUtil.ajax({
 					validate:s.validate,
 					url:window.config.baseUrl+'/wmuser/getmyscorelist/',
 					data:{},
 					success(data){
+						if(data.getret === 0){
+							s.scoreList = data.list;
+							
+							setTimeout(() => {
+								s.scroll.refresh();	
+							}, 100);
+						}
 						symbinUtil.getStandard((d)=>{
-							s.standardList = d;
-							if(data.getret === 0){
-								data.list.map((dt,i)=>{
-									var score = [];
-									s.standardList.map((item,k)=>{
-										score.push(dt.score['score'+(k+1)])
-									});
-									
-									score.push(dt.score.avgscore);
-									s.scoreList.push({
-										date:dt.periodsname,
-										score
-									})
-									setTimeout(() => {
-										s.scroll.refresh();	
-									}, 100);
-								})
-							}
+							//s.standardList = d;
 						});
 					}
-				}) */
-
+				}) 
+/*
 				$.getJSON('./components/data/score.json',(data)=>{
 					//console.log(data);
 					this.scoreList = data.list;
 
-				});
+				});*/
 
 				
-				console.log(this.standardList)
 			}
 		},
 		mounted(){
