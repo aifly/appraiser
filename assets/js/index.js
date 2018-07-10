@@ -25130,44 +25130,31 @@
 		},
 		methods: {
 			getScoreList: function getScoreList() {
-				var _this = this;
-
 				//获取我的得分列表。
 				var s = this;
-				/* symbinUtil.ajax({
-	   	validate:s.validate,
-	   	url:window.config.baseUrl+'/wmuser/getmyscorelist/',
-	   	data:{},
-	   	success(data){
-	   		symbinUtil.getStandard((d)=>{
-	   			s.standardList = d;
-	   			if(data.getret === 0){
-	   				data.list.map((dt,i)=>{
-	   					var score = [];
-	   					s.standardList.map((item,k)=>{
-	   						score.push(dt.score['score'+(k+1)])
-	   					});
-	   					
-	   					score.push(dt.score.avgscore);
-	   					s.scoreList.push({
-	   						date:dt.periodsname,
-	   						score
-	   					})
-	   					setTimeout(() => {
-	   						s.scroll.refresh();	
-	   					}, 100);
-	   				})
-	   			}
-	   		});
-	   	}
-	   }) */
+				_libUtil2['default'].ajax({
+					validate: s.validate,
+					url: window.config.baseUrl + '/wmuser/getmyscorelist/',
+					data: {},
+					success: function success(data) {
+						if (data.getret === 0) {
+							s.scoreList = data.list;
 
-				_jquery2['default'].getJSON('./components/data/score.json', function (data) {
-					//console.log(data);
-					_this.scoreList = data.list;
+							setTimeout(function () {
+								s.scroll.refresh();
+							}, 100);
+						}
+						_libUtil2['default'].getStandard(function (d) {
+							//s.standardList = d;
+						});
+					}
 				});
-
-				console.log(this.standardList);
+				/*
+	   				$.getJSON('./components/data/score.json',(data)=>{
+	   					//console.log(data);
+	   					this.scoreList = data.list;
+	   
+	   				});*/
 			}
 		},
 		mounted: function mounted() {
@@ -27448,24 +27435,25 @@
 				var _this = this;
 
 				var s = this;
-				/* symbinUtil.ajax({
-	   	url:window.config.baseUrl+"/wmuser/gethistorylist",
-	   	validate:s.validate,
-	   	success(data){
-	   		
-	   		s.historyList = data.list;
-	   		setTimeout(() => {
-	   			s.scroll.refresh();
-	   		}, 100);
-	   	}
-	   }) */
+				_libUtil2['default'].ajax({
+					url: window.config.baseUrl + "/wmuser/gethistorylist",
+					validate: s.validate,
+					success: function success(data) {
 
-				_jquery2['default'].getJSON('./components/data/history.json', function (data) {
-					_this.historyList = data.list;
-					setTimeout(function () {
-						_this.scroll.refresh();
-					}, 100);
+						s.historyList = data.list;
+						setTimeout(function () {
+							s.scroll.refresh();
+						}, 100);
+					}
 				});
+
+				/*$.getJSON('./components/data/history.json',(data)=>{
+	   	this.historyList = data.list;
+	   	setTimeout(() => {
+	   		this.scroll.refresh();
+	   	}, 100);
+	   });*/
+
 				_libUtil2['default'].getStandard(function (data) {
 					_this.standardList = data;
 				});
