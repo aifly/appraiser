@@ -24,10 +24,20 @@
         }
 
         .wm-smile{
-            margin-top: -4px;
-            width: 48px;
-            height: 48px;
-            @include transform(scale(.6))
+            margin-top: -2px;
+            padding-right: 10px;
+            width: 78px;
+            height: 40px;
+            font-weight:bold;
+            color:#f00;
+            &.smile1{
+                color:#000;
+            }
+
+            &.smile2{
+                color: green;
+            }
+            //@include transform(scale(.6))
         }
 
         .ivu-menu-submenu {
@@ -281,8 +291,8 @@
                             @include displayFlex(row);
 
                             & > aside {
-                                &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(4) {
-                                    width: 30px;
+                                &:nth-of-type(1), &:nth-of-type(4) {
+                                    width: 10px;
                                 }
 
                                 &:nth-of-type(3) {

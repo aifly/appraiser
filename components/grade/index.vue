@@ -75,8 +75,9 @@
 										<div>
 											<aside></aside>
 											<aside>
-												<div class="wm-smile" :style="{background:'url('+imgs.smile+') no-repeat 0 '+-48*(right.myscore-1<0?0:right.myscore-1)+'px'}">
-													
+												<!-- <div class="wm-smile" :style="{background:'url('+imgs.smile+') no-repeat 0 '+-48*(right.myscore-1<0?0:right.myscore-1)+'px'}"> -->
+												<div class="wm-smile" :class="{'smile1':right.myscore>=60,'smile2':right.myscore>=90}">
+													{{right.myscore<60?'不合格':right.myscore<71?"基本合格":right.myscore<90?'合格':'优秀'}}
 												</div>
 											</aside>
 											<aside>
@@ -127,8 +128,9 @@
 											<div>
 												<aside></aside>
 												<aside>
-													<div class="wm-smile" :style="{background:'url('+imgs.smile+') no-repeat 0 '+-48*(right.myscore-1<0?0:right.myscore-1)+'px'}">
-													
+													<!-- <div class="wm-smile" :style="{background:'url('+imgs.smile+') no-repeat 0 '+-48*(right.myscore-1<0?0:right.myscore-1)+'px'}"> -->
+													<div class="wm-smile" :class="{'smile1':right.myscore>=60,'smile2':right.myscore>=90}">
+														{{right.myscore<60?'不合格':right.myscore<71?"基本合格":right.myscore<90?'合格':'优秀'}}
 													</div>
 												</aside>
 												<aside>

@@ -30,7 +30,7 @@
 							<footer>
 								<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>
 								<div>
-									<span class="wm-periods-del" @click='deletePeriods(periods)'><Icon type="android-delete"></Icon>删除</span>
+									<span class="wm-periods-del" @click='deletePeriods(periods,i)'><Icon type="android-delete"></Icon>删除</span>
 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
 							</footer>
@@ -349,8 +349,8 @@
 				this.currentIndex = -1;
 				this.visible = true;
 			},
-			deletePeriods(periodsid){
-				
+			deletePeriods(periodsid,index){
+				var s = this;
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmadmin/delperiodsnumber/',
 					validate:s.validate,
@@ -358,7 +358,10 @@
 						periodsnumberid:periodsid.periodsnumberid
 					},
 					success(data){
-						console.log(data);
+						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+						if(data.getret === 0){
+							s.periodsList.splice(index,1);
+						}
 					}
 				})
 			} ,
@@ -401,7 +404,8 @@
 						validate:s.validate,
 						data:s.formItem,
 						success(data){
-							console.log(data);
+							s.$Message[data.getret === 0 ?'success':'error'](data.getmsg);
+							s.getPeriodsList();
 						}
 					})
 				}
@@ -475,7 +479,7 @@
 								item.endtime = new Date(item.endtime).Format("yyyy-MM-dd");*/
 							//	item.endtime.Format("yyyy-MM-dd")
 							})
-							console.log(data,'= ==')
+							///console.log(data,'= ==')
 							s.periodsList = data.list;
 							s.loading = false;
 						}
