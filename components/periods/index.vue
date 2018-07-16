@@ -175,6 +175,10 @@
 				</Form>
 			</div>
    		 </Modal>
+		<Spin fix v-if="spinShow">
+			<Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+			<div>Loading</div>
+		</Spin>
 	</div>
 </template>
 
@@ -261,6 +265,56 @@
 			}
 		},
 		methods:{
+			initData(){
+				var  s = this;
+				this.spinShow = true;
+				this.$Spin.show({
+					render: (h) => {
+							return h('div', [
+								h('Icon', {
+									'class': 'demo-spin-icon-load',
+									props: {
+										type: 'load-c',
+										size: 18
+									}
+								}),
+								h('div', '数据正在初始化……')
+							])
+						}
+				});
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/inituserscore/',
+					data:{},
+					validate:s.validate,
+					success(data){ 
+						if(data.getret === 0){
+							symbinUtil.ajax({
+								url:window.config.baseUrl+'/wmadmin/inituserscoreperson/',
+								data:{},
+								validate:s.validate,
+								success(data){
+									if(data.getret === 0){
+										symbinUtil.ajax({
+											url:window.config.baseUrl+'/wmadmin/initusertotal/',
+											data:{},
+											validate:s.validate,
+											success(data){
+												if(data.getret === 0){
+													s.$Message.success('数据初始化成功')
+													s.spinShow = false;
+													s.$Spin.hide();
+												}
+											}
+											
+										})			
+									}
+								}
+								
+							})
+						}
+					}
+				})
+			},
 			submit(){
 				var s = this;
 				
@@ -284,6 +338,9 @@
 					},
 					success(data){
 						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+						if(data.getret === 0){
+							s.initData();
+						}
 					}
 				})
 			},

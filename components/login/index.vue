@@ -99,7 +99,7 @@
 							delete param.getret;
 							delete param.getmsg;
 							
-							if(data.userinfo.isselect === 0 && data.userinfo.isadmin === 0){
+							if(data.userinfo.isinselect === 0 && data.userinfo.isadmin === 0){
 								_this.showLoading = false;
 								_this.toastError(_this.username+'不参与评分');
 								return;
