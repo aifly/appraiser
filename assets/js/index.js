@@ -23257,7 +23257,7 @@
 	// 					<div>部门：{{userinfo.departmentname||'--'}}</div>
 	// 				</div>
 	// 				<div>
-	// 					<div>性别：男</div>
+	// 					<div>性别：{{userinfo.usersex === 0 ? '女':'男'}}</div>
 	// 					<div>职位：{{userinfo.userjob}}</div>
 	// 				</div>
 	// 				<div>
@@ -23372,7 +23372,7 @@
 /* 54 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-user-ui\">\r\n\t\t<header>\r\n\t\t\t<div>我的资料</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-user-item\">\r\n\t\t\t\t<div class=\"wm-user-head\">\r\n\t\t\t\t\t<img :src=\"imgs.man\" alt=\"\">\r\n\t\t\t\t\t<div>{{userinfo.username}}</div>\r\n\t\t\t\t\t<Button type='primary' size='small'>修改头像</Button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>姓名：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>部门：{{userinfo.departmentname||'--'}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>性别：男</div>\r\n\t\t\t\t\t<div>职位：{{userinfo.userjob}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>账号：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>电话：{{userinfo.usermobile}}  <span class=\"wm-modify-tel\">修改</span></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div style=\"opacity:0\">1</div>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<Button>修改密码</Button>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-user-ui\">\r\n\t\t<header>\r\n\t\t\t<div>我的资料</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-user-item\">\r\n\t\t\t\t<div class=\"wm-user-head\">\r\n\t\t\t\t\t<img :src=\"imgs.man\" alt=\"\">\r\n\t\t\t\t\t<div>{{userinfo.username}}</div>\r\n\t\t\t\t\t<Button type='primary' size='small'>修改头像</Button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>姓名：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>部门：{{userinfo.departmentname||'--'}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>性别：{{userinfo.usersex === 0 ? '女':'男'}}</div>\r\n\t\t\t\t\t<div>职位：{{userinfo.userjob}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>账号：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>电话：{{userinfo.usermobile}}  <span class=\"wm-modify-tel\">修改</span></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div style=\"opacity:0\">1</div>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<Button>修改密码</Button>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 55 */
@@ -23636,6 +23636,7 @@
 				standardList: [],
 				roleList: [],
 				title: "",
+				spinShow: false,
 				periodsIndex: 1,
 				periodsName: '',
 				periodsnumberid: -1, //当前的考评期数

@@ -15,7 +15,7 @@
 					<div>部门：{{userinfo.departmentname||'--'}}</div>
 				</div>
 				<div>
-					<div>性别：男</div>
+					<div>性别：{{userinfo.usersex === 0 ? '女':'男'}}</div>
 					<div>职位：{{userinfo.userjob}}</div>
 				</div>
 				<div>

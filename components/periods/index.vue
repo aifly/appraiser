@@ -218,6 +218,7 @@
 				standardList:[],
 				roleList:[],
 				title:"",
+				spinShow:false,
 				periodsIndex:1,
 				periodsName:'',
 				periodsnumberid:-1,//当前的考评期数
