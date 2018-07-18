@@ -103,11 +103,18 @@
 					validate:s.validate,
 					data:{
 						oldpassword:s.formUser.oldpassword,
-						newpassword:s.formUser.newpassword,
-						surepassword:s.formUser.surepassword
+						password:s.formUser.newpassword,
+						repassword:s.formUser.surepassword
 					},success(data){
-						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+
+						if(data.getret === 0){
+							s.$Message.warning('请重新登录');
+							window.location.hash =  '/login';
+						}else{
+							s.$Message.error('修改密码失败');
+						}
 					}
+
 				})
 				
 			},
