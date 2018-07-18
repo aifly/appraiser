@@ -32,7 +32,7 @@
 		</div>
 
 		<Modal v-model="visible" title="修改密码" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
-			<Form ref="formUser" :model="formUser" :rules="adminForm" :label-width="72" >
+			<Form ref="formUser" :model="formUser"  :label-width="72" >
 				<FormItem label="原始密码：" prop="username">
 					<Input style="width:320px;" v-model="formUser.oldpassword" placeholder="原始密码" autocomplete="off" />
 				</FormItem>
@@ -64,6 +64,7 @@
 			return{
 				visible:false,
 				imgs:window.imgs,
+				isLoading:false,
 				formUser:{
 					oldpassword:'',
 					newpassword:'',
@@ -79,6 +80,7 @@
 			var validate = sysbinVerification.validate(this);
 			//symbinUtil.clearCookie('login');
 
+			this.validate = validate;
 		},
 		mounted(){
 			this.userinfo = symbinUtil.getUserInfo();
@@ -90,10 +92,23 @@
 		
 		methods:{
 			ok(){
-				if(this.formUser.newpassword  !== this.formUser.usrepassword){
+				if(this.formUser.newpassword  !== this.formUser.surepassword){
 					this.$Message.error('新密码和确认密码不一致');
 					return false;
 				}
+				var s = this;
+
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmuser/modify_password',
+					validate:s.validate,
+					data:{
+						oldpassword:s.formUser.oldpassword,
+						newpassword:s.formUser.newpassword,
+						surepassword:s.formUser.surepassword
+					},success(data){
+						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
+					}
+				})
 				
 			},
 			cancel(){

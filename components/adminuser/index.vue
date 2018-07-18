@@ -236,6 +236,7 @@
 		beforeCreate(){
 			
 			var validate = sysbinVerification.validate(this);
+			this.validate = validate;
 			//symbinUtil.clearCookie('login');
 			/* {
 				username:'aaa',
@@ -257,6 +258,23 @@
 		
 		methods:{
 			initPassword(){
+				var s = this;
+				symbinUtil.ajax({
+					url:window.config.baseUrl+'/wmadmin/inituserpassword',
+					validate:s.validate,
+					data:{
+						employeeid:s.formAdmin.employeeid,
+						password:'123456'
+					},
+					success(data){
+						if(data.getret === 0 || data.getret === 1007){
+							s.$Message['success']('初始密码成功,密码为: 123456');
+						}
+						else{
+							s.$Message.error('初始化密码失败');
+						}
+					}
+				})
 
 			},
 			cancelInitPassword(){
