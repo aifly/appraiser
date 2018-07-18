@@ -22,7 +22,7 @@
 		<Modal v-model="visible" title="人员管理" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
 				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="72" >
 					<FormItem label="姓名：" prop="username">
-						<Input style="width:320px;" v-model="formAdmin.username" placeholder="姓名" autocomplete="off" />
+						<Input style="width:310px;" v-model="formAdmin.username" placeholder="姓名" autocomplete="off" />
 						<RadioGroup v-model="formAdmin.sex">
 							<Radio :label="1">
 								<span>男</span>
@@ -65,6 +65,16 @@
 						<Checkbox v-model="formAdmin.isselect">
 							<span>可被评</span>
 						</Checkbox>
+					</FormItem>
+
+					<FormItem label="密码管理：" v-if='formAdmin.username'>
+						<Poptip
+							confirm
+							:title="'确定要初始化 '+formAdmin.username+' 的密码吗?'"
+							@on-ok="initPassword"
+							@on-cancel="cancelInitPassword">
+							<Button type='primary'>初始化密码</Button>
+						</Poptip>						
 					</FormItem>
 				</Form>
 		</Modal>
@@ -246,6 +256,12 @@
 		},
 		
 		methods:{
+			initPassword(){
+
+			},
+			cancelInitPassword(){
+
+			},
 			searchEmployee(){
 				this.dataSource = this.defaultSource.filter((item)=>{
 					return item.username.indexOf(this.keyword)>-1

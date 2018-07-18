@@ -8,7 +8,7 @@
 				<div class="wm-user-head">
 					<img :src="imgs.man" alt="">
 					<div>{{userinfo.username}}</div>
-					<Button type='primary' size='small'>修改头像</Button>
+					<Button v-if='false' type='primary' size='small'>修改头像</Button>
 				</div>
 				<div>
 					<div>姓名：{{userinfo.username}}</div>
@@ -20,16 +20,33 @@
 				</div>
 				<div>
 					<div>账号：{{userinfo.username}}</div>
-					<div>电话：{{userinfo.usermobile}}  <span class="wm-modify-tel">修改</span></div>
+					<div>电话：{{userinfo.usermobile||"暂无"}}  <span v-if='false' class="wm-modify-tel">修改</span></div>
 				</div>
 				<div>
 					<div style="opacity:0">1</div>
 					<div>
-						<Button>修改密码</Button>
+						<Button type="primary" @click="visible = true">修改密码</Button>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<Modal v-model="visible" title="修改密码" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
+			<Form ref="formUser" :model="formUser" :rules="adminForm" :label-width="72" >
+				<FormItem label="原始密码：" prop="username">
+					<Input style="width:320px;" v-model="formUser.oldpassword" placeholder="原始密码" autocomplete="off" />
+				</FormItem>
+
+				<FormItem label="新密码：" prop="username">
+					<Input style="width:320px;" v-model="formUser.newpassword" placeholder="新密码" autocomplete="off" />
+				</FormItem>
+
+				<FormItem label="确认密码：" prop="username">
+					<Input style="width:320px;" v-model="formUser.surepassword" placeholder="确认密码" autocomplete="off" />
+				</FormItem>
+				
+			</Form>
+		</Modal>
 	</div>
 </template>
 
@@ -45,7 +62,13 @@
 		name:'zmitiindex',
 		data(){
 			return{
+				visible:false,
 				imgs:window.imgs,
+				formUser:{
+					oldpassword:'',
+					newpassword:'',
+					surepassword:''
+				},
 				userinfo:{}
 			}
 		},
@@ -66,7 +89,16 @@
 		},
 		
 		methods:{
-
+			ok(){
+				if(this.formUser.newpassword  !== this.formUser.usrepassword){
+					this.$Message.error('新密码和确认密码不一致');
+					return false;
+				}
+				
+			},
+			cancel(){
+				this.formUser = {};
+			}
 		}
 	}
 </script>
