@@ -23250,7 +23250,7 @@
 	// 				<div class="wm-user-head">
 	// 					<img :src="imgs.man" alt="">
 	// 					<div>{{userinfo.username}}</div>
-	// 					<Button type='primary' size='small'>修改头像</Button>
+	// 					<Button v-if='false' type='primary' size='small'>修改头像</Button>
 	// 				</div>
 	// 				<div>
 	// 					<div>姓名：{{userinfo.username}}</div>
@@ -23262,16 +23262,33 @@
 	// 				</div>
 	// 				<div>
 	// 					<div>账号：{{userinfo.username}}</div>
-	// 					<div>电话：{{userinfo.usermobile}}  <span class="wm-modify-tel">修改</span></div>
+	// 					<div>电话：{{userinfo.usermobile||"暂无"}}  <span v-if='false' class="wm-modify-tel">修改</span></div>
 	// 				</div>
 	// 				<div>
 	// 					<div style="opacity:0">1</div>
 	// 					<div>
-	// 						<Button>修改密码</Button>
+	// 						<Button type="primary" @click="visible = true">修改密码</Button>
 	// 					</div>
 	// 				</div>
 	// 			</div>
 	// 		</div>
+	//
+	// 		<Modal v-model="visible" title="修改密码" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
+	// 			<Form ref="formUser" :model="formUser"  :label-width="72" >
+	// 				<FormItem label="原始密码：" prop="username">
+	// 					<Input style="width:320px;" v-model="formUser.oldpassword" placeholder="原始密码" autocomplete="off" />
+	// 				</FormItem>
+	//
+	// 				<FormItem label="新密码：" prop="username">
+	// 					<Input style="width:320px;" v-model="formUser.newpassword" placeholder="新密码" autocomplete="off" />
+	// 				</FormItem>
+	//
+	// 				<FormItem label="确认密码：" prop="username">
+	// 					<Input style="width:320px;" v-model="formUser.surepassword" placeholder="确认密码" autocomplete="off" />
+	// 				</FormItem>
+	//
+	// 			</Form>
+	// 		</Modal>
 	// 	</div>
 	// </template>
 	//
@@ -23303,7 +23320,14 @@
 		name: 'zmitiindex',
 		data: function data() {
 			return {
+				visible: false,
 				imgs: window.imgs,
+				isLoading: false,
+				formUser: {
+					oldpassword: '',
+					newpassword: '',
+					surepassword: ''
+				},
 				userinfo: {}
 			};
 		},
@@ -23312,6 +23336,8 @@
 		beforeCreate: function beforeCreate() {
 			var validate = _libVerification2['default'].validate(this);
 			//symbinUtil.clearCookie('login');
+
+			this.validate = validate;
 		},
 		mounted: function mounted() {
 			this.userinfo = _libUtil2['default'].getUserInfo();
@@ -23321,7 +23347,37 @@
 			}
 		},
 
-		methods: {}
+		methods: {
+			ok: function ok() {
+				if (this.formUser.newpassword !== this.formUser.surepassword) {
+					this.$Message.error('新密码和确认密码不一致');
+					return false;
+				}
+				var s = this;
+
+				_libUtil2['default'].ajax({
+					url: window.config.baseUrl + '/wmuser/modify_password',
+					validate: s.validate,
+					data: {
+						oldpassword: s.formUser.oldpassword,
+						password: s.formUser.newpassword,
+						repassword: s.formUser.surepassword
+					}, success: function success(data) {
+
+						if (data.getret === 0) {
+							s.$Message.warning('请重新登录');
+							window.location.hash = '/login';
+						} else {
+							s.$Message.error('修改密码失败');
+						}
+					}
+
+				});
+			},
+			cancel: function cancel() {
+				this.formUser = {};
+			}
+		}
 	};
 
 	// </script>
@@ -23372,7 +23428,7 @@
 /* 54 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-user-ui\">\r\n\t\t<header>\r\n\t\t\t<div>我的资料</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-user-item\">\r\n\t\t\t\t<div class=\"wm-user-head\">\r\n\t\t\t\t\t<img :src=\"imgs.man\" alt=\"\">\r\n\t\t\t\t\t<div>{{userinfo.username}}</div>\r\n\t\t\t\t\t<Button type='primary' size='small'>修改头像</Button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>姓名：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>部门：{{userinfo.departmentname||'--'}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>性别：{{userinfo.usersex === 0 ? '女':'男'}}</div>\r\n\t\t\t\t\t<div>职位：{{userinfo.userjob}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>账号：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>电话：{{userinfo.usermobile}}  <span class=\"wm-modify-tel\">修改</span></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div style=\"opacity:0\">1</div>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<Button>修改密码</Button>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-user-ui\">\r\n\t\t<header>\r\n\t\t\t<div>我的资料</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-user-item\">\r\n\t\t\t\t<div class=\"wm-user-head\">\r\n\t\t\t\t\t<img :src=\"imgs.man\" alt=\"\">\r\n\t\t\t\t\t<div>{{userinfo.username}}</div>\r\n\t\t\t\t\t<Button v-if='false' type='primary' size='small'>修改头像</Button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>姓名：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>部门：{{userinfo.departmentname||'--'}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>性别：{{userinfo.usersex === 0 ? '女':'男'}}</div>\r\n\t\t\t\t\t<div>职位：{{userinfo.userjob}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div>账号：{{userinfo.username}}</div>\r\n\t\t\t\t\t<div>电话：{{userinfo.usermobile||\"暂无\"}}  <span v-if='false' class=\"wm-modify-tel\">修改</span></div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<div style=\"opacity:0\">1</div>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<Button type=\"primary\" @click=\"visible = true\">修改密码</Button>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<Modal v-model=\"visible\" title=\"修改密码\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t<Form ref=\"formUser\" :model=\"formUser\"  :label-width=\"72\" >\r\n\t\t\t\t<FormItem label=\"原始密码：\" prop=\"username\">\r\n\t\t\t\t\t<Input style=\"width:320px;\" v-model=\"formUser.oldpassword\" placeholder=\"原始密码\" autocomplete=\"off\" />\r\n\t\t\t\t</FormItem>\r\n\r\n\t\t\t\t<FormItem label=\"新密码：\" prop=\"username\">\r\n\t\t\t\t\t<Input style=\"width:320px;\" v-model=\"formUser.newpassword\" placeholder=\"新密码\" autocomplete=\"off\" />\r\n\t\t\t\t</FormItem>\r\n\r\n\t\t\t\t<FormItem label=\"确认密码：\" prop=\"username\">\r\n\t\t\t\t\t<Input style=\"width:320px;\" v-model=\"formUser.surepassword\" placeholder=\"确认密码\" autocomplete=\"off\" />\r\n\t\t\t\t</FormItem>\r\n\t\t\t\t\r\n\t\t\t</Form>\r\n\t\t</Modal>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 55 */
@@ -24262,7 +24318,7 @@
 	// 		<Modal v-model="visible" title="人员管理" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
 	// 				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="72" >
 	// 					<FormItem label="姓名：" prop="username">
-	// 						<Input style="width:320px;" v-model="formAdmin.username" placeholder="姓名" autocomplete="off" />
+	// 						<Input style="width:310px;" v-model="formAdmin.username" placeholder="姓名" autocomplete="off" />
 	// 						<RadioGroup v-model="formAdmin.sex">
 	// 							<Radio :label="1">
 	// 								<span>男</span>
@@ -24305,6 +24361,16 @@
 	// 						<Checkbox v-model="formAdmin.isselect">
 	// 							<span>可被评</span>
 	// 						</Checkbox>
+	// 					</FormItem>
+	//
+	// 					<FormItem label="密码管理：" v-if='formAdmin.username'>
+	// 						<Poptip
+	// 							confirm
+	// 							:title="'确定要初始化 '+formAdmin.username+' 的密码吗?'"
+	// 							@on-ok="initPassword"
+	// 							@on-cancel="cancelInitPassword">
+	// 							<Button type='primary'>初始化密码</Button>
+	// 						</Poptip>						
 	// 					</FormItem>
 	// 				</Form>
 	// 		</Modal>
@@ -24474,6 +24540,7 @@
 		beforeCreate: function beforeCreate() {
 
 			var validate = _libVerification2['default'].validate(this);
+			this.validate = validate;
 			//symbinUtil.clearCookie('login');
 			/* {
 	  	username:'aaa',
@@ -24493,6 +24560,25 @@
 		},
 
 		methods: {
+			initPassword: function initPassword() {
+				var s = this;
+				_libUtil2['default'].ajax({
+					url: window.config.baseUrl + '/wmadmin/inituserpassword',
+					validate: s.validate,
+					data: {
+						employeeid: s.formAdmin.employeeid,
+						password: '123456'
+					},
+					success: function success(data) {
+						if (data.getret === 0 || data.getret === 1007) {
+							s.$Message['success']('初始密码成功,密码为: 123456');
+						} else {
+							s.$Message.error('初始化密码失败');
+						}
+					}
+				});
+			},
+			cancelInitPassword: function cancelInitPassword() {},
 			searchEmployee: function searchEmployee() {
 				var _this2 = this;
 
@@ -24808,7 +24894,7 @@
 /* 66 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-adminuser-ui\">\r\n\t\t<header>\r\n\t\t\t<div>人员管理</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-adminuser-header\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Button icon='plus' type=\"primary\" @click=\"addPerson\">添加</Button>\r\n\t\t\t\t\t<Button icon='trash-a' v-if='false' >删除</Button>\r\n\t\t\t\t\t<Tooltip content=\"初始化人员评分基础数据\" placement=\"top\">\r\n\t\t\t\t\t\t<Button icon='ios-loop-strong' @click=\"initData\">初始化</Button>\r\n\t\t\t\t\t</Tooltip>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Input type=\"text\" v-model=\"keyword\" @on-change='searchEmployee' />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>\r\n\t\t</div>\r\n\t\t<Modal v-model=\"visible\" title=\"人员管理\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t\t<Form ref=\"formAdmin\" :model=\"formAdmin\" :rules=\"adminForm\" :label-width=\"72\" >\r\n\t\t\t\t\t<FormItem label=\"姓名：\" prop=\"username\">\r\n\t\t\t\t\t\t<Input style=\"width:320px;\" v-model=\"formAdmin.username\" placeholder=\"姓名\" autocomplete=\"off\" />\r\n\t\t\t\t\t\t<RadioGroup v-model=\"formAdmin.sex\">\r\n\t\t\t\t\t\t\t<Radio :label=\"1\">\r\n\t\t\t\t\t\t\t\t<span>男</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t\t<Radio :label=\"0\">\r\n\t\t\t\t\t\t\t\t<span>女</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t</RadioGroup>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"部门：\" prop=\"job\">\r\n\t\t\t\t\t\t<Row type='flex'>\r\n\t\t\t\t\t\t\t<Col span='13'>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<div v-for='(de,i) in formAdmin.departmentid' :key=\"i\" >\r\n\t\t\t\t\t\t\t\t\t<Cascader change-on-select style=\"width:180px\" :data=\"department\" v-model=\"formAdmin.departmentid[i]\"></Cascader>\r\n\t\t\t\t\t\t\t\t\t<span v-if='i>0' @click='delDepartment(i)'><Icon  style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"minus-circled\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t\t<span  @click=\"addDepartment\" v-if='i===0'><Icon   style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"ios-plus\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'> \r\n\t\t\t\t\t\t\t\t\t无\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<Col  span='5'>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<Select　placeholder='职位' v-model=\"formAdmin.roleid\" style=\"width:120px\">\r\n\t\t\t\t\t\t\t\t\t<Option v-for=\"item in roleList\" :value=\"item.roleid\" :key=\"item.roleid\">{{ item.rolename }}</Option>\r\n\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t</Row>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"电话：\" prop=\"mobile\">\r\n\t\t\t\t\t\t<Input v-model=\"formAdmin.mobile\" placeholder=\"电话\" autocomplete=\"off\" />\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可评：\">\r\n\t\t\t\t\t\t<Checkbox  v-model='formAdmin.isinselect'>\r\n\t\t\t\t\t\t\t<span>可参评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Checkbox v-model=\"formAdmin.isselect\">\r\n\t\t\t\t\t\t\t<span>可被评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t</Form>\r\n\t\t</Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-adminuser-ui\">\r\n\t\t<header>\r\n\t\t\t<div>人员管理</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-adminuser-header\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Button icon='plus' type=\"primary\" @click=\"addPerson\">添加</Button>\r\n\t\t\t\t\t<Button icon='trash-a' v-if='false' >删除</Button>\r\n\t\t\t\t\t<Tooltip content=\"初始化人员评分基础数据\" placement=\"top\">\r\n\t\t\t\t\t\t<Button icon='ios-loop-strong' @click=\"initData\">初始化</Button>\r\n\t\t\t\t\t</Tooltip>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Input type=\"text\" v-model=\"keyword\" @on-change='searchEmployee' />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>\r\n\t\t</div>\r\n\t\t<Modal v-model=\"visible\" title=\"人员管理\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t\t<Form ref=\"formAdmin\" :model=\"formAdmin\" :rules=\"adminForm\" :label-width=\"72\" >\r\n\t\t\t\t\t<FormItem label=\"姓名：\" prop=\"username\">\r\n\t\t\t\t\t\t<Input style=\"width:310px;\" v-model=\"formAdmin.username\" placeholder=\"姓名\" autocomplete=\"off\" />\r\n\t\t\t\t\t\t<RadioGroup v-model=\"formAdmin.sex\">\r\n\t\t\t\t\t\t\t<Radio :label=\"1\">\r\n\t\t\t\t\t\t\t\t<span>男</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t\t<Radio :label=\"0\">\r\n\t\t\t\t\t\t\t\t<span>女</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t</RadioGroup>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"部门：\" prop=\"job\">\r\n\t\t\t\t\t\t<Row type='flex'>\r\n\t\t\t\t\t\t\t<Col span='13'>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<div v-for='(de,i) in formAdmin.departmentid' :key=\"i\" >\r\n\t\t\t\t\t\t\t\t\t<Cascader change-on-select style=\"width:180px\" :data=\"department\" v-model=\"formAdmin.departmentid[i]\"></Cascader>\r\n\t\t\t\t\t\t\t\t\t<span v-if='i>0' @click='delDepartment(i)'><Icon  style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"minus-circled\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t\t<span  @click=\"addDepartment\" v-if='i===0'><Icon   style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"ios-plus\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'> \r\n\t\t\t\t\t\t\t\t\t无\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<Col  span='5'>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<Select　placeholder='职位' v-model=\"formAdmin.roleid\" style=\"width:120px\">\r\n\t\t\t\t\t\t\t\t\t<Option v-for=\"item in roleList\" :value=\"item.roleid\" :key=\"item.roleid\">{{ item.rolename }}</Option>\r\n\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t</Row>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"电话：\" prop=\"mobile\">\r\n\t\t\t\t\t\t<Input v-model=\"formAdmin.mobile\" placeholder=\"电话\" autocomplete=\"off\" />\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可评：\">\r\n\t\t\t\t\t\t<Checkbox  v-model='formAdmin.isinselect'>\r\n\t\t\t\t\t\t\t<span>可参评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Checkbox v-model=\"formAdmin.isselect\">\r\n\t\t\t\t\t\t\t<span>可被评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t</FormItem>\r\n\r\n\t\t\t\t\t<FormItem label=\"密码管理：\" v-if='formAdmin.username'>\r\n\t\t\t\t\t\t<Poptip\r\n\t\t\t\t\t\t\tconfirm\r\n\t\t\t\t\t\t\t:title=\"'确定要初始化 '+formAdmin.username+' 的密码吗?'\"\r\n\t\t\t\t\t\t\t@on-ok=\"initPassword\"\r\n\t\t\t\t\t\t\t@on-cancel=\"cancelInitPassword\">\r\n\t\t\t\t\t\t\t<Button type='primary'>初始化密码</Button>\r\n\t\t\t\t\t\t</Poptip>\t\t\t\t\t\t\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t</Form>\r\n\t\t</Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 67 */
