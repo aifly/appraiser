@@ -14,7 +14,7 @@
 							<div>
 								<h2>
 									<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>
-									<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
+									<div v-if='false' title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
 								</h2>
 								<section @click="getPeriodsDetail(periods,i)">
 									<div>
@@ -29,7 +29,7 @@
 							</div>
 							<footer>
 								<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>
-								<div>
+								<div v-if='false'>
 									<span class="wm-periods-del" @click='deletePeriods(periods,i)'><Icon type="android-delete"></Icon>删除</span>
 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
@@ -517,8 +517,9 @@
 			},
 			exportData(){
 				var s = this;
+				var role = this.tab === 0 ? '主任':this.tab === 1 ? '组长' :'员工';
 				this.$refs.scorelist[this.tab].exportCsv({
-					filename: s.title+'_考评结果'
+					filename: s.title+'_'+role+'_考评结果'
 				});
 			},
 			getPeriodsList(){
