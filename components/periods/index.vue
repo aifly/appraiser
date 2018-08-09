@@ -14,7 +14,7 @@
 							<div>
 								<h2>
 									<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>
-									<div v-if='false' title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
+									<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
 								</h2>
 								<section @click="getPeriodsDetail(periods,i)">
 									<div>
@@ -29,7 +29,7 @@
 							</div>
 							<footer>
 								<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>
-								<div v-if='false'>
+								<div>
 									<span class="wm-periods-del" @click='deletePeriods(periods,i)'><Icon type="android-delete"></Icon>删除</span>
 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
@@ -621,7 +621,21 @@
 								title:'综合评分',
 								key:"avgscore",
 								align:'center',
-								sortable: true
+								sortable: true,
+								render:(h,params)=>{
+									var right = params.row;
+									return h('div',[
+										h('span',{
+											style:{
+												color:right.avgscore<60?'red':right.avgscore<71?"#333":right.avgscore<90?'#333':'green',
+												fontSize:'15px',
+												fontWeight:'bold',
+												marginRight:'10px'
+											}
+										},right.avgscore<60?'不合格':right.avgscore<71?"基本合格":right.avgscore<90?'合格':'优秀'),
+										h('span',{},params.row.avgscore)
+									])
+								}
 							})
 						});
 						s.defaultSource = s.dataSource.concat([]);

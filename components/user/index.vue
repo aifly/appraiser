@@ -85,8 +85,7 @@
 		mounted(){
 			this.userinfo = symbinUtil.getUserInfo();
 			if(this.userinfo.isadmin){
-
-				window.location.hash = '/periods';
+				//window.location.hash = '/periods';
 			}
 		},
 		

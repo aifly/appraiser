@@ -121,7 +121,7 @@ const router = new VueRouter({
 			}
 			]
 		},
-		/* {
+		{
 			path: '/settinggroup/',
 			name: 'settinggroup',
 			component: SettingGroup,
@@ -141,7 +141,7 @@ const router = new VueRouter({
 				name: 'checkitem',
 				component: CheckItem
 			}]
-		}*/
+		}
 	]
 });
 

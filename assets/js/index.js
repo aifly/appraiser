@@ -211,30 +211,29 @@
 				name: 'periods',
 				component: _componentsPeriodsIndex2['default']
 			}]
+		}, {
+			path: '/settinggroup/',
+			name: 'settinggroup',
+			component: _componentsSettinggroupIndex2['default'],
+			props: true,
+			children: [{
+				path: '/adminuser/',
+				name: 'adminuser',
+				component: _componentsAdminuserIndex2['default']
+			}]
+		}, {
+			path: '/settinggroup/',
+			name: 'settinggroup',
+			component: _componentsSettinggroupIndex2['default'],
+			props: true,
+			children: [{
+				path: '/checkitem/',
+				name: 'checkitem',
+				component: _componentsCheckitemIndex2['default']
+			}]
 		}]
 	});
 
-	/* {
-		path: '/settinggroup/',
-		name: 'settinggroup',
-		component: SettingGroup,
-		props: true,
-		children: [{
-			path: '/adminuser/',
-			name: 'adminuser',
-			component: AdminUser
-		}]
-	},  {
-		path: '/settinggroup/',
-		name: 'settinggroup',
-		component: SettingGroup,
-		props: true,
-		children: [{
-			path: '/checkitem/',
-			name: 'checkitem',
-			component: CheckItem
-		}]
-	}*/
 	new _vue2['default']({
 		router: router,
 		data: {
@@ -11964,7 +11963,7 @@
 	//             <Layout class="wm-main-layout">
 	//                 <div class="wm-tab-C" :style='{height:(viewH - 64)+"px"}'>
 	//                     <ul>
-	//                         <li v-if='!userinfo.isadmin' @click='tab(0)' :class="{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}">
+	//                         <li v-if='userinfo.isadmin' @click='tab(0)' :class="{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}">
 	//                             <router-link to='/user'><img :src='imgs.user' alt=""></router-link>
 	//                         </li>
 	//                         <li v-if='!userinfo.isadmin' @click='tab(1)' :class="{'active':$route.name === 'grade'}">
@@ -22165,7 +22164,7 @@
 /* 17 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n    <div class=\"layout\">\r\n        <Layout v-if='$route.name !== \"login\"'>\r\n            <Header>\r\n               <div>\r\n                   <div class=\"layout-logo\">\r\n                        <img :src=\"imgs.logo\"  />\r\n                    </div>\r\n                    <div class=\"wm-title\">\r\n                        <img :src=\"imgs.titleBg\" alt=\"\">\r\n                        <span>{{userinfo.periodsname}}</span>\r\n                    </div>\r\n               </div>\r\n               <div class=\"wm-user-info\">\r\n                   <img :src='imgs.man' />\r\n                   <span>{{userinfo.userrealname}}</span>\r\n                   <img @click='logout' :src=\"imgs.logout\" alt=\"\" class=\"wm-logout\" title='退出登录'>\r\n               </div>\r\n            </Header>\r\n            <Layout class=\"wm-main-layout\">\r\n                <div class=\"wm-tab-C\" :style='{height:(viewH - 64)+\"px\"}'>\r\n                    <ul>\r\n                        <li v-if='!userinfo.isadmin' @click='tab(0)' :class=\"{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}\">\r\n                            <router-link to='/user'><img :src='imgs.user' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li v-if='!userinfo.isadmin' @click='tab(1)' :class=\"{'active':$route.name === 'grade'}\">\r\n                            <router-link to='/grade'><img :src='imgs.file' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li v-if='userinfo.isadmin' @click='tab(2)' :class=\"{'active':$route.name === 'periods'||$route.name === 'adminuser'||$route.name==='checkitem'}\">\r\n                            <router-link to='/periods'><img :src='imgs.setting' alt=\"\"></router-link>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n                <Layout>\r\n                   <router-view></router-view>\r\n                </Layout>\r\n            </Layout>\r\n        </Layout>\r\n        <div v-else>\r\n            <router-view></router-view>\r\n        </div>\r\n    </div>\r\n";
+	module.exports = "\r\n    <div class=\"layout\">\r\n        <Layout v-if='$route.name !== \"login\"'>\r\n            <Header>\r\n               <div>\r\n                   <div class=\"layout-logo\">\r\n                        <img :src=\"imgs.logo\"  />\r\n                    </div>\r\n                    <div class=\"wm-title\">\r\n                        <img :src=\"imgs.titleBg\" alt=\"\">\r\n                        <span>{{userinfo.periodsname}}</span>\r\n                    </div>\r\n               </div>\r\n               <div class=\"wm-user-info\">\r\n                   <img :src='imgs.man' />\r\n                   <span>{{userinfo.userrealname}}</span>\r\n                   <img @click='logout' :src=\"imgs.logout\" alt=\"\" class=\"wm-logout\" title='退出登录'>\r\n               </div>\r\n            </Header>\r\n            <Layout class=\"wm-main-layout\">\r\n                <div class=\"wm-tab-C\" :style='{height:(viewH - 64)+\"px\"}'>\r\n                    <ul>\r\n                        <li v-if='userinfo.isadmin' @click='tab(0)' :class=\"{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}\">\r\n                            <router-link to='/user'><img :src='imgs.user' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li v-if='!userinfo.isadmin' @click='tab(1)' :class=\"{'active':$route.name === 'grade'}\">\r\n                            <router-link to='/grade'><img :src='imgs.file' alt=\"\"></router-link>\r\n                        </li>\r\n                        <li v-if='userinfo.isadmin' @click='tab(2)' :class=\"{'active':$route.name === 'periods'||$route.name === 'adminuser'||$route.name==='checkitem'}\">\r\n                            <router-link to='/periods'><img :src='imgs.setting' alt=\"\"></router-link>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n                <Layout>\r\n                   <router-view></router-view>\r\n                </Layout>\r\n            </Layout>\r\n        </Layout>\r\n        <div v-else>\r\n            <router-view></router-view>\r\n        </div>\r\n    </div>\r\n";
 
 /***/ }),
 /* 18 */
@@ -22826,7 +22825,7 @@
 	// 	<ul class="wm-tab-list">
 	// 		<li :class="{'active':$route.name === 'user'}"><router-link to='/user'><Icon type="person"></Icon>账户资料</router-link></li>
 	// 		<li v-if='userinfo.isselect !== 0' :class="{'active':$route.name === 'score'}"><router-link to='/score'><Icon type="person"></Icon>我的得分</router-link></li>
-	// 		<li :class="{'active':$route.name === 'history'}"><router-link to='/history'><Icon type="person"></Icon>历史评分</router-link></li>
+	// 		<li v-if='!userinfo.isadmin' :class="{'active':$route.name === 'history'}"><router-link to='/history'><Icon type="person"></Icon>历史评分</router-link></li>
 	// 	</ul>
 	// </template>
 	//
@@ -22914,7 +22913,7 @@
 /* 38 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<ul class=\"wm-tab-list\">\r\n\t\t<li :class=\"{'active':$route.name === 'user'}\"><router-link to='/user'><Icon type=\"person\"></Icon>账户资料</router-link></li>\r\n\t\t<li v-if='userinfo.isselect !== 0' :class=\"{'active':$route.name === 'score'}\"><router-link to='/score'><Icon type=\"person\"></Icon>我的得分</router-link></li>\r\n\t\t<li :class=\"{'active':$route.name === 'history'}\"><router-link to='/history'><Icon type=\"person\"></Icon>历史评分</router-link></li>\r\n\t</ul>\r\n";
+	module.exports = "\r\n\t<ul class=\"wm-tab-list\">\r\n\t\t<li :class=\"{'active':$route.name === 'user'}\"><router-link to='/user'><Icon type=\"person\"></Icon>账户资料</router-link></li>\r\n\t\t<li v-if='userinfo.isselect !== 0' :class=\"{'active':$route.name === 'score'}\"><router-link to='/score'><Icon type=\"person\"></Icon>我的得分</router-link></li>\r\n\t\t<li v-if='!userinfo.isadmin' :class=\"{'active':$route.name === 'history'}\"><router-link to='/history'><Icon type=\"person\"></Icon>历史评分</router-link></li>\r\n\t</ul>\r\n";
 
 /***/ }),
 /* 39 */
@@ -23121,9 +23120,9 @@
 
 	// <template>
 	// 	<ul class="wm-tab-list">
-	// 		<li v-if='false' :class="{'active':$route.name === 'adminuser'}"><router-link to='/adminuser'><Icon type="person"></Icon>人员管理</router-link></li>
+	// 		<li :class="{'active':$route.name === 'adminuser'}"><router-link to='/adminuser'><Icon type="person"></Icon>人员管理</router-link></li>
 	// 		<li :class="{'active':$route.name === 'periods'}"><router-link to='/periods'><Icon type="person"></Icon>考评管理</router-link></li>
-	// 		<li  v-if='false' :class="{'active':$route.name === 'checkitem'}"><router-link to='/checkitem'><Icon type="person"></Icon>评分项管理</router-link></li>
+	// 		<li  :class="{'active':$route.name === 'checkitem'}"><router-link to='/checkitem'><Icon type="person"></Icon>评分项管理</router-link></li>
 	// 	</ul>
 	// </template>
 	//
@@ -23207,7 +23206,7 @@
 /* 48 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<ul class=\"wm-tab-list\">\r\n\t\t<li v-if='false' :class=\"{'active':$route.name === 'adminuser'}\"><router-link to='/adminuser'><Icon type=\"person\"></Icon>人员管理</router-link></li>\r\n\t\t<li :class=\"{'active':$route.name === 'periods'}\"><router-link to='/periods'><Icon type=\"person\"></Icon>考评管理</router-link></li>\r\n\t\t<li  v-if='false' :class=\"{'active':$route.name === 'checkitem'}\"><router-link to='/checkitem'><Icon type=\"person\"></Icon>评分项管理</router-link></li>\r\n\t</ul>\r\n";
+	module.exports = "\r\n\t<ul class=\"wm-tab-list\">\r\n\t\t<li :class=\"{'active':$route.name === 'adminuser'}\"><router-link to='/adminuser'><Icon type=\"person\"></Icon>人员管理</router-link></li>\r\n\t\t<li :class=\"{'active':$route.name === 'periods'}\"><router-link to='/periods'><Icon type=\"person\"></Icon>考评管理</router-link></li>\r\n\t\t<li  :class=\"{'active':$route.name === 'checkitem'}\"><router-link to='/checkitem'><Icon type=\"person\"></Icon>评分项管理</router-link></li>\r\n\t</ul>\r\n";
 
 /***/ }),
 /* 49 */
@@ -23343,8 +23342,7 @@
 		mounted: function mounted() {
 			this.userinfo = _libUtil2['default'].getUserInfo();
 			if (this.userinfo.isadmin) {
-
-				window.location.hash = '/periods';
+				//window.location.hash = '/periods';
 			}
 		},
 
@@ -23473,7 +23471,7 @@
 	// 							<div>
 	// 								<h2>
 	// 									<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>
-	// 									<div v-if='false' title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
+	// 									<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
 	// 								</h2>
 	// 								<section @click="getPeriodsDetail(periods,i)">
 	// 									<div>
@@ -23488,7 +23486,7 @@
 	// 							</div>
 	// 							<footer>
 	// 								<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>
-	// 								<div v-if='false'>
+	// 								<div>
 	// 									<span class="wm-periods-del" @click='deletePeriods(periods,i)'><Icon type="android-delete"></Icon>删除</span>
 	// 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 	// 								</div>
@@ -24081,7 +24079,18 @@
 								title: '综合评分',
 								key: "avgscore",
 								align: 'center',
-								sortable: true
+								sortable: true,
+								render: function render(h, params) {
+									var right = params.row;
+									return h('div', [h('span', {
+										style: {
+											color: right.avgscore < 60 ? 'red' : right.avgscore < 71 ? "#333" : right.avgscore < 90 ? '#333' : 'green',
+											fontSize: '15px',
+											fontWeight: 'bold',
+											marginRight: '10px'
+										}
+									}, right.avgscore < 60 ? '不合格' : right.avgscore < 71 ? "基本合格" : right.avgscore < 90 ? '合格' : '优秀'), h('span', {}, params.row.avgscore)]);
+								}
 							});
 						});
 						s.defaultSource = s.dataSource.concat([]);
@@ -24227,7 +24236,7 @@
 /* 59 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-periods-ui\" :style=\"{height:viewH-64+'px'}\">\r\n\t\t<section :class='{\"left\":entryDetail,\"left1\":entryDetail1}' >\r\n\t\t\t<div class=\"wm-periods-left\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>考评管理</div>\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<Button icon='plus' @click='open' type='primary'>添加</Button>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t</header>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<div v-for='(periods,i) in periodsList' :key=\"i\" class=\"wm-periods-item\">\r\n\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t<h2>\r\n\t\t\t\t\t\t\t\t\t<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>\r\n\t\t\t\t\t\t\t\t\t<div v-if='false' title='评分规则管理' @click='openRulePage(periods,i)'><img :src=\"imgs.ruleIco\" alt=\"\"></div>\r\n\t\t\t\t\t\t\t\t</h2>\r\n\t\t\t\t\t\t\t\t<section @click=\"getPeriodsDetail(periods,i)\">\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t考评要求\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<span v-for='(standard ,k) in periods.checkitem' :key=\"k\">\r\n\t\t\t\t\t\t\t\t\t\t\t{{standard.title}}\r\n\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</section>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<footer>\r\n\t\t\t\t\t\t\t\t<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>\r\n\t\t\t\t\t\t\t\t<div v-if='false'>\r\n\t\t\t\t\t\t\t\t\t<span class=\"wm-periods-del\" @click='deletePeriods(periods,i)'><Icon type=\"android-delete\"></Icon>删除</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"wm-periods-edit\" @click=\"edit(periods,i)\"><Icon type=\"edit\"></Icon>编辑</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</footer>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"wm-periods-rule\" :class=\"{'active':showRulePage}\" :style=\"{height:viewH-64-10+'px'}\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<span @click='entryDetail = false'>返回考评管理列表</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div>考评规则管理</div>\r\n\t\t\t\t</header>\r\n\r\n\t\t\t\t<div class=\"wm-person-rule-list\">\r\n\t\t\t\t\t<header>\r\n\t\t\t\t\t\t{{periodsName}}  <span>第 {{ruleIndex}} 期</span>\r\n\t\t\t\t\t</header>\r\n\t\t\t\t\t<ul class=\"wm-role-rule\" :style=\"{height:viewH - 60-60 - 60 - 60 + 'px'}\">\r\n\t\t\t\t\t\t<li class=\"wm-role-item wm-scroll\" v-for=\"(role,i) in roleList\" :key=\"i\">\r\n\t\t\t\t\t\t\t<div class=\"wm-role-name\">{{role.rolename}}</div>\r\n\t\t\t\t\t\t\t<div class=\"wm-checkitem-weight\">\r\n\t\t\t\t\t\t\t\t<div>评分项名称</div>\r\n\t\t\t\t\t\t\t\t<div>权重</div>\r\n\t\t\t\t\t\t\t\t<div style=\"opacity:0;width:80px;flex-grow:0;-webkit-flex-grow:0;\">权</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div v-for='(checkitemweight,k) in role.checkitemWeightList' :key=\"k\">\r\n\t\t\t\t\t\t\t\t<div class=\"wm-checkitem-rule-item\">\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<Select style=\"width:100px\" v-model=\"checkitemweight.checkitemid\">\r\n\t\t\t\t\t\t\t\t\t\t\t<Option  v-for=\"(item) in checkItemList\" :value=\"item.checkitemid\" :key=\"item.checkitemid\">{{ item.title }}</Option>\r\n\t\t\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<Input type='text' v-model=\"checkitemweight.weight\"/>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<span @click=\"delCheckitemWeight(i,k)\"><Icon type=\"ios-minus-outline\"></Icon></span>\r\n\t\t\t\t\t\t\t\t\t\t<span @click=\"addCheckitemWeight(i)\" v-if='k === role.checkitemWeightList.length-1'><Icon type='ios-plus'/> </span>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"wm-checkitem-rule-item\" v-if='role.checkitemWeightList.length<=0'>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<Select style=\"width:100px\" v-model=\"role.checkitemWeightList.checkitemid\">\r\n\t\t\t\t\t\t\t\t\t\t<Option v-for=\"item in checkItemList\" :value=\"item.checkitemid\" :key=\"item.checkitemid\">{{ item.title }}</Option>\r\n\t\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<Input type='text' v-model=\"role.checkitemWeightList.weight\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<span @click=\"addCheckitemWeight(i)\"><Icon type='ios-plus'/> </span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<footer class=\"wm-rule-bottom\">\r\n\t\t\t\t\t<Button @click=\"submit\" type=\"primary\">提交</Button>\r\n\t\t\t\t</footer>\r\n\t\t\t</div>\r\n\r\n\r\n\t\t\t<div class=\"wm-periods-right\" :style=\"{height:viewH-64-10+'px'}\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<span @click='entryDetail = false'>返回考评管理列表</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div>考评记录</div>\r\n\t\t\t\t</header>\r\n\t\t\t\t<div class=\"wm-periods-table-list\" v-if='!showRulePage'>\r\n\t\t\t\t\t<div class=\"wm-periods-title\">\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t{{title}} <span>第{{periodsIndex}}期</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t<Button type='primary' icon='social-euro' @click='exportData'> 导出</Button>\r\n\t\t\t\t\t\t\t<Input  v-model=\"keyword\" placeholder=\"请输入你要查找的人员姓名\" style=\"width:200px;\" />\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<!-- <Table @on-row-click='entryDetailPage' :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table> -->\r\n\t\t\t\t\t <Tabs v-model=\"tab\" type=\"card\">\r\n\t\t\t\t\t\t<TabPane :label='item.groupid' v-for='(item,i) in dataSource'  :key='i'>\r\n\t\t\t\t\t\t\t<Table ref='scorelist' @on-row-click='entryDetailPage'  :height='viewH - 64-60 - 80' :data='item.user' :columns='item.columns' :loading='loading' stripe></Table>\r\n\t\t\t\t\t\t</TabPane>\r\n\t\t\t\t\t</Tabs>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"wm-periods-right-detail\" :style=\"{height:viewH-64-10+'px'}\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<span @click='backToDetail'>返回考评详情</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</header>\r\n\t\t\t\t\r\n\t\t\t\t<div class=\"wm-periods-not-list\">\r\n\t\t\t\t\t<header>\r\n                        <div class=\"zmiti-periods-not-header\"><span style=\"color:#f00;font-size:16px;\">{{periodsUserName}}</span> 的得分详情\r\n\r\n\t\t\t\t\t\t</div>\r\n                        <div class=\"zmiti-periods-not-header-item\">\r\n\t\t\t\t\t\t\t<Checkbox label=\"twitter\" v-model=\"isNoScore\" @on-change='filterScore'>\r\n\t\t\t\t\t\t\t\t<span>看未评的</span>\r\n\t\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\t<div  v-for='(score,i) in　noscorelist' :key=\"i\">{{score.rolename}}: {{score.num}} \r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div>未评</div>\r\n                        </div>\r\n                    </header>\r\n\t\t\t\t\t<Table :height='viewH - 64-60-62' stripe :data='dataSource1' :columns='columns1'></Table>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</section>\r\n\t\t<Modal\r\n\t\t\tv-model=\"visible\"\r\n\t\t\t:title=\"currentIndex!==-1?'编辑考评':'添加考评'\"\r\n\t\t\t@on-ok='periodsAction'\r\n\t\t\t>\r\n\t\t\t<div class=\"wm-periods-dialog\">\r\n\t\t\t\t<Form ref=\"formItem\" :model=\"formItem\" :rules=\"ruleValidate\" :label-width='80' >\r\n\t\t\t\t\t<FormItem label=\"考评名称 ：\">\r\n\t\t\t\t\t\t<Input v-model=\"formItem.periodsname\" placeholder=\"考评名称\"></Input>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"开始时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.starttime\" :value='formItem.starttime' format=\"yyyy-MM-dd\" type=\"date\"  placeholder=\"开始时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"结束时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.endtime\" format=\"yyyy-MM-dd\" type=\"date\"  placeholder=\"结束时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可用 ：\">\r\n\t\t\t\t\t\t<i-switch v-model=\"formItem.status\" size=\"large\">\r\n\t\t\t\t\t\t\t<span slot=\"open\">可用</span>\r\n\t\t\t\t\t\t\t<span slot=\"close\">禁用</span>\r\n\t\t\t\t\t\t</i-switch>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\r\n\t\t\t\t</Form>\r\n\t\t\t</div>\r\n   \t\t </Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-periods-ui\" :style=\"{height:viewH-64+'px'}\">\r\n\t\t<section :class='{\"left\":entryDetail,\"left1\":entryDetail1}' >\r\n\t\t\t<div class=\"wm-periods-left\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>考评管理</div>\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<Button icon='plus' @click='open' type='primary'>添加</Button>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t</header>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<section>\r\n\t\t\t\t\t\t<div v-for='(periods,i) in periodsList' :key=\"i\" class=\"wm-periods-item\">\r\n\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t<h2>\r\n\t\t\t\t\t\t\t\t\t<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>\r\n\t\t\t\t\t\t\t\t\t<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src=\"imgs.ruleIco\" alt=\"\"></div>\r\n\t\t\t\t\t\t\t\t</h2>\r\n\t\t\t\t\t\t\t\t<section @click=\"getPeriodsDetail(periods,i)\">\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t考评要求\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<span v-for='(standard ,k) in periods.checkitem' :key=\"k\">\r\n\t\t\t\t\t\t\t\t\t\t\t{{standard.title}}\r\n\t\t\t\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</section>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<footer>\r\n\t\t\t\t\t\t\t\t<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<span class=\"wm-periods-del\" @click='deletePeriods(periods,i)'><Icon type=\"android-delete\"></Icon>删除</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"wm-periods-edit\" @click=\"edit(periods,i)\"><Icon type=\"edit\"></Icon>编辑</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</footer>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</section>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"wm-periods-rule\" :class=\"{'active':showRulePage}\" :style=\"{height:viewH-64-10+'px'}\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<span @click='entryDetail = false'>返回考评管理列表</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div>考评规则管理</div>\r\n\t\t\t\t</header>\r\n\r\n\t\t\t\t<div class=\"wm-person-rule-list\">\r\n\t\t\t\t\t<header>\r\n\t\t\t\t\t\t{{periodsName}}  <span>第 {{ruleIndex}} 期</span>\r\n\t\t\t\t\t</header>\r\n\t\t\t\t\t<ul class=\"wm-role-rule\" :style=\"{height:viewH - 60-60 - 60 - 60 + 'px'}\">\r\n\t\t\t\t\t\t<li class=\"wm-role-item wm-scroll\" v-for=\"(role,i) in roleList\" :key=\"i\">\r\n\t\t\t\t\t\t\t<div class=\"wm-role-name\">{{role.rolename}}</div>\r\n\t\t\t\t\t\t\t<div class=\"wm-checkitem-weight\">\r\n\t\t\t\t\t\t\t\t<div>评分项名称</div>\r\n\t\t\t\t\t\t\t\t<div>权重</div>\r\n\t\t\t\t\t\t\t\t<div style=\"opacity:0;width:80px;flex-grow:0;-webkit-flex-grow:0;\">权</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div v-for='(checkitemweight,k) in role.checkitemWeightList' :key=\"k\">\r\n\t\t\t\t\t\t\t\t<div class=\"wm-checkitem-rule-item\">\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<Select style=\"width:100px\" v-model=\"checkitemweight.checkitemid\">\r\n\t\t\t\t\t\t\t\t\t\t\t<Option  v-for=\"(item) in checkItemList\" :value=\"item.checkitemid\" :key=\"item.checkitemid\">{{ item.title }}</Option>\r\n\t\t\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<Input type='text' v-model=\"checkitemweight.weight\"/>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t<span @click=\"delCheckitemWeight(i,k)\"><Icon type=\"ios-minus-outline\"></Icon></span>\r\n\t\t\t\t\t\t\t\t\t\t<span @click=\"addCheckitemWeight(i)\" v-if='k === role.checkitemWeightList.length-1'><Icon type='ios-plus'/> </span>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"wm-checkitem-rule-item\" v-if='role.checkitemWeightList.length<=0'>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<Select style=\"width:100px\" v-model=\"role.checkitemWeightList.checkitemid\">\r\n\t\t\t\t\t\t\t\t\t\t<Option v-for=\"item in checkItemList\" :value=\"item.checkitemid\" :key=\"item.checkitemid\">{{ item.title }}</Option>\r\n\t\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<Input type='text' v-model=\"role.checkitemWeightList.weight\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<span @click=\"addCheckitemWeight(i)\"><Icon type='ios-plus'/> </span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<footer class=\"wm-rule-bottom\">\r\n\t\t\t\t\t<Button @click=\"submit\" type=\"primary\">提交</Button>\r\n\t\t\t\t</footer>\r\n\t\t\t</div>\r\n\r\n\r\n\t\t\t<div class=\"wm-periods-right\" :style=\"{height:viewH-64-10+'px'}\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<span @click='entryDetail = false'>返回考评管理列表</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div>考评记录</div>\r\n\t\t\t\t</header>\r\n\t\t\t\t<div class=\"wm-periods-table-list\" v-if='!showRulePage'>\r\n\t\t\t\t\t<div class=\"wm-periods-title\">\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t{{title}} <span>第{{periodsIndex}}期</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t<Button type='primary' icon='social-euro' @click='exportData'> 导出</Button>\r\n\t\t\t\t\t\t\t<Input  v-model=\"keyword\" placeholder=\"请输入你要查找的人员姓名\" style=\"width:200px;\" />\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<!-- <Table @on-row-click='entryDetailPage' :loading='loading' stripe :height='viewH - 64-60 - 60' ref='scorelist'  :data='dataSource' :columns='columns'></Table> -->\r\n\t\t\t\t\t <Tabs v-model=\"tab\" type=\"card\">\r\n\t\t\t\t\t\t<TabPane :label='item.groupid' v-for='(item,i) in dataSource'  :key='i'>\r\n\t\t\t\t\t\t\t<Table ref='scorelist' @on-row-click='entryDetailPage'  :height='viewH - 64-60 - 80' :data='item.user' :columns='item.columns' :loading='loading' stripe></Table>\r\n\t\t\t\t\t\t</TabPane>\r\n\t\t\t\t\t</Tabs>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"wm-periods-right-detail\" :style=\"{height:viewH-64-10+'px'}\">\r\n\t\t\t\t<header>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<span @click='backToDetail'>返回考评详情</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</header>\r\n\t\t\t\t\r\n\t\t\t\t<div class=\"wm-periods-not-list\">\r\n\t\t\t\t\t<header>\r\n                        <div class=\"zmiti-periods-not-header\"><span style=\"color:#f00;font-size:16px;\">{{periodsUserName}}</span> 的得分详情\r\n\r\n\t\t\t\t\t\t</div>\r\n                        <div class=\"zmiti-periods-not-header-item\">\r\n\t\t\t\t\t\t\t<Checkbox label=\"twitter\" v-model=\"isNoScore\" @on-change='filterScore'>\r\n\t\t\t\t\t\t\t\t<span>看未评的</span>\r\n\t\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\t<div  v-for='(score,i) in　noscorelist' :key=\"i\">{{score.rolename}}: {{score.num}} \r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div>未评</div>\r\n                        </div>\r\n                    </header>\r\n\t\t\t\t\t<Table :height='viewH - 64-60-62' stripe :data='dataSource1' :columns='columns1'></Table>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</section>\r\n\t\t<Modal\r\n\t\t\tv-model=\"visible\"\r\n\t\t\t:title=\"currentIndex!==-1?'编辑考评':'添加考评'\"\r\n\t\t\t@on-ok='periodsAction'\r\n\t\t\t>\r\n\t\t\t<div class=\"wm-periods-dialog\">\r\n\t\t\t\t<Form ref=\"formItem\" :model=\"formItem\" :rules=\"ruleValidate\" :label-width='80' >\r\n\t\t\t\t\t<FormItem label=\"考评名称 ：\">\r\n\t\t\t\t\t\t<Input v-model=\"formItem.periodsname\" placeholder=\"考评名称\"></Input>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"开始时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.starttime\" :value='formItem.starttime' format=\"yyyy-MM-dd\" type=\"date\"  placeholder=\"开始时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"结束时间 ：\">\r\n\t\t\t\t\t\t<DatePicker v-model=\"formItem.endtime\" format=\"yyyy-MM-dd\" type=\"date\"  placeholder=\"结束时间\"  style=\"width:100%\"></DatePicker>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可用 ：\">\r\n\t\t\t\t\t\t<i-switch v-model=\"formItem.status\" size=\"large\">\r\n\t\t\t\t\t\t\t<span slot=\"open\">可用</span>\r\n\t\t\t\t\t\t\t<span slot=\"close\">禁用</span>\r\n\t\t\t\t\t\t</i-switch>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\r\n\t\t\t\t</Form>\r\n\t\t\t</div>\r\n   \t\t </Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 60 */
