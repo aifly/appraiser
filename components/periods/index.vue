@@ -445,7 +445,7 @@
 							periodsname:s.formItem.periodsname,
 							starttime:s.formItem.starttime,
 							endtime:s.formItem.endtime,
-							status:s.formItem.status
+							status:s.formItem.status|0
 						},
 						success(data){
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
