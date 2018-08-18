@@ -23836,7 +23836,7 @@
 				this.showRulePage = true;
 				this.periodsnumberid = periods.periodsnumberid;
 				this.periodsName = periods.periodsname;
-				this.ruleIndex = index + 1;
+				this.ruleIndex = this.periodsList.length - index;
 
 				var s = this;
 				_libUtil2['default'].ajax({
