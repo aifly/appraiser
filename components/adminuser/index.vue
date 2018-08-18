@@ -386,7 +386,7 @@
 						success(data){
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 							if(data.getret === 0){
-								s.initData();
+								//s.initData();
 							}
 							//console.log(data);
 						}
@@ -421,7 +421,7 @@
 							//console.log(data);
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 							if(data.getret === 0){
-								s.initData();
+								///s.initData();
 							}
 							//console.log(data);
 						}

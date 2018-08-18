@@ -340,7 +340,7 @@
 					success(data){
 						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 						if(data.getret === 0){
-							s.initData();
+							//s.initData();
 						}
 					}
 				})
