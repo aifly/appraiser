@@ -23993,7 +23993,7 @@
 				_libUtil2['default'].ajax({
 					url: window.config.baseUrl + '/wmadmin/getperiodsnumberlist',
 					data: {
-						status: 1
+						//status:1
 					},
 					validate: s.validate,
 					success: function success(data) {

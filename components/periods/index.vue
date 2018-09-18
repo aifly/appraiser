@@ -340,7 +340,7 @@
 					success(data){
 						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 						if(data.getret === 0){
-							//s.initData();
+							s.initData();
 						}
 					}
 				})
@@ -528,7 +528,7 @@
 				symbinUtil.ajax({
 					url:window.config.baseUrl+'/wmadmin/getperiodsnumberlist',
 					data:{
-						status:1
+						//status:1
 					},
 					validate:s.validate,
 					success(data){
