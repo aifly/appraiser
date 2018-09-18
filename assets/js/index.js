@@ -27523,7 +27523,7 @@
 	// 			<section class="wm-history-list">
 	// 				<div v-for='(history,i) in historyList' :key='i'>
 	// 					<div class="wm-history-date">
-	// 						<span>{{history.date}}</span>第{{i+1}}期
+	// 						<span>{{history.date}}</span>第{{historyList.length - i}}期
 	// 					</div>
 	// 					<ul v-for='(role,k) in history.rolelist' :key='k'>
 	// 						<li>{{role.rolename}}</li>
@@ -27685,7 +27685,7 @@
 /* 82 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-history-ui\">\r\n\t\t<header>\r\n\t\t\t<div>历史评分</div>\r\n\t\t</header>\r\n\t\t<div ref='list'>\r\n\t\t\t<section class=\"wm-history-list\">\r\n\t\t\t\t<div v-for='(history,i) in historyList' :key='i'>\r\n\t\t\t\t\t<div class=\"wm-history-date\">\r\n\t\t\t\t\t\t<span>{{history.date}}</span>第{{i+1}}期\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<ul v-for='(role,k) in history.rolelist' :key='k'>\r\n\t\t\t\t\t\t<li>{{role.rolename}}</li>\r\n\t\t\t\t\t\t<li>\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\">姓名</div>\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\" v-for=\"(standard,h) in role.checkitemlist\" :key='h'>\r\n\t\t\t\t\t\t\t\t{{standard.title}}\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t<li v-for=\"(list,j) in role.scorelist\" :key=\"j\">\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\" >\r\n\t\t\t\t\t\t\t\t<div class=\"wm-department-username\">{{list.username}}</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\"  v-for=\"(standard,h) in role.checkitemlist\" :key='h'>\r\n\t\t\t\t\t\t\t\t{{list['score'+standard.checkitemid]}} 分\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-history-ui\">\r\n\t\t<header>\r\n\t\t\t<div>历史评分</div>\r\n\t\t</header>\r\n\t\t<div ref='list'>\r\n\t\t\t<section class=\"wm-history-list\">\r\n\t\t\t\t<div v-for='(history,i) in historyList' :key='i'>\r\n\t\t\t\t\t<div class=\"wm-history-date\">\r\n\t\t\t\t\t\t<span>{{history.date}}</span>第{{historyList.length - i}}期\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<ul v-for='(role,k) in history.rolelist' :key='k'>\r\n\t\t\t\t\t\t<li>{{role.rolename}}</li>\r\n\t\t\t\t\t\t<li>\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\">姓名</div>\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\" v-for=\"(standard,h) in role.checkitemlist\" :key='h'>\r\n\t\t\t\t\t\t\t\t{{standard.title}}\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t\t<li v-for=\"(list,j) in role.scorelist\" :key=\"j\">\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\" >\r\n\t\t\t\t\t\t\t\t<div class=\"wm-department-username\">{{list.username}}</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div :style=\"{width:100 / role.checkitemlist.length+'%'}\"  v-for=\"(standard,h) in role.checkitemlist\" :key='h'>\r\n\t\t\t\t\t\t\t\t{{list['score'+standard.checkitemid]}} 分\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 83 */

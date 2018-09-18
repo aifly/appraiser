@@ -7,7 +7,7 @@
 			<section class="wm-history-list">
 				<div v-for='(history,i) in historyList' :key='i'>
 					<div class="wm-history-date">
-						<span>{{history.date}}</span>第{{i+1}}期
+						<span>{{history.date}}</span>第{{historyList.length - i}}期
 					</div>
 					<ul v-for='(role,k) in history.rolelist' :key='k'>
 						<li>{{role.rolename}}</li>
