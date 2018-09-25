@@ -94,6 +94,9 @@
 						userpwd:_this.password
 					},
 					fn(data){
+
+						_this.isLogined = true;
+						_this.showLoading = false;
 						if(data.getret === 0){
 							var param = data;
 							delete param.getret;
@@ -126,11 +129,12 @@
 							_this.$Message.success('登录成功~');
 							
 							window.location.reload();
-							_this.isLogined = true;
+							
 							
 						}else{
 							_this.toastError(data.getmsg);
 						}
+					
 					}
 				})
 				

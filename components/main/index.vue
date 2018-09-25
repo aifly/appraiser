@@ -20,7 +20,7 @@
             <Layout class="wm-main-layout">
                 <div class="wm-tab-C" :style='{height:(viewH - 64)+"px"}'>
                     <ul>
-                        <li v-if='userinfo.isadmin' @click='tab(0)' :class="{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}">
+                        <li  @click='tab(0)' :class="{'active':$route.name === 'user'||$route.name === 'score'||$route.name ==='history'}">
                             <router-link to='/user'><img :src='imgs.user' alt=""></router-link>
                         </li>
                         <li v-if='!userinfo.isadmin' @click='tab(1)' :class="{'active':$route.name === 'grade'}">
