@@ -20,7 +20,7 @@
 			<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>
 		</div>
 		<Modal v-model="visible" title="人员管理" @on-ok="ok" ok-text="确认" cancel-text="取消" @on-cancel="cancel" class-name="adduser-cls" :loading='isLoading'>
-				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="72" >
+				<Form ref="formAdmin" :model="formAdmin" :rules="adminForm" :label-width="82" >
 					<FormItem label="姓名：" prop="username">
 						<Input style="width:310px;" v-model="formAdmin.username" placeholder="姓名" autocomplete="off" />
 						<RadioGroup v-model="formAdmin.sex">
@@ -156,7 +156,7 @@
 						align:'center',
 						width:112,
 					}
-					, */{
+					, {
 						title:"历届评分详情",
 						key:"	",
 						align:'center',
@@ -171,7 +171,7 @@
 								}
 							},'历届评分详情')
 						}
-					},{
+					},*/{
 						title:"操作",
 						key:"",
 						align:'center',
@@ -358,15 +358,16 @@
 				var s =  this;
 				
 				if(this.currentUserId!==-1){//编辑
-					console.log(s.formAdmin.departmentid.length);
 					var departmentids = '';
 					var len = s.formAdmin.departmentid;
-					s.formAdmin.departmentid.forEach((item,i)=>{
-						var d = item.pop();
-						if(item && d){
-							departmentids += d+',';
-						}
-					});
+					if(s.formAdmin.departmentid){
+						s.formAdmin.departmentid.forEach((item,i)=>{
+							var d = item.pop();
+							if(item && d){
+								departmentids += d+',';
+							}
+						});
+					}
 					departmentids = departmentids.substr(0,departmentids.length-1)
 					symbinUtil.ajax({
 						url:window.config.baseUrl+'/wmadmin/editemployee/',

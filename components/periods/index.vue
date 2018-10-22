@@ -16,7 +16,7 @@
 									<div>{{periods.periodsname}} <span>第{{periodsList.length - i}}期</span></div>
 									<div title='评分规则管理' @click='openRulePage(periods,i)'><img :src="imgs.ruleIco" alt=""></div>
 								</h2>
-								<section @click="getPeriodsDetail(periods,i)">
+								<section @click="getPeriodsDetail(periods,i,periodsList.length - i)">
 									<div>
 										考评要求
 									</div>
@@ -109,7 +109,7 @@
 				<div class="wm-periods-table-list" v-if='!showRulePage'>
 					<div class="wm-periods-title">
 						<div>
-							{{title}} <span>第{{periodsIndex}}期</span>
+							{{title}} <span>第{{currentQISHU}}期</span>
 						</div>
 						<div>
 							<Button type='primary' icon='social-euro' @click='exportData'> 导出</Button>
@@ -203,6 +203,7 @@
 				imgs:window.imgs,
 				visible:false,
 				loading:true,
+				currentQISHU:1,
 				currentIndex:-1,
 				periodsList:[],
 				showRulePage:false,
@@ -514,10 +515,11 @@
 				this.entryDetail = true;
 				this.entryDetail1 =false;
 			},
-			getPeriodsDetail(periods,i){
+			getPeriodsDetail(periods,i,index){
 				this.entryDetail = true;
 				this.periodsIndex = i+1;
 				this.showRulePage = false;
+				this.currentQISHU = index;
 				this.getScoreList(periods.periodsnumberid);
 
 				this.periodsnumberid = periods.periodsnumberid;
