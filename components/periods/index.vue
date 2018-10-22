@@ -63,12 +63,12 @@
 							<div v-for='(checkitemweight,k) in role.checkitemWeightList' :key="k">
 								<div class="wm-checkitem-rule-item">
 									<div>
-										<Select style="width:100px" v-model="checkitemweight.checkitemid">
+										<Select @on-change='change($event,i)' style="width:100px" v-model="checkitemweight.checkitemid">
 											<Option  v-for="(item) in checkItemList" :value="item.checkitemid" :key="item.checkitemid">{{ item.title }}</Option>
 										</Select>
 									</div>
 									<div>
-										<Input type='text' v-model="checkitemweight.weight"/>
+										<Input type='text' @on-change='change($event,i)' v-model="checkitemweight.weight"/>
 									</div>
 									<div>
 										<span @click="delCheckitemWeight(i,k)"><Icon type="ios-minus-outline"></Icon></span>
@@ -263,9 +263,14 @@
 				this.dataSource = this.defaultSource.filter((item,i)=>{
 					return item.username.indexOf(val)>-1;
 				});
-			}
+			}			
 		},
 		methods:{
+			change(e,index){
+
+				console.log(e,index);
+				//this.addCheckitemWeight(0);
+			},
 			initData(){
 				var  s = this;
 				this.spinShow = true;
@@ -330,9 +335,6 @@
 					}
 				})
 
-				console.log(s.roleList);
-
-				return;
 
 				symbinUtil.ajax({
 					url:window.config.baseUrl + '/wmadmin/addcheckitemweight/',
@@ -713,7 +715,6 @@
 					success(data){
 						if(data.getret === 0){
 							s.roleList = data.list;
-							console.log(s.roleList)
 							s.roleList.forEach((role,i)=>{
 								role.checkitemWeightList = role.checkitemWeightList || [{}]
 							})
