@@ -329,7 +329,10 @@
 						arr.push(item)
 					}
 				})
-				console.log(arr);
+
+				console.log(s.roleList);
+
+				return;
 
 				symbinUtil.ajax({
 					url:window.config.baseUrl + '/wmadmin/addcheckitemweight/',
@@ -382,20 +385,22 @@
 					success(data){
 						console.log(data);
 						if(data.getret === 0){
-							s.roleList.forEach((role,i)=>{
-								role.checkitemWeightList = [];
-								data.list.forEach((dt,k)=>{
-								
-									if(role.roleid === dt.roleid ){
-										if(JSON.stringify(role.checkitemWeightList[0]) === "{}"){
-											role.checkitemWeightList.shift();
+							if(s.roleList){
+								s.roleList.forEach((role,i)=>{
+									role.checkitemWeightList = [];
+									data.list.forEach((dt,k)=>{
+									
+										if(role.roleid === dt.roleid ){
+											if(JSON.stringify(role.checkitemWeightList[0]) === "{}"){
+												role.checkitemWeightList.shift();
+											}
+											role.checkitemWeightList.push(dt);
 										}
-										role.checkitemWeightList.push(dt);
-									}
+									})
+									
 								})
-								
-							})
-							s.roleList = s.roleList.concat([]);
+								s.roleList = s.roleList.concat([]);
+							}
 							
 							//s.checkitemWeightList = data.list;
 						}

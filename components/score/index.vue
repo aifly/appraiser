@@ -6,7 +6,7 @@
 		<div ref='list'>
 			<section class="wm-score-list">
 				<ul v-for='(score,i) in scoreList' :key='i' class="wm-score-item">
-					<li><span>{{score.date}}</span> 第{{i+1}}期</li>
+					<li><span>{{score.date}}</span> 第{{scoreList.length-i}}期</li>
 					<li v-for='(standard ,k ) in score.checkitemlist' :key='k'>
 						<div>{{standard.title}}</div>
 						<div>{{score['score'+standard.checkitemid]}} 分</div>
