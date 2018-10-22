@@ -713,6 +713,7 @@
 					success(data){
 						if(data.getret === 0){
 							s.roleList = data.list;
+							console.log(s.roleList)
 							s.roleList.forEach((role,i)=>{
 								role.checkitemWeightList = role.checkitemWeightList || [{}]
 							})
