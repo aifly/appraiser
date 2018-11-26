@@ -8,12 +8,24 @@
 				<div>
 					<Button icon='plus' type="primary" @click="addPerson">添加</Button>
 					<Button icon='trash-a' v-if='false' >删除</Button>
-					<Tooltip content="初始化人员评分基础数据" placement="top">
-						<Button icon='ios-loop-strong' @click="initData">初始化</Button>
-					</Tooltip>
+					
 				</div>
 				<div>
-					<Input type="text" v-model="keyword" @on-change='searchEmployee' />
+					<Row type='flex' :gutter='10'>
+						<Col>
+							<Input type="text" v-model="keyword" @on-change='searchEmployee' />
+						</Col>
+						<Col>
+							<Poptip
+								confirm
+								title="确定要初始化数据吗？"
+								@on-ok="initData"
+								>
+								<Button icon='ios-loop-strong'>初始化</Button>
+							</Poptip>
+						
+						</Col>
+					</Row>
 				</div>
 			</div>
 
@@ -387,7 +399,12 @@
 						success(data){
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 							if(data.getret === 0){
-								s.initData();
+								 s.$Notice.warning({
+									title: '提示',
+									desc:'需要您去人员管理界面手动初始化本次考评，修改方可生效',
+									duration: 0
+								});
+								//s.initData();
 							}
 							//console.log(data);
 						}
@@ -422,7 +439,12 @@
 							//console.log(data);
 							s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 							if(data.getret === 0){
-								s.initData();
+								s.$Notice.warning({
+									title: '提示',
+									desc:'需要您去人员管理界面手动初始化本次考评，修改方可生效',
+									duration: 0
+								});
+								//s.initData();
 							}
 							//console.log(data);
 						}

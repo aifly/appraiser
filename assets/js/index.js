@@ -23815,7 +23815,12 @@
 					success: function success(data) {
 						s.$Message[data.getret === 0 ? 'success' : 'error'](data.getmsg);
 						if (data.getret === 0) {
-							s.initData();
+							s.$Notice.warning({
+								title: '提示',
+								desc: '需要您去人员管理界面手动初始化本次考评，修改方可生效',
+								duration: 0
+							});
+							//s.initData();
 						}
 					}
 				});
@@ -24325,12 +24330,24 @@
 	// 				<div>
 	// 					<Button icon='plus' type="primary" @click="addPerson">添加</Button>
 	// 					<Button icon='trash-a' v-if='false' >删除</Button>
-	// 					<Tooltip content="初始化人员评分基础数据" placement="top">
-	// 						<Button icon='ios-loop-strong' @click="initData">初始化</Button>
-	// 					</Tooltip>
+	//
 	// 				</div>
 	// 				<div>
-	// 					<Input type="text" v-model="keyword" @on-change='searchEmployee' />
+	// 					<Row type='flex' :gutter='10'>
+	// 						<Col>
+	// 							<Input type="text" v-model="keyword" @on-change='searchEmployee' />
+	// 						</Col>
+	// 						<Col>
+	// 							<Poptip
+	// 								confirm
+	// 								title="确定要初始化数据吗？"
+	// 								@on-ok="initData"
+	// 								>
+	// 								<Button icon='ios-loop-strong'>初始化</Button>
+	// 							</Poptip>
+	//
+	// 						</Col>
+	// 					</Row>
 	// 				</div>
 	// 			</div>
 	//
@@ -24707,7 +24724,12 @@
 						success: function success(data) {
 							s.$Message[data.getret === 0 ? 'success' : 'error'](data.getmsg);
 							if (data.getret === 0) {
-								s.initData();
+								s.$Notice.warning({
+									title: '提示',
+									desc: '需要您去人员管理界面手动初始化本次考评，修改方可生效',
+									duration: 0
+								});
+								//s.initData();
 							}
 							//console.log(data);
 						}
@@ -24743,7 +24765,12 @@
 								//console.log(data);
 								s.$Message[data.getret === 0 ? 'success' : 'error'](data.getmsg);
 								if (data.getret === 0) {
-									s.initData();
+									s.$Notice.warning({
+										title: '提示',
+										desc: '需要您去人员管理界面手动初始化本次考评，修改方可生效',
+										duration: 0
+									});
+									//s.initData();
 								}
 								//console.log(data);
 							}
@@ -24916,7 +24943,7 @@
 /* 66 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div class=\"wm-adminuser-ui\">\r\n\t\t<header>\r\n\t\t\t<div>人员管理</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-adminuser-header\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Button icon='plus' type=\"primary\" @click=\"addPerson\">添加</Button>\r\n\t\t\t\t\t<Button icon='trash-a' v-if='false' >删除</Button>\r\n\t\t\t\t\t<Tooltip content=\"初始化人员评分基础数据\" placement=\"top\">\r\n\t\t\t\t\t\t<Button icon='ios-loop-strong' @click=\"initData\">初始化</Button>\r\n\t\t\t\t\t</Tooltip>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Input type=\"text\" v-model=\"keyword\" @on-change='searchEmployee' />\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>\r\n\t\t</div>\r\n\t\t<Modal v-model=\"visible\" title=\"人员管理\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t\t<Form ref=\"formAdmin\" :model=\"formAdmin\" :rules=\"adminForm\" :label-width=\"82\" >\r\n\t\t\t\t\t<FormItem label=\"姓名：\" prop=\"username\">\r\n\t\t\t\t\t\t<Input style=\"width:310px;\" v-model=\"formAdmin.username\" placeholder=\"姓名\" autocomplete=\"off\" />\r\n\t\t\t\t\t\t<RadioGroup v-model=\"formAdmin.sex\">\r\n\t\t\t\t\t\t\t<Radio :label=\"1\">\r\n\t\t\t\t\t\t\t\t<span>男</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t\t<Radio :label=\"0\">\r\n\t\t\t\t\t\t\t\t<span>女</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t</RadioGroup>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"部门：\" prop=\"job\">\r\n\t\t\t\t\t\t<Row type='flex'>\r\n\t\t\t\t\t\t\t<Col span='13'>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<div v-for='(de,i) in formAdmin.departmentid' :key=\"i\" >\r\n\t\t\t\t\t\t\t\t\t<Cascader change-on-select style=\"width:180px\" :data=\"department\" v-model=\"formAdmin.departmentid[i]\"></Cascader>\r\n\t\t\t\t\t\t\t\t\t<span v-if='i>0' @click='delDepartment(i)'><Icon  style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"minus-circled\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t\t<span  @click=\"addDepartment\" v-if='i===0'><Icon   style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"ios-plus\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'> \r\n\t\t\t\t\t\t\t\t\t无\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<Col  span='5'>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<Select　placeholder='职位' v-model=\"formAdmin.roleid\" style=\"width:120px\">\r\n\t\t\t\t\t\t\t\t\t<Option v-for=\"item in roleList\" :value=\"item.roleid\" :key=\"item.roleid\">{{ item.rolename }}</Option>\r\n\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t</Row>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"电话：\" prop=\"mobile\">\r\n\t\t\t\t\t\t<Input v-model=\"formAdmin.mobile\" placeholder=\"电话\" autocomplete=\"off\" />\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可评：\">\r\n\t\t\t\t\t\t<Checkbox  v-model='formAdmin.isinselect'>\r\n\t\t\t\t\t\t\t<span>可参评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Checkbox v-model=\"formAdmin.isselect\">\r\n\t\t\t\t\t\t\t<span>可被评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t</FormItem>\r\n\r\n\t\t\t\t\t<FormItem label=\"密码管理：\" v-if='formAdmin.username'>\r\n\t\t\t\t\t\t<Poptip\r\n\t\t\t\t\t\t\tconfirm\r\n\t\t\t\t\t\t\t:title=\"'确定要初始化 '+formAdmin.username+' 的密码吗?'\"\r\n\t\t\t\t\t\t\t@on-ok=\"initPassword\"\r\n\t\t\t\t\t\t\t@on-cancel=\"cancelInitPassword\">\r\n\t\t\t\t\t\t\t<Button type='primary'>初始化密码</Button>\r\n\t\t\t\t\t\t</Poptip>\t\t\t\t\t\t\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t</Form>\r\n\t\t</Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div class=\"wm-adminuser-ui\">\r\n\t\t<header>\r\n\t\t\t<div>人员管理</div>\r\n\t\t</header>\r\n\t\t<div>\r\n\t\t\t<div class=\"wm-adminuser-header\">\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Button icon='plus' type=\"primary\" @click=\"addPerson\">添加</Button>\r\n\t\t\t\t\t<Button icon='trash-a' v-if='false' >删除</Button>\r\n\t\t\t\t\t\r\n\t\t\t\t</div>\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<Row type='flex' :gutter='10'>\r\n\t\t\t\t\t\t<Col>\r\n\t\t\t\t\t\t\t<Input type=\"text\" v-model=\"keyword\" @on-change='searchEmployee' />\r\n\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t<Col>\r\n\t\t\t\t\t\t\t<Poptip\r\n\t\t\t\t\t\t\t\tconfirm\r\n\t\t\t\t\t\t\t\ttitle=\"确定要初始化数据吗？\"\r\n\t\t\t\t\t\t\t\t@on-ok=\"initData\"\r\n\t\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t\t\t<Button icon='ios-loop-strong'>初始化</Button>\r\n\t\t\t\t\t\t\t</Poptip>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t</Row>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<Table :height='viewH - 60-60-60' @on-select-all='selectall'  stripe :data='dataSource' :columns='columns'></Table>\r\n\t\t</div>\r\n\t\t<Modal v-model=\"visible\" title=\"人员管理\" @on-ok=\"ok\" ok-text=\"确认\" cancel-text=\"取消\" @on-cancel=\"cancel\" class-name=\"adduser-cls\" :loading='isLoading'>\r\n\t\t\t\t<Form ref=\"formAdmin\" :model=\"formAdmin\" :rules=\"adminForm\" :label-width=\"82\" >\r\n\t\t\t\t\t<FormItem label=\"姓名：\" prop=\"username\">\r\n\t\t\t\t\t\t<Input style=\"width:310px;\" v-model=\"formAdmin.username\" placeholder=\"姓名\" autocomplete=\"off\" />\r\n\t\t\t\t\t\t<RadioGroup v-model=\"formAdmin.sex\">\r\n\t\t\t\t\t\t\t<Radio :label=\"1\">\r\n\t\t\t\t\t\t\t\t<span>男</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t\t<Radio :label=\"0\">\r\n\t\t\t\t\t\t\t\t<span>女</span>\r\n\t\t\t\t\t\t\t</Radio>\r\n\t\t\t\t\t\t</RadioGroup>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"部门：\" prop=\"job\">\r\n\t\t\t\t\t\t<Row type='flex'>\r\n\t\t\t\t\t\t\t<Col span='13'>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<div v-for='(de,i) in formAdmin.departmentid' :key=\"i\" >\r\n\t\t\t\t\t\t\t\t\t<Cascader change-on-select style=\"width:180px\" :data=\"department\" v-model=\"formAdmin.departmentid[i]\"></Cascader>\r\n\t\t\t\t\t\t\t\t\t<span v-if='i>0' @click='delDepartment(i)'><Icon  style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"minus-circled\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t\t<span  @click=\"addDepartment\" v-if='i===0'><Icon   style=\"cursor:pointer;float:right;font-size:20px;margin-top:-26px;margin-right:10px;\" type=\"ios-plus\" ></Icon></span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div v-if='formAdmin.departmentid.length<=0 && currentUserId !==-1'> \r\n\t\t\t\t\t\t\t\t\t无\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<Col  span='5'>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<Select　placeholder='职位' v-model=\"formAdmin.roleid\" style=\"width:120px\">\r\n\t\t\t\t\t\t\t\t\t<Option v-for=\"item in roleList\" :value=\"item.roleid\" :key=\"item.roleid\">{{ item.rolename }}</Option>\r\n\t\t\t\t\t\t\t\t</Select>\r\n\t\t\t\t\t\t\t</Col>\r\n\t\t\t\t\t\t</Row>\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"电话：\" prop=\"mobile\">\r\n\t\t\t\t\t\t<Input v-model=\"formAdmin.mobile\" placeholder=\"电话\" autocomplete=\"off\" />\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t\t<FormItem label=\"是否可评：\">\r\n\t\t\t\t\t\t<Checkbox  v-model='formAdmin.isinselect'>\r\n\t\t\t\t\t\t\t<span>可参评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<Checkbox v-model=\"formAdmin.isselect\">\r\n\t\t\t\t\t\t\t<span>可被评</span>\r\n\t\t\t\t\t\t</Checkbox>\r\n\t\t\t\t\t</FormItem>\r\n\r\n\t\t\t\t\t<FormItem label=\"密码管理：\" v-if='formAdmin.username'>\r\n\t\t\t\t\t\t<Poptip\r\n\t\t\t\t\t\t\tconfirm\r\n\t\t\t\t\t\t\t:title=\"'确定要初始化 '+formAdmin.username+' 的密码吗?'\"\r\n\t\t\t\t\t\t\t@on-ok=\"initPassword\"\r\n\t\t\t\t\t\t\t@on-cancel=\"cancelInitPassword\">\r\n\t\t\t\t\t\t\t<Button type='primary'>初始化密码</Button>\r\n\t\t\t\t\t\t</Poptip>\t\t\t\t\t\t\r\n\t\t\t\t\t</FormItem>\r\n\t\t\t\t</Form>\r\n\t\t</Modal>\r\n\t\t<Spin fix v-if=\"spinShow\">\r\n\t\t\t<Icon type=\"load-c\" size=18 class=\"demo-spin-icon-load\"></Icon>\r\n\t\t\t<div>Loading</div>\r\n\t\t</Spin>\r\n\t</div>\r\n";
 
 /***/ }),
 /* 67 */

@@ -346,7 +346,12 @@
 					success(data){
 						s.$Message[data.getret === 0 ? 'success':'error'](data.getmsg);
 						if(data.getret === 0){
-							s.initData();
+							s.$Notice.warning({
+								title: '提示',
+								desc:'需要您去人员管理界面手动初始化本次考评，修改方可生效',
+								duration: 0
+							});
+							//s.initData();
 						}
 					}
 				})
