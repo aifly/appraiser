@@ -27,8 +27,8 @@
 
         & > div {
             flex-grow: 1;
-            width: 97%;
-            margin: 10px auto;
+            width: 99%;
+            margin-left:.8%;
 
             @include displayFlex(column);
         }
@@ -99,7 +99,13 @@
                 height: 60px;
                 line-height: 60px;
                 font-weight: normal;
+
+                .ivu-icon-help-circled{
+                    left:10px;
+                    
+                }
             }
+            
 
             & > div > h2 {
                 @include displayFlex(row);

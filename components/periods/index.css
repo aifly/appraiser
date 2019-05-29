@@ -83,8 +83,8 @@
 
 .wm-periods-ui .wm-periods-left > div {
   flex-grow: 1;
-  width: 97%;
-  margin: 10px auto;
+  width: 99%;
+  margin-left: .8%;
   display: flex;
   display: -webkit-flex;
   flex-flow: column;
@@ -148,6 +148,10 @@
   height: 60px;
   line-height: 60px;
   font-weight: normal;
+}
+
+.wm-periods-ui .wm-periods-left .wm-periods-item > div > h2 .ivu-icon-help-circled, .wm-periods-ui .wm-periods-left .wm-periods-item > footer .ivu-icon-help-circled {
+  left: 10px;
 }
 
 .wm-periods-ui .wm-periods-left .wm-periods-item > div > h2 {

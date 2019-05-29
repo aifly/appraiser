@@ -8,7 +8,7 @@
 						<Button icon='plus' @click='open' type='primary'>添加</Button>
 					</section>
 				</header>
-				<div>
+				<div :style="{height:viewH - 130 +'px',overflow:'auto'}" class='wm-scroll'>
 					<section>
 						<div v-for='(periods,i) in periodsList' :key="i" class="wm-periods-item">
 							<div>
@@ -30,7 +30,13 @@
 							<footer>
 								<div><span>{{new Date(periods.starttime).toLocaleDateString()}}</span> 至 <span>{{new Date(periods.endtime).toLocaleDateString()}}</span></div>
 								<div>
-									<span class="wm-periods-del" @click='deletePeriods(periods,i)'><Icon type="android-delete"></Icon>删除</span>
+									 <Poptip
+										confirm
+										title="确定要删除吗?"
+										@on-ok="deletePeriods(periods,i)"
+										>
+										<span class="wm-periods-del"><Icon type="android-delete"></Icon>删除</span>
+									</Poptip>
 									<span class="wm-periods-edit" @click="edit(periods,i)"><Icon type="edit"></Icon>编辑</span>
 								</div>
 							</footer>

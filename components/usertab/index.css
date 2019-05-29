@@ -70,7 +70,7 @@ a {
 
 .wm-tab-list li.active {
   color: #fff;
-  background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+  background: -webkit-gradient(linear, right top, left top, from(#e4270e), to(#cc0000));
   background: linear-gradient(to left, #e4270e, #cc0000);
   position: relative;
 }
@@ -94,3 +94,4 @@ a {
   vertical-align: middle;
   margin-right: 10px;
 }
+/*# sourceMappingURL=index.css.map */

@@ -52,15 +52,25 @@
 .wm-grade-ui {
   height: 100%;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
 }
 
 .wm-grade-ui > aside {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
 }
 
 .wm-grade-ui > aside:nth-of-type(1) {
@@ -73,7 +83,9 @@
 }
 
 .wm-grade-ui > aside:nth-of-type(2) {
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   -webkit-flex-grow: 1;
 }
 
@@ -118,7 +130,8 @@
   left: 0;
   top: 0;
   height: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .wm-grade-ui > aside .wm-grade-header > div {
@@ -144,23 +157,39 @@
 }
 
 .wm-grade-ui > aside .wm-grade-main-content {
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   -webkit-flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
 }
 
 .wm-grade-ui > aside .wm-grade-main-content > div:nth-of-type(1) {
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   -webkit-flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
 }
 
 .wm-grade-ui > aside .wm-grade-main-content > div:nth-of-type(1) > div {
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   -webkit-flex-grow: 1;
 }
 
@@ -223,11 +252,17 @@
 }
 
 .wm-grade-ui > aside .wm-grade-list ul li {
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
   height: 40px;
   line-height: 40px;
 }
@@ -240,8 +275,9 @@
   text-align: center !important;
   display: block !important;
   border-radius: 50%;
-  -webkit-flex-grow: 0;
-  flex-grow: 0;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
 }
 
 .wm-grade-ui > aside .wm-grade-list ul li.wm-grade-group-ico div img {
@@ -272,8 +308,9 @@
 }
 
 .wm-grade-ui > aside .wm-grade-list ul li > div {
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   width: 15%;
   border-right: 1px solid #e9eaec;
   border-bottom: 1px solid #e9eaec;
@@ -281,9 +318,14 @@
 }
 
 .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(1) {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
   text-align: left;
 }
 
@@ -315,9 +357,14 @@
 
 .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) {
   width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
 }
 
 .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(1), .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(4) {
@@ -326,7 +373,9 @@
 
 .wm-grade-ui > aside .wm-grade-list ul li > div:nth-of-type(5) > aside:nth-of-type(3) {
   margin-left: 20px;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   -webkit-flex-grow: 1;
 }
 
@@ -343,12 +392,20 @@
   height: 64px;
   background: #fff;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
-  -webkit-justify-content: center;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-right: 2px solid #f5f7f9;
 }
 
@@ -359,7 +416,8 @@
   top: 0;
   left: 0;
   position: absolute;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: -2px 0 10px rgba(0, 0, 0, 0.4);
+          box-shadow: -2px 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .wm-grade-ui > aside .wm-grade-footer button {
@@ -375,3 +433,4 @@
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
 }
+/*# sourceMappingURL=index.css.map */

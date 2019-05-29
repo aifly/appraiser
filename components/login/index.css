@@ -50,16 +50,21 @@
 }
 
 .wm-login-ui {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
 }
 
 .wm-login-ui > header {
   height: 64px;
   line-height: 64px;
   width: 100%;
-  background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+  background: -webkit-gradient(linear, right top, left top, from(#e4270e), to(#cc0000));
   background: linear-gradient(to left, #e4270e, #cc0000);
 }
 
@@ -79,14 +84,23 @@
 }
 
 .wm-login-ui > section {
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .wm-login-ui > section .wm-login-C {
@@ -121,7 +135,8 @@
 }
 
 .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill, .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill:hover, .wm-login-ui > section .wm-login-C .wm-form-item input:-webkit-autofill:focus {
-  box-shadow: 0 0 0 60px white inset;
+  -webkit-box-shadow: 0 0 0 60px white inset;
+          box-shadow: 0 0 0 60px white inset;
   -webkit-text-fill-color: #878787;
 }
 
@@ -192,3 +207,4 @@
   width: 100%;
   text-align: center;
 }
+/*# sourceMappingURL=index.css.map */

@@ -59,12 +59,19 @@
 }
 
 .layout .ivu-layout-header {
-  background: -webkit-linear-gradient(left, #e4270e, #cc0000);
+  background: -webkit-gradient(linear, right top, left top, from(#e4270e), to(#cc0000));
   background: linear-gradient(to left, #e4270e, #cc0000);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
-  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   /* Safari 5.1 - 6.0 */
 }
 
@@ -73,9 +80,14 @@
 }
 
 .layout .ivu-layout-header > div:nth-of-type(1) {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
   color: #fff;
   font-size: 30px;
   font-weight: bold;
@@ -189,9 +201,14 @@
 }
 
 .layout .wm-main-layout {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
 }
 
 .layout .symbin-main-menu {
@@ -228,3 +245,4 @@
 .layout .ivu-menu-submenu .ivu-menu-item {
   padding-left: 24px !important;
 }
+/*# sourceMappingURL=index.css.map */
