@@ -14,6 +14,7 @@
 							<Icon type='person-stalker'></Icon>{{group.groupname}}
 		                </template>
 		                <MenuItem class='wm-submenu' :name="user.key+'-' + user.departmentid" :key="g+'-'" v-for="(user,g) in group.users"><Icon type='person'></Icon>
+						
 						{{user.name}}
 						</MenuItem>
 		            </Submenu>
@@ -26,6 +27,7 @@
 			<header class="wm-grade-header" v-if='gradeList[index]'>
 				<div>
 					{{gradeList[index].departmentname}}
+					
 					<span v-for='(user,i) in gradeList[index].users' :key="i">
 						{{user.name}}
 					</span>
@@ -489,12 +491,15 @@
 									item.group.map((group,k)=>{
 										if(group.groupid === left.departmentid){
 											group.usersArr = group.usersArr || []
+											
 											group.usersArr.push({
 												department:left.departmentname,
 												departmentid:item.departmentid,
 												id:left.employeeid,
 												name:left.realname,
 											});
+
+											
 											//data.list.left.splice(j,1);
 										}
 									})
@@ -509,6 +514,7 @@
 							})
 						});
 						
+						console.log(s.gradeList,'s.gradeList')
 
 						var iNow = 0;
 						s.gradeList.forEach((item,i)=>{
